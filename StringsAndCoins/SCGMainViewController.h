@@ -7,9 +7,14 @@
 //
 
 #import "SCGFlipsideViewController.h"
+#import "SCGLevel.h"
+#import "SCGSettings.h"
 
 @interface SCGMainViewController : UIViewController <SCGFlipsideViewControllerDelegate, UIPopoverControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet SCGSettings *settings;
 @property (strong, nonatomic) UIPopoverController *flipsidePopoverController;
+
+- (void) startNewGame:(SCGSettings *)settings;
 
 @end

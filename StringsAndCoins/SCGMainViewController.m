@@ -7,17 +7,55 @@
 //
 
 #import "SCGMainViewController.h"
+#import "SCGBoardController.h"
+#import "SCGSettings.h"
 
 @interface SCGMainViewController ()
-
+@property (strong, nonatomic) SCGBoardController *controller;
 @end
 
 @implementation SCGMainViewController
 
+- (instancetype) initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+//    self = [super init];
+    if (self != nil) {
+        //create the game controller
+        self.controller = [[SCGBoardController alloc] init];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+//    [self startNewGame:BoxesType andShape:SquareShape andSize:MediumSize];
+    [self startNewGame:self.settings];
+}
+
+- (void) startNewGame:(SCGSettings *)settings
+{
 	// Do any additional setup after loading the view, typically from a nib.
+    self.title = @"Strings & Coins";
+    
+    //	SCGLevel *level = [SCGLevel levelWithType:CoinsType andShape:SquareShape andSize:LargeSize];
+    //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:SquareShape andSize:LargeSize];
+    //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:TriangleShape andSize:MediumSize];
+    //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:TriangleShape andSize:SmallSize];
+    //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:HexagonShape andSize:MediumSize];
+	//  SCGLevel *level = [SCGLevel levelWithType:CoinsType andShape:HexagonShape andSize:MediumSize];
+	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize];
+    
+    //add game layer
+    UIView *gameLayer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, level.screenHeight, level.screenWidth)];
+    [self.view addSubview: gameLayer];
+    //    gameLayer.backgroundColor = [UIColor yellowColor];
+    
+    self.controller.boardView = gameLayer;
+    
+	[self.controller setupGameBoard:level];
 }
 
 - (void)didReceiveMemoryWarning

@@ -23,6 +23,33 @@
 		6368AE8518C18AEB0054E34B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6368AE6118C18AEA0054E34B /* UIKit.framework */; };
 		6368AE8D18C18AEB0054E34B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6368AE8B18C18AEB0054E34B /* InfoPlist.strings */; };
 		6368AE8F18C18AEB0054E34B /* StringsAndCoinsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368AE8E18C18AEB0054E34B /* StringsAndCoinsTests.m */; };
+		6368AEA318C18DB10054E34B /* SCGBoundaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368AE9E18C18DB10054E34B /* SCGBoundaryView.m */; };
+		6368AEA418C18DB10054E34B /* SCGCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368AEA018C18DB10054E34B /* SCGCellView.m */; };
+		6368AEA518C18DB10054E34B /* SCGDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368AEA218C18DB10054E34B /* SCGDotView.m */; };
+		6368AEA818C18DDF0054E34B /* SCGBoardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368AEA718C18DDF0054E34B /* SCGBoardController.m */; };
+		6368AEAD18C18E020054E34B /* SCGGamePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368AEAA18C18E020054E34B /* SCGGamePlayer.m */; };
+		6368AEAE18C18E020054E34B /* SCGPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368AEAC18C18E020054E34B /* SCGPlayer.m */; };
+		6368AEB118C18E140054E34B /* SCGLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368AEB018C18E140054E34B /* SCGLevel.m */; };
+		6368AEC118C18E320054E34B /* chain-lg-horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEB218C18E310054E34B /* chain-lg-horz.png */; };
+		6368AEC218C18E320054E34B /* chain-md-horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEB318C18E310054E34B /* chain-md-horz.png */; };
+		6368AEC318C18E320054E34B /* chain-sm-horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEB418C18E310054E34B /* chain-sm-horz.png */; };
+		6368AEC418C18E320054E34B /* coin-lg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEB518C18E310054E34B /* coin-lg.png */; };
+		6368AEC518C18E320054E34B /* coin-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEB618C18E310054E34B /* coin-md.png */; };
+		6368AEC618C18E320054E34B /* coin-sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEB718C18E310054E34B /* coin-sm.png */; };
+		6368AEC718C18E320054E34B /* dot-lg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEB818C18E310054E34B /* dot-lg.png */; };
+		6368AEC818C18E320054E34B /* dot-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEB918C18E310054E34B /* dot-md.png */; };
+		6368AEC918C18E320054E34B /* dot-sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEBA18C18E310054E34B /* dot-sm.png */; };
+		6368AECA18C18E320054E34B /* ellipse-md-horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEBB18C18E310054E34B /* ellipse-md-horz.png */; };
+		6368AECB18C18E320054E34B /* rope-lg-horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEBC18C18E310054E34B /* rope-lg-horz.png */; };
+		6368AECC18C18E320054E34B /* rope-md-horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEBD18C18E310054E34B /* rope-md-horz.png */; };
+		6368AECD18C18E320054E34B /* rope-sm-horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEBE18C18E320054E34B /* rope-sm-horz.png */; };
+		6368AECE18C18E320054E34B /* triangleDown-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEBF18C18E320054E34B /* triangleDown-md.png */; };
+		6368AECF18C18E320054E34B /* triangleUp-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEC018C18E320054E34B /* triangleUp-md.png */; };
+		6368AF1A18C1DB750054E34B /* SCGNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368AF1918C1DB750054E34B /* SCGNavigationController.m */; };
+		63BFF09318C2ED570080BA9F /* SCGMenuNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09218C2ED570080BA9F /* SCGMenuNavigationController.m */; };
+		63BFF09618C2EE120080BA9F /* SCGMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09518C2EE120080BA9F /* SCGMenuViewController.m */; };
+		63BFF09918C32E7B0080BA9F /* SCGSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09818C32E7B0080BA9F /* SCGSettings.m */; };
+		63BFF09C18C331130080BA9F /* SCGSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09B18C331130080BA9F /* SCGSettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +85,46 @@
 		6368AE8A18C18AEB0054E34B /* StringsAndCoinsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "StringsAndCoinsTests-Info.plist"; sourceTree = "<group>"; };
 		6368AE8C18C18AEB0054E34B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6368AE8E18C18AEB0054E34B /* StringsAndCoinsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringsAndCoinsTests.m; sourceTree = "<group>"; };
+		6368AE9D18C18DB10054E34B /* SCGBoundaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGBoundaryView.h; sourceTree = "<group>"; };
+		6368AE9E18C18DB10054E34B /* SCGBoundaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGBoundaryView.m; sourceTree = "<group>"; };
+		6368AE9F18C18DB10054E34B /* SCGCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGCellView.h; sourceTree = "<group>"; };
+		6368AEA018C18DB10054E34B /* SCGCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGCellView.m; sourceTree = "<group>"; };
+		6368AEA118C18DB10054E34B /* SCGDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGDotView.h; sourceTree = "<group>"; };
+		6368AEA218C18DB10054E34B /* SCGDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGDotView.m; sourceTree = "<group>"; };
+		6368AEA618C18DDF0054E34B /* SCGBoardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGBoardController.h; sourceTree = "<group>"; };
+		6368AEA718C18DDF0054E34B /* SCGBoardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGBoardController.m; sourceTree = "<group>"; };
+		6368AEA918C18E020054E34B /* SCGGamePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGGamePlayer.h; sourceTree = "<group>"; };
+		6368AEAA18C18E020054E34B /* SCGGamePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGGamePlayer.m; sourceTree = "<group>"; };
+		6368AEAB18C18E020054E34B /* SCGPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGPlayer.h; sourceTree = "<group>"; };
+		6368AEAC18C18E020054E34B /* SCGPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGPlayer.m; sourceTree = "<group>"; };
+		6368AEAF18C18E140054E34B /* SCGLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGLevel.h; sourceTree = "<group>"; };
+		6368AEB018C18E140054E34B /* SCGLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGLevel.m; sourceTree = "<group>"; };
+		6368AEB218C18E310054E34B /* chain-lg-horz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chain-lg-horz.png"; sourceTree = "<group>"; };
+		6368AEB318C18E310054E34B /* chain-md-horz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chain-md-horz.png"; sourceTree = "<group>"; };
+		6368AEB418C18E310054E34B /* chain-sm-horz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chain-sm-horz.png"; sourceTree = "<group>"; };
+		6368AEB518C18E310054E34B /* coin-lg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-lg.png"; sourceTree = "<group>"; };
+		6368AEB618C18E310054E34B /* coin-md.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-md.png"; sourceTree = "<group>"; };
+		6368AEB718C18E310054E34B /* coin-sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-sm.png"; sourceTree = "<group>"; };
+		6368AEB818C18E310054E34B /* dot-lg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-lg.png"; sourceTree = "<group>"; };
+		6368AEB918C18E310054E34B /* dot-md.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-md.png"; sourceTree = "<group>"; };
+		6368AEBA18C18E310054E34B /* dot-sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-sm.png"; sourceTree = "<group>"; };
+		6368AEBB18C18E310054E34B /* ellipse-md-horz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ellipse-md-horz.png"; sourceTree = "<group>"; };
+		6368AEBC18C18E310054E34B /* rope-lg-horz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rope-lg-horz.png"; sourceTree = "<group>"; };
+		6368AEBD18C18E310054E34B /* rope-md-horz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rope-md-horz.png"; sourceTree = "<group>"; };
+		6368AEBE18C18E320054E34B /* rope-sm-horz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rope-sm-horz.png"; sourceTree = "<group>"; };
+		6368AEBF18C18E320054E34B /* triangleDown-md.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangleDown-md.png"; sourceTree = "<group>"; };
+		6368AEC018C18E320054E34B /* triangleUp-md.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangleUp-md.png"; sourceTree = "<group>"; };
+		6368AED018C18E420054E34B /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		6368AF1818C1DB750054E34B /* SCGNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGNavigationController.h; sourceTree = "<group>"; };
+		6368AF1918C1DB750054E34B /* SCGNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGNavigationController.m; sourceTree = "<group>"; };
+		63BFF09118C2ED570080BA9F /* SCGMenuNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGMenuNavigationController.h; sourceTree = "<group>"; };
+		63BFF09218C2ED570080BA9F /* SCGMenuNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGMenuNavigationController.m; sourceTree = "<group>"; };
+		63BFF09418C2EE120080BA9F /* SCGMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGMenuViewController.h; sourceTree = "<group>"; };
+		63BFF09518C2EE120080BA9F /* SCGMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGMenuViewController.m; sourceTree = "<group>"; };
+		63BFF09718C32E7B0080BA9F /* SCGSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGSettings.h; sourceTree = "<group>"; };
+		63BFF09818C32E7B0080BA9F /* SCGSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGSettings.m; sourceTree = "<group>"; };
+		63BFF09A18C331130080BA9F /* SCGSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGSettingsViewController.h; sourceTree = "<group>"; };
+		63BFF09B18C331130080BA9F /* SCGSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGSettingsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +184,9 @@
 		6368AE6318C18AEA0054E34B /* StringsAndCoins */ = {
 			isa = PBXGroup;
 			children = (
+				6368AED018C18E420054E34B /* constants.h */,
+				6368AE9818C18CF10054E34B /* Assets */,
+				6368AE9918C18D290054E34B /* Classes */,
 				6368AE6C18C18AEA0054E34B /* SCGAppDelegate.h */,
 				6368AE6D18C18AEA0054E34B /* SCGAppDelegate.m */,
 				6368AE6F18C18AEA0054E34B /* Main_iPhone.storyboard */,
@@ -127,6 +197,8 @@
 				6368AE7918C18AEB0054E34B /* SCGFlipsideViewController.m */,
 				6368AE7B18C18AEB0054E34B /* Images.xcassets */,
 				6368AE6418C18AEA0054E34B /* Supporting Files */,
+				6368AF1818C1DB750054E34B /* SCGNavigationController.h */,
+				6368AF1918C1DB750054E34B /* SCGNavigationController.m */,
 			);
 			path = StringsAndCoins;
 			sourceTree = "<group>";
@@ -158,6 +230,81 @@
 				6368AE8B18C18AEB0054E34B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6368AE9818C18CF10054E34B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				6368AEB218C18E310054E34B /* chain-lg-horz.png */,
+				6368AEB318C18E310054E34B /* chain-md-horz.png */,
+				6368AEB418C18E310054E34B /* chain-sm-horz.png */,
+				6368AEB518C18E310054E34B /* coin-lg.png */,
+				6368AEB618C18E310054E34B /* coin-md.png */,
+				6368AEB718C18E310054E34B /* coin-sm.png */,
+				6368AEB818C18E310054E34B /* dot-lg.png */,
+				6368AEB918C18E310054E34B /* dot-md.png */,
+				6368AEBA18C18E310054E34B /* dot-sm.png */,
+				6368AEBB18C18E310054E34B /* ellipse-md-horz.png */,
+				6368AEBC18C18E310054E34B /* rope-lg-horz.png */,
+				6368AEBD18C18E310054E34B /* rope-md-horz.png */,
+				6368AEBE18C18E320054E34B /* rope-sm-horz.png */,
+				6368AEBF18C18E320054E34B /* triangleDown-md.png */,
+				6368AEC018C18E320054E34B /* triangleUp-md.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		6368AE9918C18D290054E34B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6368AEAF18C18E140054E34B /* SCGLevel.h */,
+				6368AEB018C18E140054E34B /* SCGLevel.m */,
+				6368AE9A18C18D320054E34B /* Model */,
+				6368AE9B18C18D3C0054E34B /* Controllers */,
+				6368AE9C18C18D450054E34B /* Views */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		6368AE9A18C18D320054E34B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6368AEA918C18E020054E34B /* SCGGamePlayer.h */,
+				6368AEAA18C18E020054E34B /* SCGGamePlayer.m */,
+				6368AEAB18C18E020054E34B /* SCGPlayer.h */,
+				6368AEAC18C18E020054E34B /* SCGPlayer.m */,
+				63BFF09718C32E7B0080BA9F /* SCGSettings.h */,
+				63BFF09818C32E7B0080BA9F /* SCGSettings.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		6368AE9B18C18D3C0054E34B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				63BFF09118C2ED570080BA9F /* SCGMenuNavigationController.h */,
+				63BFF09218C2ED570080BA9F /* SCGMenuNavigationController.m */,
+				6368AEA618C18DDF0054E34B /* SCGBoardController.h */,
+				6368AEA718C18DDF0054E34B /* SCGBoardController.m */,
+				63BFF09418C2EE120080BA9F /* SCGMenuViewController.h */,
+				63BFF09518C2EE120080BA9F /* SCGMenuViewController.m */,
+				63BFF09A18C331130080BA9F /* SCGSettingsViewController.h */,
+				63BFF09B18C331130080BA9F /* SCGSettingsViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6368AE9C18C18D450054E34B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6368AE9D18C18DB10054E34B /* SCGBoundaryView.h */,
+				6368AE9E18C18DB10054E34B /* SCGBoundaryView.m */,
+				6368AE9F18C18DB10054E34B /* SCGCellView.h */,
+				6368AEA018C18DB10054E34B /* SCGCellView.m */,
+				6368AEA118C18DB10054E34B /* SCGDotView.h */,
+				6368AEA218C18DB10054E34B /* SCGDotView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,10 +384,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6368AEC618C18E320054E34B /* coin-sm.png in Resources */,
 				6368AE7418C18AEA0054E34B /* Main_iPad.storyboard in Resources */,
 				6368AE7C18C18AEB0054E34B /* Images.xcassets in Resources */,
+				6368AECB18C18E320054E34B /* rope-lg-horz.png in Resources */,
+				6368AECD18C18E320054E34B /* rope-sm-horz.png in Resources */,
+				6368AEC118C18E320054E34B /* chain-lg-horz.png in Resources */,
+				6368AECF18C18E320054E34B /* triangleUp-md.png in Resources */,
 				6368AE7118C18AEA0054E34B /* Main_iPhone.storyboard in Resources */,
 				6368AE6818C18AEA0054E34B /* InfoPlist.strings in Resources */,
+				6368AECC18C18E320054E34B /* rope-md-horz.png in Resources */,
+				6368AEC218C18E320054E34B /* chain-md-horz.png in Resources */,
+				6368AEC318C18E320054E34B /* chain-sm-horz.png in Resources */,
+				6368AEC918C18E320054E34B /* dot-sm.png in Resources */,
+				6368AEC518C18E320054E34B /* coin-md.png in Resources */,
+				6368AECA18C18E320054E34B /* ellipse-md-horz.png in Resources */,
+				6368AECE18C18E320054E34B /* triangleDown-md.png in Resources */,
+				6368AEC418C18E320054E34B /* coin-lg.png in Resources */,
+				6368AEC818C18E320054E34B /* dot-md.png in Resources */,
+				6368AEC718C18E320054E34B /* dot-lg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,10 +421,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6368AEAD18C18E020054E34B /* SCGGamePlayer.m in Sources */,
+				63BFF09618C2EE120080BA9F /* SCGMenuViewController.m in Sources */,
+				6368AEA818C18DDF0054E34B /* SCGBoardController.m in Sources */,
+				63BFF09C18C331130080BA9F /* SCGSettingsViewController.m in Sources */,
+				6368AEA418C18DB10054E34B /* SCGCellView.m in Sources */,
 				6368AE6E18C18AEA0054E34B /* SCGAppDelegate.m in Sources */,
+				63BFF09318C2ED570080BA9F /* SCGMenuNavigationController.m in Sources */,
 				6368AE7718C18AEA0054E34B /* SCGMainViewController.m in Sources */,
+				6368AF1A18C1DB750054E34B /* SCGNavigationController.m in Sources */,
+				6368AEA318C18DB10054E34B /* SCGBoundaryView.m in Sources */,
 				6368AE7A18C18AEB0054E34B /* SCGFlipsideViewController.m in Sources */,
 				6368AE6A18C18AEA0054E34B /* main.m in Sources */,
+				63BFF09918C32E7B0080BA9F /* SCGSettings.m in Sources */,
+				6368AEAE18C18E020054E34B /* SCGPlayer.m in Sources */,
+				6368AEA518C18DB10054E34B /* SCGDotView.m in Sources */,
+				6368AEB118C18E140054E34B /* SCGLevel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +655,7 @@
 				6368AE9418C18AEB0054E34B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6368AE9518C18AEB0054E34B /* Build configuration list for PBXNativeTarget "StringsAndCoinsTests" */ = {
 			isa = XCConfigurationList;
@@ -489,6 +664,7 @@
 				6368AE9718C18AEB0054E34B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

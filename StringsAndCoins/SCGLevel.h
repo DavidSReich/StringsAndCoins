@@ -35,6 +35,8 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (assign, nonatomic) LevelSize levelSize;
 @property (assign, nonatomic) int screenWidth;
 @property (assign, nonatomic) int screenHeight;
+@property (assign, nonatomic) int boardWidth;
+@property (assign, nonatomic) int boardHeight;
 @property (assign, nonatomic) int numRows;
 @property (assign, nonatomic) int numCols;
 @property (assign, nonatomic) int cellWidth;
@@ -43,9 +45,11 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (strong, nonatomic) UIImage *cellImage;
 @property (strong, nonatomic) UIImage *dotImage;
 @property (strong, nonatomic) UIImage *boundaryImage;
+@property (assign, nonatomic) int numberOfPlayers;
 
 //factory
-+ (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size;
++ (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
+             andToolbarHeight:(int)toolbarHeight;
 
 //how many cols in this row?
 - (int) numberOfCols:(int) row;

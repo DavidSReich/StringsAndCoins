@@ -16,6 +16,8 @@
 
 @implementation SCGMenuViewController
 
+@synthesize numberPlayersButton;
+
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,6 +37,8 @@
         self.settings.levelType = CoinsType;
         self.settings.levelShape = TriangleShape;
         self.settings.levelSize = MediumSize;
+        self.settings.numberOfPlayers = 2;
+        self.numberPlayersButton.selectedSegmentIndex = 0;  //start with 2 player
     }
 }
 
@@ -44,6 +48,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)numberOfPlayersButtonChanged:(id)sender {
+    if (numberPlayersButton.selectedSegmentIndex == 0)
+        self.settings.numberOfPlayers = 2;
+    else if (numberPlayersButton.selectedSegmentIndex == 1)
+        self.settings.numberOfPlayers = 3;
+    else
+        self.settings.numberOfPlayers = 4;
+}
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

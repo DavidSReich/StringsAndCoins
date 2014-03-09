@@ -36,23 +36,26 @@
 }
 
 - (void) startNewGame:(SCGSettings *)settings
-{
+{    
 	// Do any additional setup after loading the view, typically from a nib.
     self.title = @"Strings & Coins";
-    
+
     //	SCGLevel *level = [SCGLevel levelWithType:CoinsType andShape:SquareShape andSize:LargeSize];
     //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:SquareShape andSize:LargeSize];
     //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:TriangleShape andSize:MediumSize];
     //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:TriangleShape andSize:SmallSize];
     //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:HexagonShape andSize:MediumSize];
 	//  SCGLevel *level = [SCGLevel levelWithType:CoinsType andShape:HexagonShape andSize:MediumSize];
-	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize];
+	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
+                           andNumberOfPlayers:settings.numberOfPlayers andToolbarHeight:self.navigationController.toolbar.bounds.size.height];
     
     //add game layer
     UIView *gameLayer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, level.screenHeight, level.screenWidth)];
     [self.view addSubview: gameLayer];
-    //    gameLayer.backgroundColor = [UIColor yellowColor];
-    
+//    gameLayer.backgroundColor = [UIColor yellowColor];
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    UINavigationController *nav = self.navigationController;
+
     self.controller.boardView = gameLayer;
     
 	[self.controller setupGameBoard:level];

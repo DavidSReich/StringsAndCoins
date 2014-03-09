@@ -12,5 +12,6 @@
 @interface SCGMenuViewController : UIViewController
 
 @property (strong, nonatomic) SCGSettings *settings;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *numberPlayersButton;
 
 @end

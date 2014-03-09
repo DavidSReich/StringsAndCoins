@@ -14,5 +14,6 @@
 @property (assign, nonatomic) LevelType levelType;
 @property (assign, nonatomic) LevelShape levelShape;
 @property (assign, nonatomic) LevelSize levelSize;
+@property (assign, nonatomic) int numberOfPlayers;
 
 @end

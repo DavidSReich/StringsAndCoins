@@ -25,7 +25,7 @@
     NSMutableArray *players;
     int currentPlayer;
     int lastPlayer;
-    int numPlayers;
+    int numberOfPlayers;
 }
 
 - (void) setupGameBoard:(SCGLevel *)level
@@ -51,6 +51,9 @@
             
             xOffset = kBoardMargin + level.cellWidth / 2;
             yOffset = kBoardMargin + level.rowHeight / 2;
+            
+            xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
+            yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
             
             for (int c = 0; c < numCols; c++)
             {
@@ -119,6 +122,12 @@
 	xOffset = kBoardMargin + level.cellWidth / 2;
     yOffset = kBoardMargin;
 
+    if (level.levelShape == SquareShape)
+    {
+        xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
+        yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
+    }
+    
 	horizontalBoundaries = [[NSMutableArray alloc] initWithCapacity:level.numRows + 1];
 	
 	for (int r = 0; r < level.numRows + 1; r++)
@@ -217,6 +226,12 @@
 	yOffset = kBoardMargin + level.rowHeight / 2;
 	verticalBoundaries = [[NSMutableArray alloc] initWithCapacity:level.numRows + 1];
 	
+    if (level.levelShape == SquareShape)
+    {
+        xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
+        yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
+    }
+
 	for (int r = 0; r < level.numRows; r++)
 	{
 		[verticalBoundaries addObject:[NSMutableArray array]];
@@ -309,6 +324,9 @@
             xOffset = kBoardMargin;
             yOffset = kBoardMargin;
             
+            xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
+            yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
+
             for (int r = 0; r < level.numRows + 1; r++)
             {
                 [dots addObject:[NSMutableArray array]];
@@ -317,7 +335,7 @@
                 {
                     SCGDotView *dot = [[SCGDotView alloc] initWithLevel:level];
                     [[dots objectAtIndex:r] addObject:dot];
-                    //set cesssssssssssssssssssssnter
+                    //set center
                     //add to view
                     dot.center = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
                     [self.boardView addSubview:dot];
@@ -416,10 +434,10 @@
     }
     
     //players will come from outside later
-    numPlayers = 3;
-    players = [[NSMutableArray alloc] initWithCapacity:numPlayers];
+    numberOfPlayers = level.numberOfPlayers;
+    players = [[NSMutableArray alloc] initWithCapacity:numberOfPlayers];
     
-    for (int p = 0; p < numPlayers; p++)
+    for (int p = 0; p < numberOfPlayers; p++)
     {
         SCGPlayer *player = [SCGPlayer alloc];
         UIColor *color;
@@ -427,8 +445,10 @@
             color = [UIColor redColor];
         else if (p == 1)
             color = [UIColor greenColor];
-        else //if (p == 2)
+        else if (p == 2)
             color = [UIColor yellowColor];
+        else //if (p == 3)
+            color = [UIColor cyanColor];
         SCGGamePlayer *gamePlayer = [[SCGGamePlayer alloc] initWithPlayer:player andColor:(UIColor *)color];
         [players addObject:gamePlayer];
     }
@@ -836,7 +856,7 @@
 {
     lastPlayer = currentPlayer;
     currentPlayer++;
-    if (currentPlayer == numPlayers)
+    if (currentPlayer == numberOfPlayers)
         currentPlayer = 0;
 }
 

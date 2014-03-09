@@ -34,9 +34,9 @@
     if (!self.settings)
     {
         self.settings = [[SCGSettings alloc] init];
-        self.settings.levelType = CoinsType;
-        self.settings.levelShape = TriangleShape;
-        self.settings.levelSize = MediumSize;
+        self.settings.levelType = BoxesType;
+        self.settings.levelShape = SquareShape;
+        self.settings.levelSize = SmallSize;
         self.settings.numberOfPlayers = 2;
         self.numberPlayersButton.selectedSegmentIndex = 0;  //start with 2 player
     }

@@ -80,6 +80,9 @@
             xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
             yOffset = kBoardMargin + level.rowHeight / 2;
             
+            xOffset += (level.boardWidth - (level.cellWidth * (level.numCols + 1) / 2)) / 2;
+            yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
+            
             for (int c = 0; c < numCols; c++)
             {
                 SCGCellView *cell = [[SCGCellView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf];
@@ -104,6 +107,8 @@
             
             xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
             yOffset = kBoardMargin + level.rowHeight / 2;
+            xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
+            yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
             
             for (int c = 0; c < numCols; c++)
             {
@@ -121,12 +126,10 @@
 	//horizontal boundaries
 	xOffset = kBoardMargin + level.cellWidth / 2;
     yOffset = kBoardMargin;
+    yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
 
     if (level.levelShape == SquareShape)
-    {
         xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
-        yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
-    }
     
 	horizontalBoundaries = [[NSMutableArray alloc] initWithCapacity:level.numRows + 1];
 	
@@ -166,10 +169,10 @@
             {
                 numCols = ([level numberOfCols:r] + 1) / 2;
                 rowDelta = r - (level.numRows / 2) + 1;
-                xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
             }
 
             xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
+            xOffset += (level.boardWidth - (level.cellWidth * (level.numCols + 1) / 2)) / 2;
             
             for (int c = 0; c < numCols; c++)
             {
@@ -201,6 +204,7 @@
             }
 
             xOffset = kBoardMargin + level.cellWidth / 4 + (level.cellWidth / 2) * rowDelta;
+            xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
 
             for (int c = 0; c < numCols; c++)
             {
@@ -213,7 +217,7 @@
                 [[horizontalBoundaries objectAtIndex:r] addObject:boundary];
                 //set center
                 //add to view
-                boundary.center = CGPointMake(xOffset + c * (level.cellWidth / 2), yOffset + r * level.rowHeight);
+                boundary.center = CGPointMake(xOffset + (c * level.cellWidth) / 2, yOffset + r * level.rowHeight);
                 boundary.board = self;
                 [self.boardView addSubview:boundary];
             }
@@ -224,13 +228,12 @@
     //triangles need different xOffsets, odd and even -- and angles too
 	xOffset = kBoardMargin;
 	yOffset = kBoardMargin + level.rowHeight / 2;
+    yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
+
 	verticalBoundaries = [[NSMutableArray alloc] initWithCapacity:level.numRows + 1];
 	
     if (level.levelShape == SquareShape)
-    {
         xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
-        yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
-    }
 
 	for (int r = 0; r < level.numRows; r++)
 	{
@@ -267,7 +270,8 @@
                 rowDelta = r - (level.numRows / 2);
             
             xOffset = kBoardMargin + (level.cellWidth / 4) + (level.cellWidth / 2) * rowDelta;
-            
+            xOffset += (level.boardWidth - (level.cellWidth * ((level.numCols + 1) / 2))) / 2;
+
             for (int c = 0; c < numCols; c++)
             {
                 if (topHalf == (c % 2 == 0))
@@ -279,7 +283,7 @@
                 [[verticalBoundaries objectAtIndex:r] addObject:boundary];
                 //set center
                 //add to view
-                boundary.center = CGPointMake(xOffset + c * (level.cellWidth / 2), yOffset + r * level.rowHeight);
+                boundary.center = CGPointMake(xOffset + (c * level.cellWidth) / 2, yOffset + r * level.rowHeight);
                 boundary.board = self;
                 [self.boardView addSubview:boundary];
             }
@@ -297,7 +301,7 @@
             int numCols = [level numberOfCols:r] + 1;
             
             xOffset = kBoardMargin + (level.cellWidth / 2) * (rowDelta - 1);
-            yOffset = kBoardMargin + level.rowHeight / 2;
+            xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
             
             for (int c = 0; c < numCols; c++)
             {
@@ -347,6 +351,8 @@
             int numColDots;
 
             yOffset = kBoardMargin;
+            yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
+
             for (int r = 0; r < level.numRows + 1; r++)
             {
                 BOOL topHalf = (r < (level.numRows / 2) + 1);
@@ -361,6 +367,8 @@
 
                 numColDots = ([level numberOfCols:rowForCols] + 1) / 2;
                 xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
+                xOffset += (level.boardWidth - (level.cellWidth * (level.numCols + 1) / 2)) / 2;
+
                 if (r == level.numRows / 2)
                     numColDots++;
 
@@ -386,6 +394,8 @@
             int numColDots;
             
             yOffset = kBoardMargin;
+            yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
+
             for (int r = 0; r < level.numRows + 1; r++)
             {
                 BOOL topHalf = (r < (level.numRows + 1) / 2);
@@ -403,6 +413,7 @@
                 }
                 
                 xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
+                xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
                 
                 [dots addObject:[NSMutableArray array]];
                 

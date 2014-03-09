@@ -46,10 +46,11 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (strong, nonatomic) UIImage *dotImage;
 @property (strong, nonatomic) UIImage *boundaryImage;
 @property (assign, nonatomic) int numberOfPlayers;
+@property (weak, nonatomic) UINavigationController *navigationController;
 
 //factory
 + (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
-             andToolbarHeight:(int)toolbarHeight;
+             andNavigationController:(UINavigationController *)navController;
 
 //how many cols in this row?
 - (int) numberOfCols:(int) row;

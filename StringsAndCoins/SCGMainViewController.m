@@ -47,14 +47,11 @@
     //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:HexagonShape andSize:MediumSize];
 	//  SCGLevel *level = [SCGLevel levelWithType:CoinsType andShape:HexagonShape andSize:MediumSize];
 	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
-                           andNumberOfPlayers:settings.numberOfPlayers andToolbarHeight:self.navigationController.toolbar.bounds.size.height];
+                           andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController];
     
     //add game layer
     UIView *gameLayer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, level.screenHeight, level.screenWidth)];
     [self.view addSubview: gameLayer];
-//    gameLayer.backgroundColor = [UIColor yellowColor];
-//    self.edgesForExtendedLayout = UIRectEdgeNone;
-//    UINavigationController *nav = self.navigationController;
 
     self.controller.boardView = gameLayer;
     

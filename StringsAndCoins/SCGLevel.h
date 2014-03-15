@@ -47,6 +47,7 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (strong, nonatomic) UIImage *boundaryImage;
 @property (assign, nonatomic) int numberOfPlayers;
 @property (weak, nonatomic) UINavigationController *navigationController;
+//CGFloat;
 
 //factory
 + (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers

@@ -42,6 +42,7 @@
 #define kLargeHexagonCols   10
 
 #define kSquareRootOf3	((float)1.732)
+#define kPi ((float)3.1416)
 #define kPiOver2 ((float)1.571)
 #define kPiOver3 ((float)1.047)
 #define kPiOver6 ((float)0.524)

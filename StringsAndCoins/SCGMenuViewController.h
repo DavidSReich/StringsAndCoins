@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) SCGSettings *settings;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *numberPlayersButton;
+@property (weak, nonatomic) IBOutlet UIButton *startGameButton;
 
 @end

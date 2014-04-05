@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (strong, nonatomic) UIImage *dotImage;
 @property (strong, nonatomic) UIImage *boundaryImage;
 @property (assign, nonatomic) int numberOfPlayers;
+@property (assign, nonatomic) int numberOfCells;
 @property (weak, nonatomic) UINavigationController *navigationController;
 //CGFloat;
 

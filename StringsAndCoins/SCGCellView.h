@@ -20,8 +20,9 @@
 @property (assign, nonatomic) BOOL topHalf; //only useful for non-square
 @property (assign, nonatomic) BOOL isUpTriangle;
 @property (weak, nonatomic) SCGLevel *level;
+@property (assign, nonatomic) CGPoint center0;
 
-- (instancetype) initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c andTopHalf:(BOOL)t;
+- (instancetype) initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c andTopHalf:(BOOL)t andCenter:(CGPoint)ctr;
 - (void) setComplete:(BOOL)c withPlayer:(int)p andColor:(UIColor *)color;
 - (void) updateImage;
 

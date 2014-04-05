@@ -21,6 +21,8 @@
 	level.levelShape = shape;
 	level.levelSize = size;
     level.numberOfPlayers = numPlayers;
+    level.numberOfCells = 0;
+    level.navigationController = navController;
 
 	level.screenHeight = [UIScreen mainScreen].bounds.size.height;
 	level.screenWidth = [UIScreen mainScreen].bounds.size.width;

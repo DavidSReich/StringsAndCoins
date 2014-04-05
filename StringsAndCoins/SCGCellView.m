@@ -19,7 +19,7 @@
 }
 #endif
 
-- (instancetype)initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c andTopHalf:(BOOL)t
+- (instancetype)initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c andTopHalf:(BOOL)t andCenter:(CGPoint)ctr
 {
 	if (l.levelType == BoxesType)
     {
@@ -52,7 +52,8 @@
 		self.col = c;
 		self.level = l;
 		self.topHalf = t;
-
+        self.center0 = ctr;
+ 
         if (l.levelShape == TriangleShape)
         {
             if ((t && (c % 2 != 0)) || (!t && (c % 2 == 0)))
@@ -61,40 +62,8 @@
                 self.isUpTriangle = YES;
         }
 
-#if 1
         self.frame = CGRectMake(0, 0, l.cellWidth, l.cellHeight);
-#else
-        float scale;
-        
-		if (l.levelType == CoinsType)
-		{
-            scale = (l.cellWidth / self.image.size.width) / 2;
-            
-			//resize
-			self.frame = CGRectMake(0, 0, l.cellWidth, l.cellHeight);
-//			self.frame = CGRectMake(0, 0, self.image.size.width*scale, self.image.size.height*scale);
-		}
-        else
-        {
-			//resize
-            scale = 1.5;
-            if (l.levelShape == SquareShape)
-                scale = 1;
-            else if (l.levelShape == TriangleShape)
-#if defined(SHOWTRIANGLES)
-                scale = 1;
-#else
-                scale = .5;
-#endif
-            else
-            {
-                //hexagons
-                scale = (l.cellWidth / self.image.size.width) / 2;
-                scale = 1;
-            }
-            self.frame = CGRectMake(0, 0, l.cellWidth * scale, l.cellHeight * scale);
-        }
-#endif
+        self.center = self.center0;
 
 #if defined(SHOWROWANDCOL)
         rcLabel = [[UILabel alloc] initWithFrame:self.bounds];
@@ -102,7 +71,7 @@
         rcLabel.textColor = [UIColor whiteColor];
         rcLabel.backgroundColor = [UIColor clearColor];
         rcLabel.text = [NSString stringWithFormat:@"%d %d", r, c];
-        rcLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:78.0*scale/16];
+        rcLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:78.0/16];
         [self addSubview: rcLabel];
 #endif
         
@@ -180,13 +149,13 @@
         {
             firstPt = CGPointMake(0, self.level.cellHeight);
             secondPt = CGPointMake(self.level.cellWidth, self.level.cellHeight);
-            thirdPt = CGPointMake(self.level.cellWidth / 2, 0);
+            thirdPt = CGPointMake(((float)self.level.cellWidth) / 2, 0);
         }
         else
         {
             firstPt = CGPointMake(0, 0);
             secondPt = CGPointMake(self.level.cellWidth, 0);
-            thirdPt = CGPointMake(self.level.cellWidth / 2, self.level.cellHeight);
+            thirdPt = CGPointMake(((float)self.level.cellWidth) / 2, self.level.cellHeight);
         }
 
         //get the image context with options(recommended funct to use)
@@ -231,6 +200,24 @@
         UIGraphicsEndImageContext();
 
         [self setImage:img2];
+        if (self.level.levelType == CoinsType)
+        {
+            if (self.complete)
+            {
+                self.bounds = CGRectMake(0.0, 0.0, self.level.cellWidth, self.level.cellHeight);
+                self.center = self.center0;
+            }
+            else
+            {
+                CGPoint offCenter;
+                if (self.isUpTriangle)
+                    offCenter = CGPointMake(self.center0.x, self.center0.y + self.level.cellHeight / 6);
+                else
+                    offCenter = CGPointMake(self.center0.x, self.center0.y - self.level.cellHeight / 6);
+                self.center = offCenter;
+                self.bounds = CGRectMake(0.0, 0.0, self.level.cellWidth / 2, self.level.cellHeight / 2);
+            }
+        }
     }
     else //if (0)
     {

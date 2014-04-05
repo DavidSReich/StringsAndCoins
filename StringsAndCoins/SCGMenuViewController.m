@@ -17,6 +17,7 @@
 @implementation SCGMenuViewController
 
 @synthesize numberPlayersButton;
+@synthesize startGameButton;
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,7 +49,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)numberOfPlayersButtonChanged:(id)sender {
+- (IBAction) numberOfPlayersButtonChanged:(id)sender
+{
     if (numberPlayersButton.selectedSegmentIndex == 0)
         self.settings.numberOfPlayers = 2;
     else if (numberPlayersButton.selectedSegmentIndex == 1)
@@ -70,6 +72,12 @@
         SCGMainViewController *mainViewController = segue.destinationViewController;
         mainViewController.settings = self.settings;
     }
+}
+
+- (IBAction) playGameNow:(UIStoryboardSegue *)segue
+{
+    //[startGameButton sendActionsForControlEvents: UIControlEventTouchUpInside];
+    [self performSegueWithIdentifier: @"SCGNewGameSegue" sender: self];
 }
 
 @end

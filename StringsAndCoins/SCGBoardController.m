@@ -13,6 +13,7 @@
 #import "SCGDotView.h"
 #import "SCGPlayer.h"
 #import "SCGGamePlayer.h"
+#import "SCGScoreView.h"
 #import "constants.h"
 
 @implementation SCGBoardController
@@ -23,6 +24,7 @@
 	NSMutableArray *verticalBoundaries;
 	NSMutableArray *dots;
     NSMutableArray *players;
+    NSMutableArray *scoreViews;
     int currentPlayer;
     int lastPlayer;
     int numberOfPlayers;
@@ -33,10 +35,11 @@
     self.lastBoundary = nil;
 	self.level = level;
 
+    level.numberOfCells = 0;
 	
 	//cells
-	float xOffset = 0;
-	float yOffset = 0;
+	CGFloat xOffset = 0;
+	CGFloat yOffset = 0;
 
 	cells = [[NSMutableArray alloc] initWithCapacity:level.numRows];
 	
@@ -57,12 +60,14 @@
             
             for (int c = 0; c < numCols; c++)
             {
-                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf];
-                [[cells objectAtIndex:r] addObject:cell];
                 //set center
+                CGPoint cellCenter = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
+                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andCenter:cellCenter];
+                [[cells objectAtIndex:r] addObject:cell];
                 //add to view
-                cell.center = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
                 [self.boardView addSubview:cell];
+
+                level.numberOfCells++;
             }
         }
         else if (level.levelShape == TriangleShape)
@@ -85,12 +90,14 @@
             
             for (int c = 0; c < numCols; c++)
             {
-                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf];
-                [[cells objectAtIndex:r] addObject:cell];
                 //set center
+                CGPoint cellCenter = CGPointMake(xOffset + (c * level.cellWidth / 2), yOffset + r * level.rowHeight);
+                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andCenter:cellCenter];
+                [[cells objectAtIndex:r] addObject:cell];
                 //add to view
-                cell.center = CGPointMake(xOffset + (c * level.cellWidth / 2), yOffset + r * level.rowHeight);
                 [self.boardView addSubview:cell];
+                
+                level.numberOfCells++;
             }
         }
         else    //hexagons
@@ -112,17 +119,18 @@
             
             for (int c = 0; c < numCols; c++)
             {
-                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf];
-                [[cells objectAtIndex:r] addObject:cell];
                 //set center
+                CGPoint cellCenter = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
+                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andCenter:cellCenter];
+                [[cells objectAtIndex:r] addObject:cell];
                 //add to view
-                cell.center = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
                 [self.boardView addSubview:cell];
+                
+                level.numberOfCells++;
             }
         }
     }
-
-
+    
 	//horizontal boundaries
 	xOffset = kBoardMargin + level.cellWidth / 2;
     yOffset = kBoardMargin;
@@ -465,6 +473,45 @@
     }
 
     currentPlayer = 0;
+
+    //scores
+    int xWidthCenter = kBoardMargin + (level.boardWidth / 2);
+    int yHeightCenter = kBoardMargin + (level.boardHeight / 2);
+
+    scoreViews = [[NSMutableArray alloc] initWithCapacity:4];
+    SCGScoreView *scoreView;
+//    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players];
+//    [scoreViews addObject:scoreView];
+//    [self.boardView addSubview:scoreView];
+//    scoreView.center = CGPointMake(scoreView.bounds.size.height / 2, yHeightCenter);
+//    [self.boardView bringSubviewToFront:scoreView];
+//
+//    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players];
+//    [scoreViews addObject:scoreView];
+//    [self.boardView addSubview:scoreView];
+//    scoreView.center = CGPointMake(level.screenWidth - scoreView.bounds.size.height / 2, yHeightCenter);
+//    [self.boardView bringSubviewToFront:scoreView];
+//    
+#if false
+    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:TopScore andPlayers:players];
+    [scoreViews addObject:scoreView];
+    [self.boardView addSubview:scoreView];
+    scoreView.center = CGPointMake(xWidthCenter, scoreView.bounds.size.height / 2);
+    [self.boardView bringSubviewToFront:scoreView];
+
+    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:BottomScore andPlayers:players];
+    [scoreViews addObject:scoreView];
+    [self.boardView addSubview:scoreView];
+    CGPoint centerPt;
+    centerPt = CGPointMake(xWidthCenter, kBoardMargin + level.boardHeight);
+    centerPt = CGPointMake(xWidthCenter, kBoardMargin * 2 + level.boardHeight);
+//    centerPt = CGPointMake(xWidthCenter, self.boardView.bounds.size.height);
+//    scoreView.center = CGPointMake(xWidthCenter, level.navigationController.toolbar.bounds.origin.y - level.navigationController.toolbar.bounds.size.height / 4);
+//    scoreView.center = CGPointMake(xWidthCenter, kBoardMargin * 2 + level.boardHeight - level.navigationController.toolbar.bounds.size.height / 2);
+//    scoreView.center = CGPointMake(xWidthCenter, kBoardMargin + level.boardHeight - scoreView.bounds.size.height);
+    scoreView.center = centerPt;
+    [self.boardView bringSubviewToFront:scoreView];
+#endif
 }
 
 - (void) boundaryClicked:(SCGBoundaryView *)boundary
@@ -480,6 +527,8 @@
             //all done!
         }
     }
+    else
+        [self testBoard];   //want to count and update scores
 
     if (!completedACell)
         [self gotoNextPlayer];
@@ -491,7 +540,7 @@
 {
     //uncheck cells
     [self testCells];
-//    [self testBoard];
+    [self testBoard];
     [self gotoPreviousPlayer];
     self.lastBoundary = nil;
 }
@@ -901,7 +950,10 @@
 
     for (SCGGamePlayer *player in players)
         NSLog(@"Score: %d", player.score);
-    
+
+    for (SCGScoreView *scoreView in scoreViews)
+        [scoreView updateScores];
+
     return allDone;
 }
 

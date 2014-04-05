@@ -18,7 +18,7 @@
 }
 #endif
 
-- (instancetype)initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c andTopHalf:(BOOL)t andOrientation:(BoundaryOrientation)o
+- (instancetype) initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c andTopHalf:(BOOL)t andOrientation:(BoundaryOrientation)o
 {
 //	self = [super initWithImage: l.boundaryImage];
 	self = [super init];
@@ -35,9 +35,11 @@
         self.userInteractionEnabled = YES;
 
 		//resize
-        float scale = l.cellWidth / l.boundaryImage.size.width;
+        CGFloat scale = l.cellWidth / l.boundaryImage.size.width;
         if (l.levelShape == HexagonShape)
             self.frame = CGRectMake(0, 0, (l.boundaryImage.size.width * scale) / 2, (l.boundaryImage.size.height * scale) / 2);
+        else if ((l.levelShape == TriangleShape) && (l.levelType == CoinsType))
+            self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale / 2, (l.boundaryImage.size.height * scale) / 2);
         else
             self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale, (l.boundaryImage.size.height * scale) / 2);
 
@@ -61,7 +63,7 @@
 
         [self updateImage];
         
-        float rotation = 0;
+        CGFloat rotation = 0;
 
         if (l.levelShape == SquareShape)
         {

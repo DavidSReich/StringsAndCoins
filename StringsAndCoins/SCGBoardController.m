@@ -36,7 +36,24 @@
 	self.level = level;
 
     level.numberOfCells = 0;
-	
+
+	self.boardView.layer.borderWidth = 3.f;
+    self.boardView.layer.borderColor = [UIColor redColor].CGColor;
+    
+//    CGRect bounds = self.boardView.layer.bounds;
+//    CGSize s = self.boardView.layer.bounds.size;
+//    CGFloat w = s.width;
+//    CGFloat h = s.height;
+//    CGFloat boardWidth = level.boardWidth;
+//    boardWidth += 2 * kBoardMargin;
+//    CGFloat boardHeight = level.boardHeight;
+//    boardHeight += 2 * kBoardMargin;
+//    if (boardWidth != w || boardHeight != h)
+//    {
+//        boardHeight = boardWidth;
+//        bounds.size.height = h;
+//    }
+
 	//cells
 	CGFloat xOffset = 0;
 	CGFloat yOffset = 0;
@@ -434,7 +451,7 @@
 #endif
                     [[dots objectAtIndex:r] addObject:dot];
 
-                    int yOffsetOffset;
+                    CGFloat yOffsetOffset;
                     if (topHalf == (c % 2 == 0))
                         yOffsetOffset = yOffset + level.cellHeight / 8;
                     else
@@ -475,8 +492,8 @@
     currentPlayer = 0;
 
     //scores
-    int xWidthCenter = kBoardMargin + (level.boardWidth / 2);
-    int yHeightCenter = kBoardMargin + (level.boardHeight / 2);
+    CGFloat xWidthCenter = kBoardMargin + (level.boardWidth / 2);
+    CGFloat yHeightCenter = kBoardMargin + (level.boardHeight / 2);
 
     scoreViews = [[NSMutableArray alloc] initWithCapacity:4];
     SCGScoreView *scoreView;

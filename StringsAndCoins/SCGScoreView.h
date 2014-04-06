@@ -24,8 +24,8 @@ typedef NS_ENUM(NSInteger, ScoreOrientation)
 @property (weak, nonatomic) SCGLevel *level;
 //@property (strong, nonatomic) NSMutableArray *scoreBlockViews;
 @property (strong, nonatomic) NSMutableArray *scoreLabels;
-@property (assign, nonatomic) int frameHeight;
-@property (assign, nonatomic) int frameWidth;
+@property (assign, nonatomic) CGFloat frameHeight;
+@property (assign, nonatomic) CGFloat frameWidth;
 @property (assign, nonatomic) ScoreOrientation orientation;
 
 

@@ -47,7 +47,7 @@
 //        self.opaque = NO;
 //        self.clipsToBounds = NO;
         
-        float rotation = 0;
+        CGFloat rotation = 0;
 
         switch (o)
         {
@@ -74,12 +74,12 @@
 
 - (void) updateScores
 {
-    int width = self.bounds.size.width;
-    int left = 0;
+    CGFloat width = self.bounds.size.width;
+    CGFloat left = 0;
 
     for (SCGScoreLabel *scoreLabel in self.scoreLabels)
     {
-        int blockWidth = (width * scoreLabel.player.score) / self.level.numberOfCells;
+        CGFloat blockWidth = (width * scoreLabel.player.score) / self.level.numberOfCells;
         scoreLabel.frame = CGRectMake(left, 0, blockWidth, self.frameHeight);
         [scoreLabel refreshScore];
         
@@ -88,7 +88,7 @@
     
 //    for (SCGScoreBlockView *scoreBlock in self.scoreBlockViews)
 //    {
-//        int blockWidth = (width * scoreBlock.player.score) / self.level.numberOfCells;
+//        CGFloat blockWidth = (width * scoreBlock.player.score) / self.level.numberOfCells;
 //        scoreBlock.frame = CGRectMake(0, 0, left + blockWidth, self.frameHeight);
 //        scoreBlock.center = CGPointMake(left + blockWidth / 2, self.frameHeight / 2);
 //        [scoreBlock refreshScore];

@@ -13,7 +13,7 @@
 
 //factory
 + (instancetype) levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
-              andNavigationController:(UINavigationController *)navController
+       andNavigationController:(UINavigationController *)navController andView:(UIView *)view
 {
 	SCGLevel *level = [[SCGLevel alloc] init];
 
@@ -23,11 +23,17 @@
     level.numberOfPlayers = numPlayers;
     level.numberOfCells = 0;
     level.navigationController = navController;
+    level.boardView = view;
 
-	level.screenHeight = [UIScreen mainScreen].bounds.size.height;
-	level.screenWidth = [UIScreen mainScreen].bounds.size.width;
-	int boardWidth = level.screenHeight - (2 * kBoardMargin);
-	int boardHeight = level.screenWidth - (2 * kBoardMargin) - navController.navigationBar.bounds.size.height
+//	level.screenHeight = [UIScreen mainScreen].bounds.size.height;
+//	level.screenWidth = [UIScreen mainScreen].bounds.size.width;
+//	CGFloat boardWidth = level.screenHeight - (2 * kBoardMargin);
+//	CGFloat boardHeight = level.screenWidth - (2 * kBoardMargin) - navController.navigationBar.bounds.size.height
+//            - navController.toolbar.bounds.size.height;
+    CGFloat boardWidth = view.bounds.size.height - (2 * kBoardMargin);
+//    CGFloat boardHeight = view.bounds.size.width - (2 * kBoardMargin);
+    //for some reason the view starts after the navigationBar, but does not end when the toolbar begins
+    CGFloat boardHeight = view.bounds.size.width - (2 * kBoardMargin) - navController.navigationBar.bounds.size.height
             - navController.toolbar.bounds.size.height;
     level.boardWidth = boardWidth;
     level.boardHeight = boardHeight;
@@ -141,8 +147,8 @@
         level.cellHeight = boardHeight / level.numRows;
 
         //shrink to equilateral shape
-        int calculatedHeight = (float)(level.cellWidth / 2) * kSquareRootOf3;
-        int calculatedWidth = (float)(level.cellHeight * 2) / kSquareRootOf3;
+        CGFloat calculatedHeight = (float)(level.cellWidth / 2) * kSquareRootOf3;
+        CGFloat calculatedWidth = (float)(level.cellHeight * 2) / kSquareRootOf3;
         
         if (level.cellHeight > calculatedHeight)
             level.cellHeight = calculatedHeight;
@@ -174,8 +180,8 @@
         level.cellHeight = (boardHeight * 4) / (level.numRows * 3);
 
         //shrink to equilateral shape
-        int calculatedHeight = (float)(level.cellWidth * 2) / kSquareRootOf3;
-		int calculatedWidth = (level.cellHeight * kSquareRootOf3) / 2;
+        CGFloat calculatedHeight = (float)(level.cellWidth * 2) / kSquareRootOf3;
+		CGFloat calculatedWidth = (level.cellHeight * kSquareRootOf3) / 2;
         
         if (level.cellHeight > calculatedHeight)
             level.cellHeight = calculatedHeight;

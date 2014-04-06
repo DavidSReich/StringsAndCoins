@@ -24,7 +24,7 @@
 	
     if (self != nil)
     {
-        float scale = (l.cellWidth / self.image.size.width) / 2;
+        CGFloat scale = (l.cellWidth / self.image.size.width) / 2;
         
 //#if defined(SHOWROWANDCOL)
 //        UILabel *rcLabel = [[UILabel alloc] initWithFrame:self.bounds];

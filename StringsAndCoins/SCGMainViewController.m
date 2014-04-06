@@ -40,6 +40,8 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.title = @"Strings & Coins";
 
+    self.controller.boardView = self.view;
+    
     //	SCGLevel *level = [SCGLevel levelWithType:CoinsType andShape:SquareShape andSize:LargeSize];
     //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:SquareShape andSize:LargeSize];
     //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:TriangleShape andSize:MediumSize];
@@ -47,13 +49,15 @@
     //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:HexagonShape andSize:MediumSize];
 	//  SCGLevel *level = [SCGLevel levelWithType:CoinsType andShape:HexagonShape andSize:MediumSize];
 	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
-                           andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController];
+                           andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController andView:self.view];
     
     //add game layer
-    UIView *gameLayer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, level.screenHeight, level.screenWidth)];
-    [self.view addSubview: gameLayer];
+//    UIView *gameLayer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, level.screenHeight, level.screenWidth)];
+//    [self.view addSubview: gameLayer];
+//
+//    self.controller.boardView = gameLayer;
 
-    self.controller.boardView = gameLayer;
+//    self.controller.boardView = self.view;
     
 	[self.controller setupGameBoard:level];
 }

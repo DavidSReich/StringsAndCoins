@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "SCGSettings.h"
 
-@interface SCGSettingsViewController : UIViewController
+@interface SCGSettingsViewController : UIViewController <UITabBarControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet SCGSettings *settings;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *typeButton;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *shapeButton;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *sizeButton;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *numberOfPlayersButton;
 
 - (void) resetButtons;
 @end

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCGSettings.h"
 
 @interface SCGAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) SCGSettings *settings;
 
 @end

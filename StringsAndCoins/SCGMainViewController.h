@@ -6,14 +6,12 @@
 //  Copyright (c) 2014 Stellar Software Pty Ltd. All rights reserved.
 //
 
-#import "SCGFlipsideViewController.h"
 #import "SCGLevel.h"
 #import "SCGSettings.h"
 
-@interface SCGMainViewController : UIViewController <SCGFlipsideViewControllerDelegate, UIPopoverControllerDelegate>
+@interface SCGMainViewController : UIViewController <UITabBarControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet SCGSettings *settings;
-@property (strong, nonatomic) UIPopoverController *flipsidePopoverController;
 
 - (void) startNewGame:(SCGSettings *)settings;
 

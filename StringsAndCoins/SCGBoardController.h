@@ -24,6 +24,7 @@
 
 //start a new game
 - (void) setupGameBoard:(SCGLevel *)level;
+- (void) clearGameBoard;
 
 //user actions
 - (void) boundaryClicked:(SCGBoundaryView *)boundary;

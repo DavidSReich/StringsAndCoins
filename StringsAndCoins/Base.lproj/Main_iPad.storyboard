@@ -1,61 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="A5m-6N-guq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="7WQ-cW-pE0">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--Main View Controller - Item-->
         <scene sceneID="0NU-cZ-2PS">
             <objects>
                 <viewController id="aVO-UE-KGo" customClass="SCGMainViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mX8-Ee-eGC">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="719"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="Item" id="j1h-9d-UGy"/>
                     <navigationItem key="navigationItem" id="BGD-OH-dwq"/>
-                    <connections>
-                        <segue destination="FTa-do-hRx" kind="popover" identifier="showAlternate" id="pXF-iP-W5x">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asY-HQ-Guj" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1104" y="-2931"/>
-        </scene>
-        <!--Flipside View Controller-->
-        <scene sceneID="lym-h4-kxm">
-            <objects>
-                <viewController id="FTa-do-hRx" customClass="SCGFlipsideViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="yVM-ax-DI8">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="8Bx-U8-Xwy">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="UD1-FV-3cM">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="8zt-ik-JXd">
-                                            <connections>
-                                                <action selector="done:" destination="FTa-do-hRx" id="JoJ-z8-Ud1"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
-                        <color key="backgroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    </view>
-                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9mE-fb-xOw" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="128" y="-2931"/>
+            <point key="canvasLocation" x="-2184" y="-2931"/>
         </scene>
         <!--Menu Navigation Controller - SCGMenuViewController-->
         <scene sceneID="Utk-eo-t1n">
@@ -79,7 +45,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L3T-Z1-NPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3554" y="-2923"/>
+            <point key="canvasLocation" x="-3674" y="-5259"/>
         </scene>
         <!--Menu View Controller - Boxes, Coins, & Triangles-->
         <scene sceneID="suJ-0z-65G">
@@ -95,9 +61,6 @@
                                 <state key="normal" title="New Game">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="aVO-UE-KGo" kind="push" identifier="SCGNewGameSegue" id="3xD-NN-ICx"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ydy-7y-7So">
                                 <rect key="frame" x="472" y="323" width="81" height="30"/>
@@ -105,9 +68,6 @@
                                 <state key="normal" title="Settings">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="8Bt-K5-WC3" kind="push" identifier="SCGSettingsSegue" id="Mde-eU-xAZ"/>
-                                </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="4E2-Ic-Kvu">
                                 <rect key="frame" x="451" y="423" width="123" height="29"/>
@@ -142,18 +102,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ntB-zP-dd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2376" y="-2923"/>
+            <point key="canvasLocation" x="-2496" y="-5259"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Settings View Controller - Item-->
         <scene sceneID="9id-q4-Rbv">
             <objects>
                 <viewController id="8Bt-K5-WC3" customClass="SCGSettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cqq-MJ-isb">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="719"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="ZjS-yr-CwB" userLabel="TypeButton">
-                                <rect key="frame" x="451" y="270" width="123" height="29"/>
+                                <rect key="frame" x="451" y="231" width="123" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Boxes"/>
@@ -164,7 +124,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="Wnd-PG-eyD" userLabel="SizeButton">
-                                <rect key="frame" x="419" y="357" width="186" height="29"/>
+                                <rect key="frame" x="419" y="318" width="186" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Small"/>
@@ -176,7 +136,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="1" id="5f2-Az-RJn" userLabel="ShapeButton">
-                                <rect key="frame" x="396" y="435" width="233" height="29"/>
+                                <rect key="frame" x="396" y="396" width="233" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Squares"/>
@@ -188,40 +148,53 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Style" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sNr-eJ-262">
-                                <rect key="frame" x="491" y="241" width="42" height="21"/>
+                                <rect key="frame" x="491" y="202" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ftf-2F-o7X">
-                                <rect key="frame" x="491" y="328" width="42" height="21"/>
+                                <rect key="frame" x="491" y="289" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shape" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P5B-bU-GmR">
-                                <rect key="frame" x="484" y="406" width="56" height="21"/>
+                                <rect key="frame" x="484" y="367" width="56" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mZf-5k-Rm3">
-                                <rect key="frame" x="362" y="561" width="109" height="30"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="h9M-Pl-Gjk">
+                                <rect key="frame" x="451" y="490" width="123" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="New Game">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <segments>
+                                    <segment title="2"/>
+                                    <segment title="3"/>
+                                    <segment title="4"/>
+                                </segments>
                                 <connections>
-                                    <segue destination="tGy-DV-FhE" kind="unwind" unwindAction="playGameNow:" id="tX7-ko-7HZ"/>
+                                    <action selector="numberOfPlayersButtonChanged:" destination="j7t-UI-aQx" eventType="valueChanged" id="95j-hb-4ka"/>
+                                    <action selector="numberOfPlayersChanged:" destination="8Bt-K5-WC3" eventType="valueChanged" id="sgB-d8-PMB"/>
                                 </connections>
-                            </button>
+                            </segmentedControl>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Players" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0n1-N2-OFk">
+                                <rect key="frame" x="434" y="460" width="156" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="Item" id="ecA-DQ-JlB"/>
                     <navigationItem key="navigationItem" id="0Fe-oh-g3Q">
                         <barButtonItem key="rightBarButtonItem" id="wht-wG-FTY">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="V0C-yo-sdz">
@@ -241,15 +214,35 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="numberOfPlayersButton" destination="h9M-Pl-Gjk" id="UIv-0m-eqo"/>
                         <outlet property="shapeButton" destination="5f2-Az-RJn" id="lpO-GC-bNn"/>
                         <outlet property="sizeButton" destination="Wnd-PG-eyD" id="O64-ia-bIG"/>
                         <outlet property="typeButton" destination="ZjS-yr-CwB" id="ZCq-mg-BvZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CWe-Wh-cr5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="tGy-DV-FhE" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1112" y="-1403"/>
+            <point key="canvasLocation" x="-2202" y="-3865"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="hdY-BB-UOY">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7WQ-cW-pE0" customClass="SCGTabBarController" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="XYu-br-sKE">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="8Bt-K5-WC3" kind="relationship" relationship="viewControllers" id="0Ou-SO-eua"/>
+                        <segue destination="aVO-UE-KGo" kind="relationship" relationship="viewControllers" id="VoO-as-VaS"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dbs-eJ-hPY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3660" y="-3865"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

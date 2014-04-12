@@ -9,6 +9,7 @@
 #import "SCGMainViewController.h"
 #import "SCGBoardController.h"
 #import "SCGSettings.h"
+#import "SCGAppDelegate.h"
 
 @interface SCGMainViewController ()
 @property (strong, nonatomic) SCGBoardController *controller;
@@ -19,20 +20,45 @@
 - (instancetype) initWithCoder:(NSCoder *)decoder
 {
     self = [super initWithCoder:decoder];
-//    self = [super init];
-    if (self != nil) {
+    if (self != nil)
+    {
         //create the game controller
         self.controller = [[SCGBoardController alloc] init];
+        self.title = @"Start Game";
     }
     return self;
 }
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
     
-//    [self startNewGame:BoxesType andShape:SquareShape andSize:MediumSize];
-    [self startNewGame:self.settings];
+    SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.settings = appDelegate.settings;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (self.settings.startNewGame)
+        [self.controller clearGameBoard];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.tabBarController.delegate = self;
+
+    if (self.settings.startNewGame)
+    {
+        self.settings.startNewGame = NO;
+        [self startNewGame:self.settings];
+    }
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.tabBarController.delegate = nil;
 }
 
 - (void) startNewGame:(SCGSettings *)settings
@@ -62,48 +88,37 @@
 	[self.controller setupGameBoard:level];
 }
 
-- (void)didReceiveMemoryWarning
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Flipside View Controller
-
-- (void)flipsideViewControllerDidFinish:(SCGFlipsideViewController *)controller
+- (BOOL) tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        [self.flipsidePopoverController dismissPopoverAnimated:YES];
-    }
-}
-
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
-{
-    self.flipsidePopoverController = nil;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showAlternate"]) {
-        [[segue destinationViewController] setDelegate:self];
-        
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            UIPopoverController *popoverController = [(UIStoryboardPopoverSegue *)segue popoverController];
-            self.flipsidePopoverController = popoverController;
-            popoverController.delegate = self;
+    if (tabBarController == self.tabBarController)
+    {
+        if (viewController != self)
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Leave the game?", @"")
+                        message:NSLocalizedString(@"Are you sure you want to leave the game?", @"")
+                        delegate:self
+                        cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
+                        otherButtonTitles:NSLocalizedString(@"Leave", @""), nil];
+            
+            alertView.tag = [tabBarController.viewControllers indexOfObject:viewController];
+            [alertView show];
         }
     }
+
+    return NO;
 }
 
-- (IBAction)togglePopover:(id)sender
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (self.flipsidePopoverController) {
-        [self.flipsidePopoverController dismissPopoverAnimated:YES];
-        self.flipsidePopoverController = nil;
-    } else {
-        [self performSegueWithIdentifier:@"showAlternate" sender:sender];
+    if (buttonIndex != alertView.cancelButtonIndex)
+    {
+        [self.tabBarController setSelectedIndex:alertView.tag];
     }
 }
 

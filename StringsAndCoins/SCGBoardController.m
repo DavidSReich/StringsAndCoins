@@ -30,8 +30,31 @@
     int numberOfPlayers;
 }
 
+- (void) clearGameBoard
+{
+    for (NSMutableArray *row in cells)
+        [row removeAllObjects];
+	[cells removeAllObjects];
+    for (NSMutableArray *row in horizontalBoundaries)
+        [row removeAllObjects];
+	[horizontalBoundaries removeAllObjects];
+    for (NSMutableArray *row in verticalBoundaries)
+        [row removeAllObjects];
+	[verticalBoundaries removeAllObjects];
+    for (NSMutableArray *row in dots)
+        [row removeAllObjects];
+    [dots removeAllObjects];
+	[players removeAllObjects];
+	[scoreViews removeAllObjects];
+    
+    for (UIView *view in self.boardView.subviews)
+        [view removeFromSuperview];
+}
+
 - (void) setupGameBoard:(SCGLevel *)level
 {
+    [self clearGameBoard];
+
     self.lastBoundary = nil;
 	self.level = level;
 

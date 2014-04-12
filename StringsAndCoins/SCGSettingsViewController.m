@@ -7,6 +7,7 @@
 //
 
 #import "SCGSettingsViewController.h"
+#import "SCGAppDelegate.h"
 
 @interface SCGSettingsViewController ()
 
@@ -20,12 +21,15 @@
 @synthesize typeButton;
 @synthesize shapeButton;
 @synthesize sizeButton;
+@synthesize numberOfPlayersButton;
 
-- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+- (instancetype) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.title = @"Settings";
     }
     return self;
 }
@@ -34,13 +38,32 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.settings = appDelegate.settings;
+    
     originalSettings = [[SCGSettings alloc] init];
     originalSettings.levelType = self.settings.levelType;
     originalSettings.levelShape = self.settings.levelShape;
     originalSettings.levelSize = self.settings.levelSize;
+    originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
+
+    self.title = @"Settings";
 
     [self resetButtons];
 }
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.tabBarController.delegate = self;
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.tabBarController.delegate = nil;
+}
+
 
 - (void) didReceiveMemoryWarning
 {
@@ -77,6 +100,16 @@
         else    //hexagon
             shapeButton.selectedSegmentIndex = 2;
     }
+
+    if (numberOfPlayersButton)
+    {
+        if (self.settings.numberOfPlayers == 2)
+            numberOfPlayersButton.selectedSegmentIndex = 0;
+        else if (self.settings.numberOfPlayers == 3)
+            numberOfPlayersButton.selectedSegmentIndex = 1;
+        else    //4 players
+            numberOfPlayersButton.selectedSegmentIndex = 2;
+    }
 }
 
 - (IBAction) resetButtonTouched:(id)sender
@@ -110,6 +143,27 @@
         self.settings.levelShape = TriangleShape;
     else
         self.settings.levelShape = HexagonShape;
+}
+
+- (IBAction) numberOfPlayersChanged:(id)sender
+{
+    if (numberOfPlayersButton.selectedSegmentIndex == 0)
+        self.settings.numberOfPlayers = 2;
+    else if (numberOfPlayersButton.selectedSegmentIndex == 1)
+        self.settings.numberOfPlayers = 3;
+    else
+        self.settings.numberOfPlayers = 4;
+}
+
+- (void) tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    if (tabBarController == self.tabBarController)
+    {
+        if (viewController != self)
+        {
+            self.settings.startNewGame = YES;
+        }
+    }
 }
 
 @end

@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "SCGLevel.h"
 
-@interface SCGSettings : NSObject
+@interface SCGSettings : NSObject <NSCoding>
 
 @property (assign, nonatomic) LevelType levelType;
 @property (assign, nonatomic) LevelShape levelShape;
 @property (assign, nonatomic) LevelSize levelSize;
 @property (assign, nonatomic) int numberOfPlayers;
+@property (assign, nonatomic) BOOL startNewGame;
 
 @end

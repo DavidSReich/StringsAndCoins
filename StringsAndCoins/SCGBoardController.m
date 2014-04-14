@@ -63,23 +63,9 @@
 	self.boardView.layer.borderWidth = 3.f;
     self.boardView.layer.borderColor = [UIColor redColor].CGColor;
     
-//    CGRect bounds = self.boardView.layer.bounds;
-//    CGSize s = self.boardView.layer.bounds.size;
-//    CGFloat w = s.width;
-//    CGFloat h = s.height;
-//    CGFloat boardWidth = level.boardWidth;
-//    boardWidth += 2 * kBoardMargin;
-//    CGFloat boardHeight = level.boardHeight;
-//    boardHeight += 2 * kBoardMargin;
-//    if (boardWidth != w || boardHeight != h)
-//    {
-//        boardHeight = boardWidth;
-//        bounds.size.height = h;
-//    }
-
 	//cells
 	CGFloat xOffset = 0;
-	CGFloat yOffset = 0;
+	CGFloat yOffset = level.statusBarOffset;
 
 	cells = [[NSMutableArray alloc] initWithCapacity:level.numRows];
 	
@@ -93,7 +79,7 @@
             int numCols = [level numberOfCols:r];
             
             xOffset = kBoardMargin + level.cellWidth / 2;
-            yOffset = kBoardMargin + level.rowHeight / 2;
+            yOffset = kBoardMargin + level.rowHeight / 2 + level.statusBarOffset;
             
             xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
             yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
@@ -123,7 +109,7 @@
             int numCols = [level numberOfCols:r];
 
             xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
-            yOffset = kBoardMargin + level.rowHeight / 2;
+            yOffset = kBoardMargin + level.rowHeight / 2 + level.statusBarOffset;
             
             xOffset += (level.boardWidth - (level.cellWidth * (level.numCols + 1) / 2)) / 2;
             yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
@@ -153,7 +139,7 @@
             int numCols = [level numberOfCols:r];
             
             xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
-            yOffset = kBoardMargin + level.rowHeight / 2;
+            yOffset = kBoardMargin + level.rowHeight / 2 + level.statusBarOffset;
             xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
             yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
             
@@ -173,7 +159,7 @@
     
 	//horizontal boundaries
 	xOffset = kBoardMargin + level.cellWidth / 2;
-    yOffset = kBoardMargin;
+    yOffset = kBoardMargin + level.statusBarOffset;
     yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
 
     if (level.levelShape == SquareShape)
@@ -275,7 +261,7 @@
 	//vertical boundaries
     //triangles need different xOffsets, odd and even -- and angles too
 	xOffset = kBoardMargin;
-	yOffset = kBoardMargin + level.rowHeight / 2;
+	yOffset = kBoardMargin + level.rowHeight / 2 + level.statusBarOffset;
     yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
 
 	verticalBoundaries = [[NSMutableArray alloc] initWithCapacity:level.numRows + 1];
@@ -374,7 +360,7 @@
         if (level.levelShape == SquareShape)
         {
             xOffset = kBoardMargin;
-            yOffset = kBoardMargin;
+            yOffset = kBoardMargin + level.statusBarOffset;
             
             xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
             yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
@@ -398,7 +384,7 @@
         {
             int numColDots;
 
-            yOffset = kBoardMargin;
+            yOffset = kBoardMargin + level.statusBarOffset;
             yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
 
             for (int r = 0; r < level.numRows + 1; r++)
@@ -441,7 +427,7 @@
         {
             int numColDots;
             
-            yOffset = kBoardMargin;
+            yOffset = kBoardMargin + level.statusBarOffset;
             yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
 
             for (int r = 0; r < level.numRows + 1; r++)
@@ -516,42 +502,29 @@
 
     //scores
     CGFloat xWidthCenter = kBoardMargin + (level.boardWidth / 2);
-    CGFloat yHeightCenter = kBoardMargin + (level.boardHeight / 2);
+    CGFloat yHeightCenter = kBoardMargin + (level.boardHeight / 2) + level.statusBarOffset;
 
     scoreViews = [[NSMutableArray alloc] initWithCapacity:4];
     SCGScoreView *scoreView;
-//    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players];
-//    [scoreViews addObject:scoreView];
-//    [self.boardView addSubview:scoreView];
-//    scoreView.center = CGPointMake(scoreView.bounds.size.height / 2, yHeightCenter);
-//    [self.boardView bringSubviewToFront:scoreView];
-//
-//    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players];
-//    [scoreViews addObject:scoreView];
-//    [self.boardView addSubview:scoreView];
-//    scoreView.center = CGPointMake(level.screenWidth - scoreView.bounds.size.height / 2, yHeightCenter);
-//    [self.boardView bringSubviewToFront:scoreView];
-//    
-#if false
-    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:TopScore andPlayers:players];
+    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
-    scoreView.center = CGPointMake(xWidthCenter, scoreView.bounds.size.height / 2);
-    [self.boardView bringSubviewToFront:scoreView];
+    scoreView.center = CGPointMake(kStatusBarHeight, yHeightCenter);
 
-    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:BottomScore andPlayers:players];
+    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
-    CGPoint centerPt;
-    centerPt = CGPointMake(xWidthCenter, kBoardMargin + level.boardHeight);
-    centerPt = CGPointMake(xWidthCenter, kBoardMargin * 2 + level.boardHeight);
-//    centerPt = CGPointMake(xWidthCenter, self.boardView.bounds.size.height);
-//    scoreView.center = CGPointMake(xWidthCenter, level.navigationController.toolbar.bounds.origin.y - level.navigationController.toolbar.bounds.size.height / 4);
-//    scoreView.center = CGPointMake(xWidthCenter, kBoardMargin * 2 + level.boardHeight - level.navigationController.toolbar.bounds.size.height / 2);
-//    scoreView.center = CGPointMake(xWidthCenter, kBoardMargin + level.boardHeight - scoreView.bounds.size.height);
-    scoreView.center = centerPt;
-    [self.boardView bringSubviewToFront:scoreView];
-#endif
+    scoreView.center = CGPointMake(kBoardMargin * 2 + level.boardWidth - kStatusBarHeight - 2, yHeightCenter);
+
+    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:TopScore andPlayers:players andWidth:level.boardWidth];
+    [scoreViews addObject:scoreView];
+    [self.boardView addSubview:scoreView];
+    scoreView.center = CGPointMake(xWidthCenter, scoreView.bounds.size.height / 2 + level.statusBarOffset);
+
+    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:BottomScore andPlayers:players andWidth:level.boardWidth];
+    [scoreViews addObject:scoreView];
+    [self.boardView addSubview:scoreView];
+    scoreView.center = CGPointMake(xWidthCenter, kBoardMargin * 2 + level.boardHeight);
 }
 
 - (void) boundaryClicked:(SCGBoundaryView *)boundary
@@ -992,7 +965,7 @@
         NSLog(@"Score: %d", player.score);
 
     for (SCGScoreView *scoreView in scoreViews)
-        [scoreView updateScores];
+        [scoreView updateScores:currentPlayer];
 
     return allDone;
 }

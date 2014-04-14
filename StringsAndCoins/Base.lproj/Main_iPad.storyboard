@@ -228,6 +228,7 @@
         <scene sceneID="hdY-BB-UOY">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7WQ-cW-pE0" customClass="SCGTabBarController" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>

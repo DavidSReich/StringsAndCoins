@@ -37,4 +37,5 @@
 
 - (void) gotoNextPlayer;
 - (void) gotoPreviousPlayer;
+
 @end

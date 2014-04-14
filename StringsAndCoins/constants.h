@@ -47,6 +47,8 @@
 #define kPiOver3 ((float)1.047)
 #define kPiOver6 ((float)0.524)
 
+#define kStatusBarHeight    20
+
 //#define SHOWROWANDCOL
 
 #endif

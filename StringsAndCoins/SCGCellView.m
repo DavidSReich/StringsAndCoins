@@ -47,6 +47,7 @@
     {
         //initialization
         self.complete = NO;
+        self.oldComplete = NO;
         self.playerNumber = -1;
 		self.row = r;
 		self.col = c;
@@ -83,6 +84,7 @@
 
 - (void) setComplete:(BOOL)c withPlayer:(int)p andColor:(UIColor *)color
 {
+    self.oldComplete = self.complete;
     self.complete = c;
     self.playerNumber = p;
     self.completeColor = color;
@@ -131,153 +133,152 @@
     if (self.level.levelShape == SquareShape)
     {
         if (self.complete)
-        {
             self.backgroundColor = self.completeColor;
-        }
         else
-        {
             self.backgroundColor = [UIColor clearColor];
-        }
     }
     else if (self.level.levelShape == TriangleShape)
     {
-        CGPoint firstPt;
-        CGPoint secondPt;
-        CGPoint thirdPt;
-
-        if (self.isUpTriangle)
+        if (!self.complete)
         {
-            firstPt = CGPointMake(0, self.level.cellHeight);
-            secondPt = CGPointMake(self.level.cellWidth, self.level.cellHeight);
-            thirdPt = CGPointMake(((float)self.level.cellWidth) / 2, 0);
+            [self setImage:self.level.cellImage];
+//            if (self.level.levelType == CoinsType)
+//            {
+//                CGPoint offCenter;
+//                if (self.isUpTriangle)
+//                    offCenter = CGPointMake(self.center0.x, self.center0.y + self.level.cellHeight / 6);
+//                else
+//                    offCenter = CGPointMake(self.center0.x, self.center0.y - self.level.cellHeight / 6);
+//                self.center = offCenter;
+//                self.bounds = CGRectMake(0.0, 0.0, self.level.cellWidth / 2, self.level.cellHeight / 2);
+//            }
         }
         else
         {
-            firstPt = CGPointMake(0, 0);
-            secondPt = CGPointMake(self.level.cellWidth, 0);
-            thirdPt = CGPointMake(((float)self.level.cellWidth) / 2, self.level.cellHeight);
-        }
+            CGPoint firstPt;
+            CGPoint secondPt;
+            CGPoint thirdPt;
 
-        //get the image context with options(recommended funct to use)
-        //get the size of the imageView
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.level.cellWidth, self.level.cellHeight), NO, 0.0);
-        
-        //use the the image that is going to be drawn on as the receiver
-        UIImage *img = self.image;
-        
-        [img drawInRect:CGRectMake(0.0, 0.0, self.level.cellWidth, self.level.cellHeight)];
-
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGContextSetLineWidth(ctx, 0.5);
-        
-        UIGraphicsPushContext(ctx);
-        
-        //uses path ref
-        CGMutablePathRef path = CGPathCreateMutable();
-        //draw the triangle
-        CGPathMoveToPoint(path, NULL, firstPt.x, firstPt.y);
-        CGPathAddLineToPoint(path, NULL, secondPt.x, secondPt.y);
-        CGPathAddLineToPoint(path, NULL, thirdPt.x, thirdPt.y);
-        CGPathAddLineToPoint(path, NULL, firstPt.x, firstPt.y);
-        //close the path
-        CGPathCloseSubpath(path);
-        //add the path to the context
-        CGContextAddPath(ctx, path);
-        if (self.complete)
-            CGContextSetFillColorWithColor(ctx, self.completeColor.CGColor);
-        else
-            CGContextSetFillColorWithColor(ctx, [UIColor clearColor].CGColor);
-        CGContextSetStrokeColorWithColor(ctx, [UIColor clearColor].CGColor);
-        CGContextFillPath(ctx);
-        CGContextAddPath(ctx, path);
-        CGContextStrokePath(ctx);
-        CGPathRelease(path);
-        
-        UIGraphicsPopContext();
-        
-        //get the new image with the triangle
-        UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-
-        [self setImage:img2];
-        if (self.level.levelType == CoinsType)
-        {
-            if (self.complete)
+            if (self.isUpTriangle)
             {
-                self.bounds = CGRectMake(0.0, 0.0, self.level.cellWidth, self.level.cellHeight);
-                self.center = self.center0;
+                firstPt = CGPointMake(0, self.level.cellHeight);
+                secondPt = CGPointMake(self.level.cellWidth, self.level.cellHeight);
+                thirdPt = CGPointMake(((float)self.level.cellWidth) / 2, 0);
             }
             else
             {
-                CGPoint offCenter;
-                if (self.isUpTriangle)
-                    offCenter = CGPointMake(self.center0.x, self.center0.y + self.level.cellHeight / 6);
-                else
-                    offCenter = CGPointMake(self.center0.x, self.center0.y - self.level.cellHeight / 6);
-                self.center = offCenter;
-                self.bounds = CGRectMake(0.0, 0.0, self.level.cellWidth / 2, self.level.cellHeight / 2);
+                firstPt = CGPointMake(0, 0);
+                secondPt = CGPointMake(self.level.cellWidth, 0);
+                thirdPt = CGPointMake(((float)self.level.cellWidth) / 2, self.level.cellHeight);
+            }
+
+            //get the image context with options(recommended funct to use)
+            //get the size of the imageView
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.level.cellWidth, self.level.cellHeight), NO, 0.0);
+            
+            //use the the image that is going to be drawn on as the receiver
+            UIImage *img = self.image;
+            
+            [img drawInRect:CGRectMake(0.0, 0.0, self.level.cellWidth, self.level.cellHeight)];
+
+            CGContextRef ctx = UIGraphicsGetCurrentContext();
+            CGContextSetLineWidth(ctx, 0.5);
+            
+            UIGraphicsPushContext(ctx);
+            
+            //uses path ref
+            CGMutablePathRef path = CGPathCreateMutable();
+            //draw the triangle
+            CGPathMoveToPoint(path, NULL, firstPt.x, firstPt.y);
+            CGPathAddLineToPoint(path, NULL, secondPt.x, secondPt.y);
+            CGPathAddLineToPoint(path, NULL, thirdPt.x, thirdPt.y);
+            CGPathAddLineToPoint(path, NULL, firstPt.x, firstPt.y);
+            //close the path
+            CGPathCloseSubpath(path);
+            //add the path to the context
+            CGContextAddPath(ctx, path);
+            CGContextSetFillColorWithColor(ctx, self.completeColor.CGColor);
+            CGContextSetStrokeColorWithColor(ctx, [UIColor clearColor].CGColor);
+            CGContextFillPath(ctx);
+            CGContextAddPath(ctx, path);
+            CGContextStrokePath(ctx);
+            CGPathRelease(path);
+            
+            UIGraphicsPopContext();
+            
+            //get the new image with the triangle
+            UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+
+            [self setImage:img2];
+            if (self.level.levelType == CoinsType)
+            {
+                self.bounds = CGRectMake(0.0, 0.0, self.level.cellWidth, self.level.cellHeight);
+                self.center = self.center0;
             }
         }
     }
     else //if (0)
     {
-        //hexagons
-        CGPoint pts[6];
-        
-        pts[0] = CGPointMake(self.level.cellWidth / 2, 0);
-        pts[1] = CGPointMake(self.level.cellWidth, self.level.cellHeight / 4);
-        pts[2] = CGPointMake(self.level.cellWidth, (3 * self.level.cellHeight) / 4);
-        pts[3] = CGPointMake(self.level.cellWidth / 2, self.level.cellHeight);
-        pts[4] = CGPointMake(0, (3 * self.level.cellHeight) / 4);
-        pts[5] = CGPointMake(0, self.level.cellHeight / 4);
-
-        //get the image context with options(recommended funct to use)
-        //get the size of the imageView
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.level.cellWidth, self.level.cellHeight), NO, 0.0);
-        
-        //use the the image that is going to be drawn on as the receiver
-        UIImage *img = self.image;
-        
-        [img drawInRect:CGRectMake(0.0, 0.0, self.level.cellWidth, self.level.cellHeight)];
-        
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextSetLineWidth(context, 0.5);
-        
-        UIGraphicsPushContext(context);
-        
-        //uses path ref
-        CGMutablePathRef path = CGPathCreateMutable();
-        //draw the hexagon
-        CGPathMoveToPoint(path, NULL, pts[0].x, pts[0].y);
-        for (int i = 1; i < 6; i++)
-            CGPathAddLineToPoint(path, NULL, pts[i].x, pts[i].y);
-        CGPathAddLineToPoint(path, NULL, pts[0].x, pts[0].y);
-        //close the path
-        CGPathCloseSubpath(path);
-        //add the path to the context
-        CGContextAddPath(context, path);
-        if (self.complete)
-            CGContextSetFillColorWithColor(context, self.completeColor.CGColor);
+        if (!self.complete)
+        {
+            [self setImage:self.level.cellImage];
+        }
         else
-            CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
-        CGContextSetStrokeColorWithColor(context, [UIColor clearColor].CGColor);
-#if 1   //testing
-//        CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
-#endif
-        CGContextFillPath(context);
-        CGContextAddPath(context, path);
-        CGContextStrokePath(context);
-        CGPathRelease(path);
-        
-        UIGraphicsPopContext();
-        
-        //get the new image with the triangle
-        UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        [self setImage:img2];
-//        self.backgroundColor = [UIColor greenColor];
+        {
+            //hexagons
+            CGPoint pts[6];
+            
+            pts[0] = CGPointMake(self.level.cellWidth / 2, 0);
+            pts[1] = CGPointMake(self.level.cellWidth, self.level.cellHeight / 4);
+            pts[2] = CGPointMake(self.level.cellWidth, (3 * self.level.cellHeight) / 4);
+            pts[3] = CGPointMake(self.level.cellWidth / 2, self.level.cellHeight);
+            pts[4] = CGPointMake(0, (3 * self.level.cellHeight) / 4);
+            pts[5] = CGPointMake(0, self.level.cellHeight / 4);
+
+            //get the image context with options(recommended funct to use)
+            //get the size of the imageView
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.level.cellWidth, self.level.cellHeight), NO, 0.0);
+            
+            //use the the image that is going to be drawn on as the receiver
+            UIImage *img = self.image;
+            
+            [img drawInRect:CGRectMake(0.0, 0.0, self.level.cellWidth, self.level.cellHeight)];
+            
+            CGContextRef context = UIGraphicsGetCurrentContext();
+            CGContextSetLineWidth(context, 0.5);
+            
+            UIGraphicsPushContext(context);
+            
+            //uses path ref
+            CGMutablePathRef path = CGPathCreateMutable();
+            //draw the hexagon
+            CGPathMoveToPoint(path, NULL, pts[0].x, pts[0].y);
+            for (int i = 1; i < 6; i++)
+                CGPathAddLineToPoint(path, NULL, pts[i].x, pts[i].y);
+            CGPathAddLineToPoint(path, NULL, pts[0].x, pts[0].y);
+            //close the path
+            CGPathCloseSubpath(path);
+            //add the path to the context
+            CGContextAddPath(context, path);
+            CGContextSetFillColorWithColor(context, self.completeColor.CGColor);
+            CGContextSetStrokeColorWithColor(context, [UIColor clearColor].CGColor);
+            CGContextFillPath(context);
+            CGContextAddPath(context, path);
+            CGContextStrokePath(context);
+            CGPathRelease(path);
+            
+            UIGraphicsPopContext();
+            
+            //get the new image with the triangle
+            UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            [self setImage:img2];
+        }
     }
+
+    self.oldComplete = self.complete;
 }
 
 - (void)checkStatus

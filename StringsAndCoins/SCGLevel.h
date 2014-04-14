@@ -37,6 +37,7 @@ typedef NS_ENUM(NSInteger, LevelSize)
 //@property (assign, nonatomic) CGFloat screenHeight;
 @property (assign, nonatomic) CGFloat boardWidth;
 @property (assign, nonatomic) CGFloat boardHeight;
+@property (assign, nonatomic) int statusBarOffset;
 @property (assign, nonatomic) int numRows;
 @property (assign, nonatomic) int numCols;
 @property (assign, nonatomic) CGFloat cellWidth;

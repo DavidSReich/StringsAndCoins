@@ -17,6 +17,11 @@
 {
 	SCGLevel *level = [[SCGLevel alloc] init];
 
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7)
+        level.statusBarOffset = kStatusBarHeight;
+    else
+        level.statusBarOffset = 0;
+
 	level.levelType = type;
 	level.levelShape = shape;
 	level.levelSize = size;
@@ -30,11 +35,14 @@
 //	CGFloat boardWidth = level.screenHeight - (2 * kBoardMargin);
 //	CGFloat boardHeight = level.screenWidth - (2 * kBoardMargin) - navController.navigationBar.bounds.size.height
 //            - navController.toolbar.bounds.size.height;
-    CGFloat boardWidth = view.bounds.size.height - (2 * kBoardMargin);
 //    CGFloat boardHeight = view.bounds.size.width - (2 * kBoardMargin);
     //for some reason the view starts after the navigationBar, but does not end when the toolbar begins
-    CGFloat boardHeight = view.bounds.size.width - (2 * kBoardMargin) - navController.navigationBar.bounds.size.height
-            - navController.toolbar.bounds.size.height;
+//    CGFloat boardHeight = view.bounds.size.width - (2 * kBoardMargin) - navController.navigationBar.bounds.size.height
+//            - navController.toolbar.bounds.size.height;
+//    boardHeight -= navController.navigationBar.bounds.size.height;
+//    boardHeight -= navController.toolbar.bounds.size.height;
+    CGFloat boardWidth = view.bounds.size.width - (2 * kBoardMargin);
+    CGFloat boardHeight = view.bounds.size.height - (2 * kBoardMargin) - level.statusBarOffset;
     level.boardWidth = boardWidth;
     level.boardHeight = boardHeight;
 	

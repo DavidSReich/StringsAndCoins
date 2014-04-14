@@ -15,6 +15,7 @@
 @property (assign, nonatomic) int row;
 @property (assign, nonatomic) int col;
 @property (assign, nonatomic) BOOL complete;
+@property (assign, nonatomic) BOOL oldComplete;
 @property (assign, nonatomic) int playerNumber;
 @property (assign, nonatomic) UIColor *completeColor;
 @property (assign, nonatomic) BOOL topHalf; //only useful for non-square

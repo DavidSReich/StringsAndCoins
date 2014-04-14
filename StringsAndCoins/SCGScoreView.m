@@ -14,7 +14,7 @@
 
 @implementation SCGScoreView
 
-- (instancetype) initWithLevel:(SCGLevel *)l andOrientation:(ScoreOrientation)o andPlayers:(NSMutableArray *)p
+- (instancetype) initWithLevel:(SCGLevel *)l andOrientation:(ScoreOrientation)o andPlayers:(NSMutableArray *)p andWidth:(CGFloat)w
 {
     self = [super init];
     if (self)
@@ -24,8 +24,8 @@
         self.players = p;
         self.orientation = o;
 
-        self.frameHeight = l.navigationController.toolbar.bounds.size.height / 2;
-        self.frameWidth = self.frameHeight * 40;
+        self.frameHeight = kStatusBarHeight;
+        self.frameWidth = w;
         
         self.frame = CGRectMake(0, 0, self.frameWidth, self.frameHeight);
  
@@ -36,16 +36,11 @@
             SCGScoreLabel *scoreLabel = [[SCGScoreLabel alloc] initWithFrame:CGRectMake(0, 0, 0, self.frameHeight) andPlayer:player];
             [self.scoreLabels addObject:scoreLabel];
             [self addSubview: scoreLabel];
-
-//            SCGScoreBlockView *scoreBlock = [[SCGScoreBlockView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) andPlayer:player];
-//            [self.scoreBlockViews addObject:scoreBlock];
-//            [self addSubview:scoreBlock];
-//            [self bringSubviewToFront:scoreBlock];
         }
 
-        self.backgroundColor = [UIColor darkGrayColor];
-//        self.opaque = NO;
-//        self.clipsToBounds = NO;
+        self.backgroundColor = [UIColor clearColor];
+        self.layer.borderWidth = 1.f;
+        self.layer.borderColor = [UIColor blackColor].CGColor;
         
         CGFloat rotation = 0;
 
@@ -72,7 +67,7 @@
     return self;
 }
 
-- (void) updateScores
+- (void) updateScores:(int)currentPlayer
 {
     CGFloat width = self.bounds.size.width;
     CGFloat left = 0;
@@ -85,18 +80,8 @@
         
         left += blockWidth;
     }
-    
-//    for (SCGScoreBlockView *scoreBlock in self.scoreBlockViews)
-//    {
-//        CGFloat blockWidth = (width * scoreBlock.player.score) / self.level.numberOfCells;
-//        scoreBlock.frame = CGRectMake(0, 0, left + blockWidth, self.frameHeight);
-//        scoreBlock.center = CGPointMake(left + blockWidth / 2, self.frameHeight / 2);
-//        [scoreBlock refreshScore];
-//
-//        [self bringSubviewToFront:scoreBlock];
-//
-//        left += blockWidth;
-//    }
+
+    self.layer.borderColor = ((SCGGamePlayer *)([self.players objectAtIndex:currentPlayer])).color.CGColor;
 }
 
 /*

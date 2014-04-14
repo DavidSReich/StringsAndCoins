@@ -29,8 +29,8 @@ typedef NS_ENUM(NSInteger, ScoreOrientation)
 @property (assign, nonatomic) ScoreOrientation orientation;
 
 
-- (instancetype) initWithLevel:(SCGLevel *)l andOrientation:(ScoreOrientation)o andPlayers:(NSMutableArray *)p;
+- (instancetype) initWithLevel:(SCGLevel *)l andOrientation:(ScoreOrientation)o andPlayers:(NSMutableArray *)p andWidth:(CGFloat)w;
 
-- (void) updateScores;
+- (void) updateScores:(int)currentPlayer;
 
 @end

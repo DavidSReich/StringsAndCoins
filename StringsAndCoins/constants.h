@@ -42,10 +42,10 @@
 #define kLargeHexagonCols   10
 
 #define kSquareRootOf3	((float)1.732)
-#define kPi ((float)3.1416)
-#define kPiOver2 ((float)1.571)
-#define kPiOver3 ((float)1.047)
-#define kPiOver6 ((float)0.524)
+#define kPi     M_PI
+#define kPiOver2 M_PI_2
+#define kPiOver3 (M_PI/(float)3)
+#define kPiOver6 (M_PI_2/(float)3)
 
 #define kStatusBarHeight    20
 

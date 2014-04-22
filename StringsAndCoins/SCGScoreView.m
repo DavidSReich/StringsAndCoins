@@ -24,7 +24,7 @@
         self.players = p;
         self.orientation = o;
 
-        self.frameHeight = kStatusBarHeight;
+        self.frameHeight = kStatusBarHeight * 2;
         self.frameWidth = w;
         
         self.frame = CGRectMake(0, 0, self.frameWidth, self.frameHeight);
@@ -47,13 +47,13 @@
         switch (o)
         {
             case LeftScore:
-                rotation = kPiOver2;
+                rotation = -kPiOver2;
                 break;
             case BottomScore:
                 rotation = kPi;
                 break;
             case RightScore:
-                rotation = -kPiOver2;
+                rotation = kPiOver2;
                 break;
             case TopScore:
             default:

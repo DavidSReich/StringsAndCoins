@@ -33,11 +33,8 @@
         }
         else
             self = [super init];	//no image for boxes
-        //self = [super initWithImage: l.dotImage];	//testing
 #else
         self = [super init];	//no image for boxes
-//        self = [super initWithImage: [UIImage imageNamed:@"hexagon-md.png"]];
-        //self = [super initWithImage: l.dotImage];	//testing
 #endif
     }
 	else
@@ -98,6 +95,8 @@
         if (self.complete)
         {
             [self setImage:nil];
+            self.frame = CGRectMake(0, 0, self.level.cellWidth, self.level.cellHeight);
+            self.center = self.center0;
 #if defined(SHOWROWANDCOL)
             rcLabel.hidden = NO;
 #endif
@@ -105,6 +104,8 @@
         else
         {
             [self setImage:self.level.cellImage];
+            self.frame = CGRectMake(0, 0, self.level.cellWidth * 0.8, self.level.cellHeight * 0.8);
+            self.center = self.center0;
 #if defined(SHOWROWANDCOL)
             rcLabel.hidden = YES;
 #endif
@@ -142,16 +143,16 @@
         if (!self.complete)
         {
             [self setImage:self.level.cellImage];
-//            if (self.level.levelType == CoinsType)
-//            {
-//                CGPoint offCenter;
-//                if (self.isUpTriangle)
-//                    offCenter = CGPointMake(self.center0.x, self.center0.y + self.level.cellHeight / 6);
-//                else
-//                    offCenter = CGPointMake(self.center0.x, self.center0.y - self.level.cellHeight / 6);
-//                self.center = offCenter;
-//                self.bounds = CGRectMake(0.0, 0.0, self.level.cellWidth / 2, self.level.cellHeight / 2);
-//            }
+            if (self.level.levelType == CoinsType)
+            {
+                CGPoint offCenter;
+                if (self.isUpTriangle)
+                    offCenter = CGPointMake(self.center0.x, self.center0.y + self.level.cellHeight / 6);
+                else
+                    offCenter = CGPointMake(self.center0.x, self.center0.y - self.level.cellHeight / 6);
+                self.center = offCenter;
+                self.bounds = CGRectMake(0.0, 0.0, self.level.cellWidth / 2, self.level.cellHeight / 2);
+            }
         }
         else
         {

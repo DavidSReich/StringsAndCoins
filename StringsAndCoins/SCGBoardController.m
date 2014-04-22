@@ -516,15 +516,19 @@
     [self.boardView addSubview:scoreView];
     scoreView.center = CGPointMake(kBoardMargin * 2 + level.boardWidth - kStatusBarHeight - 2, yHeightCenter);
 
-    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:TopScore andPlayers:players andWidth:level.boardWidth];
+    //set Top and Bottom width to same as Left and Right
+
+    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:TopScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
     scoreView.center = CGPointMake(xWidthCenter, scoreView.bounds.size.height / 2 + level.statusBarOffset);
 
-    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:BottomScore andPlayers:players andWidth:level.boardWidth];
+    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:BottomScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
     scoreView.center = CGPointMake(xWidthCenter, kBoardMargin * 2 + level.boardHeight);
+
+    [self refreshScores];
 }
 
 - (void) boundaryClicked:(SCGBoundaryView *)boundary
@@ -547,6 +551,8 @@
         [self gotoNextPlayer];
     else
         lastPlayer = currentPlayer;
+
+    [self refreshScores];
 }
 
 - (void) boundaryDoubleClicked
@@ -556,6 +562,8 @@
     [self testBoard];
     [self gotoPreviousPlayer];
     self.lastBoundary = nil;
+    
+    [self refreshScores];
 }
 
 - (BOOL) testCells
@@ -964,10 +972,14 @@
     for (SCGGamePlayer *player in players)
         NSLog(@"Score: %d", player.score);
 
+    return allDone;
+}
+
+- (void) refreshScores
+{
     for (SCGScoreView *scoreView in scoreViews)
         [scoreView updateScores:currentPlayer];
-
-    return allDone;
+    
 }
 
 @end

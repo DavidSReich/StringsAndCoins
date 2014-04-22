@@ -35,13 +35,26 @@
         self.userInteractionEnabled = YES;
 
 		//resize
-        CGFloat scale = l.cellWidth / l.boundaryImage.size.width;
-        if (l.levelShape == HexagonShape)
-            self.frame = CGRectMake(0, 0, (l.boundaryImage.size.width * scale) / 2, (l.boundaryImage.size.height * scale) / 2);
-        else if ((l.levelShape == TriangleShape) && (l.levelType == CoinsType))
-            self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale / 2, (l.boundaryImage.size.height * scale) / 2);
+        if (l.levelType == BoxesType)
+        {
+            CGFloat scale = l.cellWidth / l.boundaryImage.size.width;
+            if (l.levelShape == HexagonShape)
+                self.frame = CGRectMake(0, 0, (l.boundaryImage.size.width * scale) / 2, (l.boundaryImage.size.height * scale) / 2);
+            else if ((l.levelShape == TriangleShape) && (l.levelType == CoinsType))
+                self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale / 2, (l.boundaryImage.size.height * scale) / 2);
+            else
+                self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale, (l.boundaryImage.size.height * scale) / 2);
+        }
         else
-            self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale, (l.boundaryImage.size.height * scale) / 2);
+        {
+            CGFloat scale = l.cellWidth / l.boundaryImage.size.width;
+            if (l.levelShape == HexagonShape)
+                self.frame = CGRectMake(0, 0, (l.cellWidth * scale) / 2, (l.boundaryImage.size.height * scale) / 2);
+            else if ((l.levelShape == TriangleShape) && (l.levelType == CoinsType))
+                self.frame = CGRectMake(0, 0, l.cellWidth / 2, (l.boundaryImage.size.height * scale) / 2);
+            else
+                self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale * .7, l.boundaryImage.size.height * scale * .5);
+        }
 
         //overlay a button -- makes presses easier?
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -62,7 +75,8 @@
 #endif
 
         [self updateImage];
-        
+
+        //rotate AFTER setting dimensions
         CGFloat rotation = 0;
 
         if (l.levelShape == SquareShape)

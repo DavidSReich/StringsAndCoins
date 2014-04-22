@@ -35,6 +35,8 @@
 
 - (BOOL) testBoard;
 
+- (void) refreshScores;
+
 - (void) gotoNextPlayer;
 - (void) gotoPreviousPlayer;
 

@@ -45,23 +45,33 @@
     CGFloat boardHeight = view.bounds.size.height - (2 * kBoardMargin) - level.statusBarOffset;
     level.boardWidth = boardWidth;
     level.boardHeight = boardHeight;
-	
+
+#if true
+    if (level.levelType == BoxesType)
+    {
+        //boxes have dots but no cell image
+        level.dotImage = [UIImage imageNamed:@"dot-md.png"];
+        level.boundaryImage = [UIImage imageNamed:@"newEllipse.png"];
+    }
+    else
+    {
+        //coins have cell image, but no dots
+        level.cellImage = [UIImage imageNamed:@"coin-md.png"];
+        level.boundaryImage = [UIImage imageNamed:@"newEllipse.png"];
+    }
+#else
 	if (level.levelSize == SmallSize)
 	{
 		if (level.levelType == BoxesType)
 		{
 			//boxes have dots but no cell image
-//			level.dotImage = [UIImage imageNamed:@"dot-lg.png"];
 			level.dotImage = [UIImage imageNamed:@"dot-md.png"];
-//			level.boundaryImage = [UIImage imageNamed:@"rope-lg-horz.png"];
 			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
 		}
 		else
 		{
 			//coins have cell image, but no dots
-//			level.cellImage = [UIImage imageNamed:@"coin-lg.png"];
 			level.cellImage = [UIImage imageNamed:@"coin-md.png"];
-//			level.boundaryImage = [UIImage imageNamed:@"chain-lg-horz.png"];
 			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
 		}
 	}
@@ -77,7 +87,6 @@
 		{
 			//coins have cell image, but no dots
 			level.cellImage = [UIImage imageNamed:@"coin-md.png"];
-//			level.boundaryImage = [UIImage imageNamed:@"chain-md-horz.png"];
 			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
 		}
 	}
@@ -86,20 +95,17 @@
 		if (level.levelType == BoxesType)
 		{
 			//boxes have dots but no cell image
-//			level.dotImage = [UIImage imageNamed:@"dot-sm.png"];
 			level.dotImage = [UIImage imageNamed:@"dot-md.png"];
-//			level.boundaryImage = [UIImage imageNamed:@"rope-sm-horz.png"];
 			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
 		}
 		else
 		{
 			//coins have cell image, but no dots
-//			level.cellImage = [UIImage imageNamed:@"coin-sm.png"];
 			level.cellImage = [UIImage imageNamed:@"coin-md.png"];
-//			level.boundaryImage = [UIImage imageNamed:@"chain-sm-horz.png"];
 			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
 		}
 	}
+#endif
 
 	if (level.levelShape == SquareShape)
 	{
@@ -121,7 +127,10 @@
 
         //calculate maximum w & h
         level.cellWidth = boardWidth / level.numCols;
-        level.cellHeight = boardHeight / level.numRows;
+        if (level.levelType == CoinsType)
+            level.cellHeight = boardHeight / (level.numRows + .5);   //need extra space for boundaries
+        else
+            level.cellHeight = boardHeight / level.numRows;
         //shrink to equilateral shape
         if (level.cellHeight > level.cellWidth)
             level.cellHeight = level.cellWidth;

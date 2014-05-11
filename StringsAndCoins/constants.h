@@ -9,8 +9,16 @@
 #ifndef StringsAndCoins_constants_h
 #define StringsAndCoins_constants_h
 
-//#define kBoardMargin 100
-#define kBoardMargin 80
+//basic values ... used to adjust
+//@property (assign, nonatomic) CGFloat statusBarHeight;
+//@property (assign, nonatomic) CGFloat topMarginHeight;
+//@property (assign, nonatomic) CGFloat bottomMarginHeight;
+//@property (assign, nonatomic) CGFloat sideMarginWidth;
+// in SCGLevel constructor
+
+#define kStatusBarHeight    20
+#define kScoreViewHeight    40
+#define kBoardMargin        90
 
 //#define kCellSmallWidth 100
 //#define kCellMediumWidth 150
@@ -46,8 +54,6 @@
 #define kPiOver2 M_PI_2
 #define kPiOver3 (M_PI/(float)3)
 #define kPiOver6 (M_PI_2/(float)3)
-
-#define kStatusBarHeight    20
 
 //#define SHOWROWANDCOL
 

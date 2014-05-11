@@ -24,7 +24,7 @@
         self.players = p;
         self.orientation = o;
 
-        self.frameHeight = kStatusBarHeight * 2;
+        self.frameHeight = l.scoreViewHeight;
         self.frameWidth = w;
         
         self.frame = CGRectMake(0, 0, self.frameWidth, self.frameHeight);

@@ -20,11 +20,7 @@
     self = [super init];
     if (self != nil)
     {
-        self.levelType = BoxesType;
-        self.levelShape = SquareShape;
-        self.levelSize = SmallSize;
-        self.numberOfPlayers = 2;
-        self.startNewGame = YES;
+        [self setDefaultSettings];
     }
     
     return self;
@@ -51,6 +47,15 @@
     [encoder encodeInt:self.levelShape forKey:kKeyLevelShape];
     [encoder encodeInt:self.levelSize forKey:kKeyLevelSize];
     [encoder encodeInt:self.numberOfPlayers forKey:kKeyNumPlayers];
+}
+
+- (void) setDefaultSettings
+{
+    self.levelType = BoxesType;
+    self.levelShape = SquareShape;
+    self.levelSize = SmallSize;
+    self.numberOfPlayers = 2;
+    self.startNewGame = YES;
 }
 
 @end

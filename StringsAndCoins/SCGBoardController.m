@@ -60,8 +60,8 @@
 
     level.numberOfCells = 0;
 
-	self.boardView.layer.borderWidth = 3.f;
-    self.boardView.layer.borderColor = [UIColor redColor].CGColor;
+//	self.boardView.layer.borderWidth = 3.f;
+//    self.boardView.layer.borderColor = [UIColor redColor].CGColor;
     
 	//cells
 	CGFloat xOffset = 0;
@@ -78,8 +78,8 @@
             BOOL topHalf = (r <= level.numRows / 2);
             int numCols = [level numberOfCols:r];
             
-            xOffset = kBoardMargin + level.cellWidth / 2;
-            yOffset = kBoardMargin + level.rowHeight / 2 + level.statusBarOffset;
+            xOffset = level.sideMarginWidth + level.cellWidth / 2;
+            yOffset = level.topMarginHeight + level.rowHeight / 2 + level.statusBarOffset;
             
             xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
             yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
@@ -108,8 +108,8 @@
 
             int numCols = [level numberOfCols:r];
 
-            xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
-            yOffset = kBoardMargin + level.rowHeight / 2 + level.statusBarOffset;
+            xOffset = level.sideMarginWidth + (level.cellWidth / 2) * rowDelta;
+            yOffset = level.topMarginHeight + level.rowHeight / 2 + level.statusBarOffset;
             
             xOffset += (level.boardWidth - (level.cellWidth * (level.numCols + 1) / 2)) / 2;
             yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
@@ -138,8 +138,8 @@
             
             int numCols = [level numberOfCols:r];
             
-            xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
-            yOffset = kBoardMargin + level.rowHeight / 2 + level.statusBarOffset;
+            xOffset = level.sideMarginWidth + (level.cellWidth / 2) * rowDelta;
+            yOffset = level.topMarginHeight + level.rowHeight / 2 + level.statusBarOffset;
             xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
             yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
             
@@ -158,8 +158,8 @@
     }
     
 	//horizontal boundaries
-	xOffset = kBoardMargin + level.cellWidth / 2;
-    yOffset = kBoardMargin + level.statusBarOffset;
+	xOffset = level.sideMarginWidth + level.cellWidth / 2;
+    yOffset = level.topMarginHeight + level.statusBarOffset;
     yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
 
     if (level.levelShape == SquareShape)
@@ -205,7 +205,7 @@
                 rowDelta = r - (level.numRows / 2) + 1;
             }
 
-            xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
+            xOffset = level.sideMarginWidth + (level.cellWidth / 2) * rowDelta;
             xOffset += (level.boardWidth - (level.cellWidth * (level.numCols + 1) / 2)) / 2;
             
             for (int c = 0; c < numCols; c++)
@@ -237,7 +237,7 @@
                 rowDelta = r - ((level.numRows + 1) / 2);
             }
 
-            xOffset = kBoardMargin + level.cellWidth / 4 + (level.cellWidth / 2) * rowDelta;
+            xOffset = level.sideMarginWidth + level.cellWidth / 4 + (level.cellWidth / 2) * rowDelta;
             xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
 
             for (int c = 0; c < numCols; c++)
@@ -260,8 +260,8 @@
 
 	//vertical boundaries
     //triangles need different xOffsets, odd and even -- and angles too
-	xOffset = kBoardMargin;
-	yOffset = kBoardMargin + level.rowHeight / 2 + level.statusBarOffset;
+	xOffset = level.sideMarginWidth;
+	yOffset = level.topMarginHeight + level.rowHeight / 2 + level.statusBarOffset;
     yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
 
 	verticalBoundaries = [[NSMutableArray alloc] initWithCapacity:level.numRows + 1];
@@ -303,7 +303,7 @@
             else
                 rowDelta = r - (level.numRows / 2);
             
-            xOffset = kBoardMargin + (level.cellWidth / 4) + (level.cellWidth / 2) * rowDelta;
+            xOffset = level.sideMarginWidth + (level.cellWidth / 4) + (level.cellWidth / 2) * rowDelta;
             xOffset += (level.boardWidth - (level.cellWidth * ((level.numCols + 1) / 2))) / 2;
 
             for (int c = 0; c < numCols; c++)
@@ -334,7 +334,7 @@
             
             int numCols = [level numberOfCols:r] + 1;
             
-            xOffset = kBoardMargin + (level.cellWidth / 2) * (rowDelta - 1);
+            xOffset = level.sideMarginWidth + (level.cellWidth / 2) * (rowDelta - 1);
             xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
             
             for (int c = 0; c < numCols; c++)
@@ -359,8 +359,8 @@
         
         if (level.levelShape == SquareShape)
         {
-            xOffset = kBoardMargin;
-            yOffset = kBoardMargin + level.statusBarOffset;
+            xOffset = level.sideMarginWidth;
+            yOffset = level.topMarginHeight + level.statusBarOffset;
             
             xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
             yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
@@ -384,7 +384,7 @@
         {
             int numColDots;
 
-            yOffset = kBoardMargin + level.statusBarOffset;
+            yOffset = level.topMarginHeight + level.statusBarOffset;
             yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
 
             for (int r = 0; r < level.numRows + 1; r++)
@@ -400,7 +400,7 @@
                 }
 
                 numColDots = ([level numberOfCols:rowForCols] + 1) / 2;
-                xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
+                xOffset = level.sideMarginWidth + (level.cellWidth / 2) * rowDelta;
                 xOffset += (level.boardWidth - (level.cellWidth * (level.numCols + 1) / 2)) / 2;
 
                 if (r == level.numRows / 2)
@@ -427,7 +427,7 @@
         {
             int numColDots;
             
-            yOffset = kBoardMargin + level.statusBarOffset;
+            yOffset = level.topMarginHeight + level.statusBarOffset;
             yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
 
             for (int r = 0; r < level.numRows + 1; r++)
@@ -446,7 +446,7 @@
                     rowDelta = r - ((level.numRows + 1) / 2);
                 }
                 
-                xOffset = kBoardMargin + (level.cellWidth / 2) * rowDelta;
+                xOffset = level.sideMarginWidth + (level.cellWidth / 2) * rowDelta;
                 xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
                 
                 [dots addObject:[NSMutableArray array]];
@@ -501,20 +501,20 @@
     currentPlayer = 0;
 
     //scores
-    CGFloat xWidthCenter = kBoardMargin + (level.boardWidth / 2);
-    CGFloat yHeightCenter = kBoardMargin + (level.boardHeight / 2) + level.statusBarOffset;
+    CGFloat xWidthCenter = level.sideMarginWidth + (level.boardWidth / 2);
+    CGFloat yHeightCenter = level.topMarginHeight + (level.boardHeight / 2) + level.statusBarOffset;
 
     scoreViews = [[NSMutableArray alloc] initWithCapacity:4];
     SCGScoreView *scoreView;
     scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
-    scoreView.center = CGPointMake(kStatusBarHeight, yHeightCenter);
+    scoreView.center = CGPointMake(level.statusBarHeight, yHeightCenter);
 
     scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
-    scoreView.center = CGPointMake(kBoardMargin * 2 + level.boardWidth - kStatusBarHeight - 2, yHeightCenter);
+    scoreView.center = CGPointMake(level.sideMarginWidth * 2 + level.boardWidth - level.statusBarHeight - 2, yHeightCenter);
 
     //set Top and Bottom width to same as Left and Right
 
@@ -526,7 +526,7 @@
     scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:BottomScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
-    scoreView.center = CGPointMake(xWidthCenter, kBoardMargin * 2 + level.boardHeight);
+    scoreView.center = CGPointMake(xWidthCenter, level.topMarginHeight + level.bottomMarginHeight + level.boardHeight);// + level.statusBarOffset?
 
     [self refreshScores];
 }

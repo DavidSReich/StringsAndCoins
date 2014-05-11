@@ -49,9 +49,9 @@
         {
             CGFloat scale = l.cellWidth / l.boundaryImage.size.width;
             if (l.levelShape == HexagonShape)
-                self.frame = CGRectMake(0, 0, (l.cellWidth * scale) / 2, (l.boundaryImage.size.height * scale) / 2);
+                self.frame = CGRectMake(0, 0, 2 * (l.cellWidth * scale) / 2, (l.boundaryImage.size.height * scale) / 2);
             else if ((l.levelShape == TriangleShape) && (l.levelType == CoinsType))
-                self.frame = CGRectMake(0, 0, l.cellWidth / 2, (l.boundaryImage.size.height * scale) / 2);
+                self.frame = CGRectMake(0, 0, l.cellWidth * .4, (l.boundaryImage.size.height * scale) / 2);
             else
                 self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale * .7, l.boundaryImage.size.height * scale * .5);
         }

@@ -30,22 +30,24 @@
     level.navigationController = navController;
     level.boardView = view;
 
-//	level.screenHeight = [UIScreen mainScreen].bounds.size.height;
-//	level.screenWidth = [UIScreen mainScreen].bounds.size.width;
-//	CGFloat boardWidth = level.screenHeight - (2 * kBoardMargin);
-//	CGFloat boardHeight = level.screenWidth - (2 * kBoardMargin) - navController.navigationBar.bounds.size.height
-//            - navController.toolbar.bounds.size.height;
-//    CGFloat boardHeight = view.bounds.size.width - (2 * kBoardMargin);
-    //for some reason the view starts after the navigationBar, but does not end when the toolbar begins
-//    CGFloat boardHeight = view.bounds.size.width - (2 * kBoardMargin) - navController.navigationBar.bounds.size.height
-//            - navController.toolbar.bounds.size.height;
-//    boardHeight -= navController.navigationBar.bounds.size.height;
-//    boardHeight -= navController.toolbar.bounds.size.height;
-    CGFloat boardWidth = view.bounds.size.width - (2 * kBoardMargin);
-    CGFloat boardHeight = view.bounds.size.height - (2 * kBoardMargin) - level.statusBarOffset;
+    //set level.sideMarginWidth, etc.
+    level.statusBarHeight = kStatusBarHeight;
+    level.topMarginHeight = kBoardMargin;
+    level.bottomMarginHeight = kBoardMargin;
+    level.sideMarginWidth = kBoardMargin;
+    level.scoreViewHeight = kScoreViewHeight;
+    
+    if ((level.levelType == BoxesType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
+    {
+        level.topMarginHeight = kBoardMargin + 10;
+        level.bottomMarginHeight = kBoardMargin + 5;
+    }
+
+    CGFloat boardWidth = view.bounds.size.width - (2 * level.sideMarginWidth);
+    CGFloat boardHeight = view.bounds.size.height - (level.topMarginHeight + level.bottomMarginHeight) - level.statusBarOffset;
     level.boardWidth = boardWidth;
     level.boardHeight = boardHeight;
-
+    
 #if true
     if (level.levelType == BoxesType)
     {

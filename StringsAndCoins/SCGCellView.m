@@ -104,7 +104,13 @@
         else
         {
             [self setImage:self.level.cellImage];
-            self.frame = CGRectMake(0, 0, self.level.cellWidth * 0.8, self.level.cellHeight * 0.8);
+            if (self.level.levelShape == HexagonShape)
+            {
+                CGFloat cellSize = MIN(self.level.cellWidth * 0.6, self.level.cellHeight * 0.6);
+                self.bounds = CGRectMake(0.0, 0.0, cellSize, cellSize);
+            }
+            else
+                self.frame = CGRectMake(0, 0, self.level.cellWidth * 0.8, self.level.cellHeight * 0.8);
             self.center = self.center0;
 #if defined(SHOWROWANDCOL)
             rcLabel.hidden = YES;
@@ -145,13 +151,15 @@
             [self setImage:self.level.cellImage];
             if (self.level.levelType == CoinsType)
             {
+                CGFloat cellSize = MIN(self.level.cellWidth / 2, self.level.cellHeight / 2);
+                self.bounds = CGRectMake(0.0, 0.0, cellSize, cellSize);
+
                 CGPoint offCenter;
                 if (self.isUpTriangle)
                     offCenter = CGPointMake(self.center0.x, self.center0.y + self.level.cellHeight / 6);
                 else
                     offCenter = CGPointMake(self.center0.x, self.center0.y - self.level.cellHeight / 6);
                 self.center = offCenter;
-                self.bounds = CGRectMake(0.0, 0.0, self.level.cellWidth / 2, self.level.cellHeight / 2);
             }
         }
         else

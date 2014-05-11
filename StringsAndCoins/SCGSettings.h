@@ -17,4 +17,6 @@
 @property (assign, nonatomic) int numberOfPlayers;
 @property (assign, nonatomic) BOOL startNewGame;
 
+- (void) setDefaultSettings;
+
 @end

@@ -33,6 +33,8 @@
     if (self) {
         // Custom initialization
         self.title = @"Settings";
+        self.view.layer.borderWidth = 3.f;
+        self.view.layer.borderColor = [UIColor redColor].CGColor;
     }
     return self;
 }
@@ -41,6 +43,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.title = @"Settings";
+    self.view.layer.borderWidth = 3.f;
+    self.view.layer.borderColor = [UIColor redColor].CGColor;
+
     SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.settings = appDelegate.settings;
     
@@ -52,7 +58,7 @@
 
     self.title = @"Settings";
 
-    for (UIButton *button in self.view.subviews)
+    for (SCGButton *button in self.view.subviews)
     {
         if ([button isKindOfClass:[SCGButton class]])
         {
@@ -78,6 +84,7 @@
 {
     [super viewDidAppear:animated];
     self.tabBarController.delegate = self;
+    [self updateShapeControls];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -97,7 +104,7 @@
 {
     if (typeButton)
     {
-        if (originalSettings.levelType == BoxesType)
+        if (self.settings.levelType == BoxesType)
             typeButton.selectedSegmentIndex = 0;
         else    //coins
             typeButton.selectedSegmentIndex = 1;
@@ -105,26 +112,32 @@
 
     if (sizeButton)
     {
-        if (originalSettings.levelSize == SmallSize)
+        if (self.settings.levelSize == SmallSize)
             sizeButton.selectedSegmentIndex = 0;
-        else if (originalSettings.levelSize == MediumSize)
+        else if (self.settings.levelSize == MediumSize)
             sizeButton.selectedSegmentIndex = 1;
         else    //large
             sizeButton.selectedSegmentIndex = 2;
     }
 
-    for (UIButton *button in self.view.subviews)
+    if (self.settings.levelShape == SquareShape)
     {
-        if ([button isKindOfClass:[SCGButton class]])
-            button.selected = NO;
-    }
-    
-    if (originalSettings.levelShape == SquareShape)
         squaresButton.selected = YES;
-    else if (originalSettings.levelShape == TriangleShape)
+        trianglesButton.selected = NO;
+        hexagonsButton.selected = NO;
+    }
+    else if (self.settings.levelShape == TriangleShape)
+    {
+        squaresButton.selected = NO;
         trianglesButton.selected = YES;
+        hexagonsButton.selected = NO;
+    }
     else    //hexagons
+    {
+        squaresButton.selected = NO;
+        trianglesButton.selected = NO;
         hexagonsButton.selected = YES;
+    }
 
     [self updateShapeControls];
 
@@ -139,8 +152,19 @@
     }
 }
 
-- (IBAction) resetButtonTouched:(id)sender
+- (IBAction) resetButtonTouched:(UIButton *)sender
 {
+    self.settings.levelType = originalSettings.levelType;
+    self.settings.levelShape = originalSettings.levelShape;
+    self.settings.levelSize = originalSettings.levelSize;
+    self.settings.numberOfPlayers = originalSettings.numberOfPlayers;
+    
+    [self resetButtons];
+}
+
+- (IBAction) defaultButtonTouched:(id)sender
+{
+    [self.settings setDefaultSettings];
     [self resetButtons];
 }
 
@@ -183,7 +207,7 @@
     else
         self.settings.levelShape = HexagonShape;
 
-    for (UIButton *button in self.view.subviews)
+    for (SCGButton *button in self.view.subviews)
     {
         if ([button isKindOfClass:[SCGButton class]])
         {
@@ -199,7 +223,7 @@
 
 - (void) updateShapeControls
 {
-    for (UIButton *button in self.view.subviews)
+    for (SCGButton *button in self.view.subviews)
     {
         if ([button isKindOfClass:[SCGButton class]])
         {
@@ -258,6 +282,8 @@
         sizeButton.selectedSegmentIndex = 1;
     else
         sizeButton.selectedSegmentIndex = 2;
+
+    [self sizeButtonChanged:textField];
     
     if (textField.tag < 3)
         [self shapeButtonTouched:trianglesButton];

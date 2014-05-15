@@ -24,8 +24,6 @@
 	
     if (self != nil)
     {
-        CGFloat scale = (l.cellWidth / self.image.size.width) / 2;
-        
 //#if defined(SHOWROWANDCOL)
 //        UILabel *rcLabel = [[UILabel alloc] initWithFrame:self.bounds];
 //        rcLabel.textAlignment = NSTextAlignmentCenter;
@@ -35,10 +33,9 @@
 //        rcLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:78.0*scale/16];
 //        [self addSubview: rcLabel];
 //#endif
+
         //resize
-//        if (l.levelShape == HexagonShape)
-            scale = scale / 4;
-        self.frame = CGRectMake(0, 0, self.image.size.width * scale, self.image.size.height * scale);
+        self.frame = CGRectMake(0, 0, l.cellWidth / 8, l.cellWidth / 8);
     }
 	
     return self;

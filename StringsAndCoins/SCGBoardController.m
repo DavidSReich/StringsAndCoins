@@ -15,6 +15,7 @@
 #import "SCGGamePlayer.h"
 #import "SCGScoreView.h"
 #import "constants.h"
+#import "SCGAppDelegate.h"
 
 @implementation SCGBoardController
 {
@@ -533,6 +534,9 @@
 
 - (void) boundaryClicked:(SCGBoundaryView *)boundary
 {
+    SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.settings.gameInProgress = YES;
+
     if (self.lastBoundary)
         [self.lastBoundary LockBoundary];
     self.lastBoundary = boundary;

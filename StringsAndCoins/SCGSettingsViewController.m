@@ -9,6 +9,9 @@
 #import "SCGSettingsViewController.h"
 #import "SCGAppDelegate.h"
 #import "SCGButton.h"
+#import "SCGNewGameViewController.h"
+#import "SCGMainViewController.h"
+#import "constants.h"
 
 @interface SCGSettingsViewController ()
 
@@ -32,7 +35,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = @"Settings";
+//        self.title = @"Settings";
         self.view.layer.borderWidth = 3.f;
         self.view.layer.borderColor = [UIColor redColor].CGColor;
     }
@@ -43,7 +46,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.title = @"Settings";
+//    self.title = @"Settings";
     self.view.layer.borderWidth = 3.f;
     self.view.layer.borderColor = [UIColor redColor].CGColor;
 
@@ -56,7 +59,7 @@
     originalSettings.levelSize = self.settings.levelSize;
     originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
 
-    self.title = @"Settings";
+//    self.title = @"Settings";
 
     for (SCGButton *button in self.view.subviews)
     {
@@ -84,6 +87,11 @@
 {
     [super viewDidAppear:animated];
     self.tabBarController.delegate = self;
+    UIBarItem *resumeButton = [self.tabBarController.tabBar.items objectAtIndex:kResumeGameIndex];
+    if (self.settings.gameInProgress)
+        [resumeButton setEnabled:YES];
+    else
+        [resumeButton setEnabled:NO];
     [self updateShapeControls];
 }
 
@@ -301,14 +309,39 @@
     return NO;
 }
 
-- (void) tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+- (BOOL) tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
     if (tabBarController == self.tabBarController)
     {
-        if (viewController != self)
+        //if New Game was pressed
+        if (self.settings.gameInProgress && ([viewController isKindOfClass:[SCGNewGameViewController class]]))
         {
-            self.settings.startNewGame = YES;
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Stop the current game?", @"")
+                                                                message:NSLocalizedString(@"This will stop the current game.  Are you sure you want to start a new game?", @"")
+                                                               delegate:self
+                                                      cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
+                                                      otherButtonTitles:NSLocalizedString(@"New Game", @""), nil];
+            alertView.tag = [tabBarController.viewControllers indexOfObject:viewController];
+            [alertView show];
+            return NO;
         }
+        else if (self.settings.gameInProgress && ([viewController isKindOfClass:[SCGMainViewController class]]))
+        {
+            [self resetButtonTouched:nil];
+        }
+    }
+    
+    return YES;
+}
+
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex)
+    {
+        [self resetButtonTouched:nil];
+        self.settings.gameInProgress = NO;
+        self.settings.newGame = YES;
+        [self.tabBarController setSelectedIndex:alertView.tag];
     }
 }
 

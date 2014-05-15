@@ -37,14 +37,12 @@
 		6368AECA18C18E320054E34B /* ellipse-md-horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEBB18C18E310054E34B /* ellipse-md-horz.png */; };
 		6368AECE18C18E320054E34B /* triangleDown-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEBF18C18E320054E34B /* triangleDown-md.png */; };
 		6368AECF18C18E320054E34B /* triangleUp-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEC018C18E320054E34B /* triangleUp-md.png */; };
-		6368AF1A18C1DB750054E34B /* SCGNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6368AF1918C1DB750054E34B /* SCGNavigationController.m */; };
 		63A4871418D98FD3009418B1 /* SCGScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A4871318D98FD3009418B1 /* SCGScoreView.m */; };
-		63BFF09318C2ED570080BA9F /* SCGMenuNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09218C2ED570080BA9F /* SCGMenuNavigationController.m */; };
-		63BFF09618C2EE120080BA9F /* SCGMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09518C2EE120080BA9F /* SCGMenuViewController.m */; };
 		63BFF09918C32E7B0080BA9F /* SCGSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09818C32E7B0080BA9F /* SCGSettings.m */; };
 		63BFF09C18C331130080BA9F /* SCGSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09B18C331130080BA9F /* SCGSettingsViewController.m */; };
 		63D42CED190380DE00615BFD /* newEllipse.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D42CEC190380DE00615BFD /* newEllipse.png */; };
 		63D42CEF1903B10700615BFD /* Canvas1a_offwhite_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D42CEE1903B10700615BFD /* Canvas1a_offwhite_1.png */; };
+		63F52BBC1924BC1100C2A9A8 /* SCGNewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F52BBB1924BC1100C2A9A8 /* SCGNewGameViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,20 +102,16 @@
 		6368AEBF18C18E320054E34B /* triangleDown-md.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangleDown-md.png"; sourceTree = "<group>"; };
 		6368AEC018C18E320054E34B /* triangleUp-md.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangleUp-md.png"; sourceTree = "<group>"; };
 		6368AED018C18E420054E34B /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
-		6368AF1818C1DB750054E34B /* SCGNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGNavigationController.h; sourceTree = "<group>"; };
-		6368AF1918C1DB750054E34B /* SCGNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGNavigationController.m; sourceTree = "<group>"; };
 		63A4871218D98FD3009418B1 /* SCGScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGScoreView.h; sourceTree = "<group>"; };
 		63A4871318D98FD3009418B1 /* SCGScoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGScoreView.m; sourceTree = "<group>"; };
-		63BFF09118C2ED570080BA9F /* SCGMenuNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGMenuNavigationController.h; sourceTree = "<group>"; };
-		63BFF09218C2ED570080BA9F /* SCGMenuNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGMenuNavigationController.m; sourceTree = "<group>"; };
-		63BFF09418C2EE120080BA9F /* SCGMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGMenuViewController.h; sourceTree = "<group>"; };
-		63BFF09518C2EE120080BA9F /* SCGMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGMenuViewController.m; sourceTree = "<group>"; };
 		63BFF09718C32E7B0080BA9F /* SCGSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGSettings.h; sourceTree = "<group>"; };
 		63BFF09818C32E7B0080BA9F /* SCGSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGSettings.m; sourceTree = "<group>"; };
 		63BFF09A18C331130080BA9F /* SCGSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGSettingsViewController.h; sourceTree = "<group>"; };
 		63BFF09B18C331130080BA9F /* SCGSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGSettingsViewController.m; sourceTree = "<group>"; };
 		63D42CEC190380DE00615BFD /* newEllipse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newEllipse.png; sourceTree = "<group>"; };
 		63D42CEE1903B10700615BFD /* Canvas1a_offwhite_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Canvas1a_offwhite_1.png; sourceTree = "<group>"; };
+		63F52BBA1924BC1100C2A9A8 /* SCGNewGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGNewGameViewController.h; sourceTree = "<group>"; };
+		63F52BBB1924BC1100C2A9A8 /* SCGNewGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGNewGameViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,12 +178,8 @@
 				6368AE6D18C18AEA0054E34B /* SCGAppDelegate.m */,
 				6368AE6F18C18AEA0054E34B /* Main_iPhone.storyboard */,
 				6368AE7218C18AEA0054E34B /* Main_iPad.storyboard */,
-				6368AE7518C18AEA0054E34B /* SCGMainViewController.h */,
-				6368AE7618C18AEA0054E34B /* SCGMainViewController.m */,
 				6368AE7B18C18AEB0054E34B /* Images.xcassets */,
 				6368AE6418C18AEA0054E34B /* Supporting Files */,
-				6368AF1818C1DB750054E34B /* SCGNavigationController.h */,
-				6368AF1918C1DB750054E34B /* SCGNavigationController.m */,
 			);
 			path = StringsAndCoins;
 			sourceTree = "<group>";
@@ -265,16 +255,16 @@
 		6368AE9B18C18D3C0054E34B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				63BFF09118C2ED570080BA9F /* SCGMenuNavigationController.h */,
-				63BFF09218C2ED570080BA9F /* SCGMenuNavigationController.m */,
 				6368AEA618C18DDF0054E34B /* SCGBoardController.h */,
 				6368AEA718C18DDF0054E34B /* SCGBoardController.m */,
-				63BFF09418C2EE120080BA9F /* SCGMenuViewController.h */,
-				63BFF09518C2EE120080BA9F /* SCGMenuViewController.m */,
+				6368AE7518C18AEA0054E34B /* SCGMainViewController.h */,
+				6368AE7618C18AEA0054E34B /* SCGMainViewController.m */,
 				63BFF09A18C331130080BA9F /* SCGSettingsViewController.h */,
 				63BFF09B18C331130080BA9F /* SCGSettingsViewController.m */,
 				63491CE018F5AF3300A9309C /* SCGTabBarController.h */,
 				63491CE118F5AF3300A9309C /* SCGTabBarController.m */,
+				63F52BBA1924BC1100C2A9A8 /* SCGNewGameViewController.h */,
+				63F52BBB1924BC1100C2A9A8 /* SCGNewGameViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -405,17 +395,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				6368AEAD18C18E020054E34B /* SCGGamePlayer.m in Sources */,
-				63BFF09618C2EE120080BA9F /* SCGMenuViewController.m in Sources */,
 				6368AEA818C18DDF0054E34B /* SCGBoardController.m in Sources */,
 				63BFF09C18C331130080BA9F /* SCGSettingsViewController.m in Sources */,
 				6368AEA418C18DB10054E34B /* SCGCellView.m in Sources */,
 				6368AE6E18C18AEA0054E34B /* SCGAppDelegate.m in Sources */,
+				63F52BBC1924BC1100C2A9A8 /* SCGNewGameViewController.m in Sources */,
 				63486DFE1904B0E50072208D /* SCGButton.m in Sources */,
-				63BFF09318C2ED570080BA9F /* SCGMenuNavigationController.m in Sources */,
 				6368AE7718C18AEA0054E34B /* SCGMainViewController.m in Sources */,
 				633B9FC718EFC9D000E98B22 /* SCGScoreLabel.m in Sources */,
 				63491CE218F5AF3300A9309C /* SCGTabBarController.m in Sources */,
-				6368AF1A18C1DB750054E34B /* SCGNavigationController.m in Sources */,
 				63A4871418D98FD3009418B1 /* SCGScoreView.m in Sources */,
 				6368AEA318C18DB10054E34B /* SCGBoundaryView.m in Sources */,
 				6368AE6A18C18AEA0054E34B /* main.m in Sources */,

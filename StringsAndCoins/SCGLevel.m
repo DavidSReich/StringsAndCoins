@@ -40,7 +40,12 @@
     if ((level.levelType == BoxesType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
     {
         level.topMarginHeight = kBoardMargin + 10;
-        level.bottomMarginHeight = kBoardMargin + 5;
+        level.bottomMarginHeight = kBoardMargin + 10;
+    }
+    if ((level.levelType == CoinsType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
+    {
+        level.topMarginHeight = kBoardMargin + 25;
+        level.bottomMarginHeight = kBoardMargin + 25;
     }
 
     CGFloat boardWidth = view.bounds.size.width - (2 * level.sideMarginWidth);

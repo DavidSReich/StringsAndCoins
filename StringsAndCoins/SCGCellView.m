@@ -104,14 +104,16 @@
         else
         {
             [self setImage:self.level.cellImage];
+
+            CGFloat cellSize = MIN(self.level.cellWidth, self.level.cellHeight);
             if (self.level.levelShape == HexagonShape)
-            {
-                CGFloat cellSize = MIN(self.level.cellWidth * 0.6, self.level.cellHeight * 0.6);
-                self.bounds = CGRectMake(0.0, 0.0, cellSize, cellSize);
-            }
+                cellSize *= 0.6;
             else
-                self.frame = CGRectMake(0, 0, self.level.cellWidth * 0.8, self.level.cellHeight * 0.8);
+                cellSize += 0.6;
+
+            self.bounds = CGRectMake(0.0, 0.0, cellSize, cellSize);
             self.center = self.center0;
+
 #if defined(SHOWROWANDCOL)
             rcLabel.hidden = YES;
 #endif
@@ -168,17 +170,18 @@
             CGPoint secondPt;
             CGPoint thirdPt;
 
+            int overLapExtend = 2;
             if (self.isUpTriangle)
             {
-                firstPt = CGPointMake(0, self.level.cellHeight);
-                secondPt = CGPointMake(self.level.cellWidth, self.level.cellHeight);
+                firstPt = CGPointMake(-overLapExtend, self.level.cellHeight + overLapExtend);
+                secondPt = CGPointMake(self.level.cellWidth + overLapExtend, self.level.cellHeight + overLapExtend);
                 thirdPt = CGPointMake(((float)self.level.cellWidth) / 2, 0);
             }
             else
             {
-                firstPt = CGPointMake(0, 0);
-                secondPt = CGPointMake(self.level.cellWidth, 0);
-                thirdPt = CGPointMake(((float)self.level.cellWidth) / 2, self.level.cellHeight);
+                firstPt = CGPointMake(-overLapExtend, 0);
+                secondPt = CGPointMake(self.level.cellWidth + overLapExtend, 0);
+                thirdPt = CGPointMake(((float)self.level.cellWidth) / 2, self.level.cellHeight + overLapExtend);
             }
 
             //get the image context with options(recommended funct to use)
@@ -237,13 +240,22 @@
         {
             //hexagons
             CGPoint pts[6];
-            
+
+#if true
+            pts[0] = CGPointMake(self.level.cellWidth / 2, -1);
+            pts[1] = CGPointMake(self.level.cellWidth + 1, (self.level.cellHeight / 4) - 1);
+            pts[2] = CGPointMake(self.level.cellWidth + 1, ((3 * self.level.cellHeight) / 4) + 1);
+            pts[3] = CGPointMake(self.level.cellWidth / 2, self.level.cellHeight + 1);
+            pts[4] = CGPointMake(-1, ((3 * self.level.cellHeight) / 4) + 1);
+            pts[5] = CGPointMake(-1, (self.level.cellHeight / 4) - 1);
+#else
             pts[0] = CGPointMake(self.level.cellWidth / 2, 0);
             pts[1] = CGPointMake(self.level.cellWidth, self.level.cellHeight / 4);
             pts[2] = CGPointMake(self.level.cellWidth, (3 * self.level.cellHeight) / 4);
             pts[3] = CGPointMake(self.level.cellWidth / 2, self.level.cellHeight);
             pts[4] = CGPointMake(0, (3 * self.level.cellHeight) / 4);
             pts[5] = CGPointMake(0, self.level.cellHeight / 4);
+#endif
 
             //get the image context with options(recommended funct to use)
             //get the size of the imageView

@@ -76,7 +76,10 @@
     {
         CGFloat blockWidth = (width * scoreLabel.player.score) / self.level.numberOfCells;
         scoreLabel.frame = CGRectMake(left, 0, blockWidth, self.frameHeight);
-        [scoreLabel refreshScore];
+        if (scoreLabel.player.score * 10 >= self.level.numberOfCells)
+            [scoreLabel refreshScore:NO];
+        else
+            [scoreLabel refreshScore:YES];
         
         left += blockWidth;
     }

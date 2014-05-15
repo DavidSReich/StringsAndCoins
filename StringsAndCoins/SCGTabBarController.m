@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Stellar Software Pty Ltd. All rights reserved.
 //
 
+#import "constants.h"
 #import "SCGTabBarController.h"
 //#import "SCGSettingsViewController.h"
 #import "SCGMainViewController.h"
@@ -29,6 +30,18 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+
+    int itemIdx = 0;
+    for (UITabBarItem *tabBarItem in [self.tabBar items])
+    {
+        if (itemIdx == kSettingsIndex)
+            tabBarItem.title = @"Settings";
+        else if (itemIdx == kResumeGameIndex)
+            tabBarItem.title = @"Resume Game";
+        else if (itemIdx == kNewGameIndex)
+            tabBarItem.title = @"New Game";
+        itemIdx++;
+    }
 }
 
 - (void)didReceiveMemoryWarning

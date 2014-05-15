@@ -55,6 +55,11 @@
 #define kPiOver3 (M_PI/(float)3)
 #define kPiOver6 (M_PI_2/(float)3)
 
+//UITabBarController button indices ...
+#define kSettingsIndex      0
+#define kResumeGameIndex    1
+#define kNewGameIndex       2
+
 //#define SHOWROWANDCOL
 
 #endif

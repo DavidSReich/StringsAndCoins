@@ -15,7 +15,8 @@
 @property (assign, nonatomic) LevelShape levelShape;
 @property (assign, nonatomic) LevelSize levelSize;
 @property (assign, nonatomic) int numberOfPlayers;
-@property (assign, nonatomic) BOOL startNewGame;
+@property (assign, nonatomic) BOOL gameInProgress;
+@property (assign, nonatomic) BOOL newGame;
 
 - (void) setDefaultSettings;
 

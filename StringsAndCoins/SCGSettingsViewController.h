@@ -10,7 +10,7 @@
 #import "SCGSettings.h"
 #import "SCGButton.h"
 
-@interface SCGSettingsViewController : UIViewController <UITabBarControllerDelegate, UITextFieldDelegate>
+@interface SCGSettingsViewController : UIViewController <UITabBarControllerDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet SCGSettings *settings;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *typeButton;

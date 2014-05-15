@@ -35,7 +35,8 @@
         self.levelShape = [decoder decodeIntForKey:kKeyLevelShape];
         self.levelSize = [decoder decodeIntForKey:kKeyLevelSize];
         self.numberOfPlayers = [decoder decodeIntForKey:kKeyNumPlayers];
-        self.startNewGame = YES;
+        self.gameInProgress = NO;
+        self.newGame = NO;
     }
 
     return self;
@@ -55,7 +56,8 @@
     self.levelShape = SquareShape;
     self.levelSize = SmallSize;
     self.numberOfPlayers = 2;
-    self.startNewGame = YES;
+    self.gameInProgress = NO;
+    self.newGame = NO;
 }
 
 @end

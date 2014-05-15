@@ -6,10 +6,12 @@
 //  Copyright (c) 2014 Stellar Software Pty Ltd. All rights reserved.
 //
 
+#import "constants.h"
 #import "SCGMainViewController.h"
 #import "SCGBoardController.h"
 #import "SCGSettings.h"
 #import "SCGAppDelegate.h"
+#import "SCGNewGameViewController.h"
 
 @interface SCGMainViewController ()
 @property (strong, nonatomic) SCGBoardController *controller;
@@ -24,7 +26,6 @@
     {
         //create the game controller
         self.controller = [[SCGBoardController alloc] init];
-        self.title = @"Start Game";
     }
     return self;
 }
@@ -37,22 +38,22 @@
     self.settings = appDelegate.settings;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
-    if (self.settings.startNewGame)
+    if (self.settings.newGame)
         [self.controller clearGameBoard];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
     self.tabBarController.delegate = self;
 
-    if (self.settings.startNewGame)
-    {
-        self.settings.startNewGame = NO;
+    if (self.settings.newGame)
         [self startNewGame:self.settings];
-    }
+
+    self.settings.newGame = NO;
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -64,26 +65,10 @@
 - (void) startNewGame:(SCGSettings *)settings
 {    
 	// Do any additional setup after loading the view, typically from a nib.
-    self.title = @"Strings & Coins";
 
     self.controller.boardView = self.view;
-    
-    //	SCGLevel *level = [SCGLevel levelWithType:CoinsType andShape:SquareShape andSize:LargeSize];
-    //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:SquareShape andSize:LargeSize];
-    //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:TriangleShape andSize:MediumSize];
-    //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:TriangleShape andSize:SmallSize];
-    //	SCGLevel *level = [SCGLevel levelWithType:BoxesType andShape:HexagonShape andSize:MediumSize];
-	//  SCGLevel *level = [SCGLevel levelWithType:CoinsType andShape:HexagonShape andSize:MediumSize];
 	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
                            andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController andView:self.view];
-    
-    //add game layer
-//    UIView *gameLayer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, level.screenHeight, level.screenWidth)];
-//    [self.view addSubview: gameLayer];
-//
-//    self.controller.boardView = gameLayer;
-
-//    self.controller.boardView = self.view;
     
 	[self.controller setupGameBoard:level];
 }
@@ -98,26 +83,30 @@
 {
     if (tabBarController == self.tabBarController)
     {
-        if (viewController != self)
+        //if New Game was pressed
+        if (self.settings.gameInProgress && ([viewController isKindOfClass:[SCGNewGameViewController class]]))
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Leave the game?", @"")
-                        message:NSLocalizedString(@"Are you sure you want to leave the game?", @"")
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Stop the current game?", @"")
+                        message:NSLocalizedString(@"This will stop the current game.  Are you sure you want to start a new game?", @"")
                         delegate:self
                         cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
-                        otherButtonTitles:NSLocalizedString(@"Leave", @""), nil];
-            
+                        otherButtonTitles:NSLocalizedString(@"New Game", @""), nil];
             alertView.tag = [tabBarController.viewControllers indexOfObject:viewController];
             [alertView show];
+            return NO;
         }
     }
 
-    return NO;
+    return YES;
 }
 
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != alertView.cancelButtonIndex)
     {
+        self.settings.gameInProgress = NO;
+        self.settings.newGame = YES;
+        //if there's any delays, just directly call clearGameBoard and startNewGame
         [self.tabBarController setSelectedIndex:alertView.tag];
     }
 }

@@ -31,9 +31,12 @@
     return self;
 }
 
-- (void) refreshScore
+- (void) refreshScore:(BOOL)blank
 {
-    self.text = [NSString stringWithFormat:@"%d", self.player.score];
+    if (blank)
+        self.text = @"";
+    else
+        self.text = [NSString stringWithFormat:@"%d", self.player.score];
 }
 
 /*

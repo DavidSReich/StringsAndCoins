@@ -16,6 +16,6 @@
 
 - (instancetype) initWithFrame:(CGRect)frame andPlayer:(SCGGamePlayer *)p;
 
-- (void) refreshScore;
+- (void) refreshScore:(BOOL)blank;
 
 @end

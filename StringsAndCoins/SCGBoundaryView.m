@@ -34,28 +34,30 @@
         self.orientation = o;
         self.userInteractionEnabled = YES;
 
+        CGFloat aspect = l.boundaryImage.size.height / l.boundaryImage.size.width;
+        
 		//resize
+        CGFloat length;
+
         if (l.levelType == BoxesType)
         {
-            CGFloat scale = l.cellWidth / l.boundaryImage.size.width;
             if (l.levelShape == HexagonShape)
-                self.frame = CGRectMake(0, 0, (l.boundaryImage.size.width * scale) / 2, (l.boundaryImage.size.height * scale) / 2);
-            else if ((l.levelShape == TriangleShape) && (l.levelType == CoinsType))
-                self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale / 2, (l.boundaryImage.size.height * scale) / 2);
+                length = l.cellWidth * .5;
             else
-                self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale, (l.boundaryImage.size.height * scale) / 2);
+                length = l.cellWidth;
         }
         else
         {
-            CGFloat scale = l.cellWidth / l.boundaryImage.size.width;
             if (l.levelShape == HexagonShape)
-                self.frame = CGRectMake(0, 0, 2 * (l.cellWidth * scale) / 2, (l.boundaryImage.size.height * scale) / 2);
-            else if ((l.levelShape == TriangleShape) && (l.levelType == CoinsType))
-                self.frame = CGRectMake(0, 0, l.cellWidth * .4, (l.boundaryImage.size.height * scale) / 2);
+                length = l.cellWidth * .8;
+            else if (l.levelShape == TriangleShape)
+                length = l.cellWidth * .4;
             else
-                self.frame = CGRectMake(0, 0, l.boundaryImage.size.width * scale * .7, l.boundaryImage.size.height * scale * .5);
+                length = l.cellWidth * .6;
         }
-
+        
+        self.frame = CGRectMake(0, 0, length, length * aspect);
+        
         //overlay a button -- makes presses easier?
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.btn.frame = self.frame;

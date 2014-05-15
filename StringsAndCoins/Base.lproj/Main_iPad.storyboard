@@ -4,6 +4,22 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
+        <!--New Game View Controller - Item-->
+        <scene sceneID="3Pk-g7-IK0">
+            <objects>
+                <viewController id="wkv-S4-0Hz" customClass="SCGNewGameViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8AK-sP-mAU">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="719"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="CZJ-jY-0cB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0cy-xc-lNB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-7378" y="-4961"/>
+        </scene>
         <!--Main View Controller - Item-->
         <scene sceneID="0NU-cZ-2PS">
             <objects>
@@ -26,88 +42,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asY-HQ-Guj" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2184" y="-2931"/>
-        </scene>
-        <!--Menu Navigation Controller - SCGMenuViewController-->
-        <scene sceneID="Utk-eo-t1n">
-            <objects>
-                <navigationController title="SCGMenuViewController" definesPresentationContext="YES" toolbarHidden="NO" id="A5m-6N-guq" customClass="SCGMenuNavigationController" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <navigationBar key="navigationBar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" id="KSV-ph-efu">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </navigationBar>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" id="yWb-Aq-0ip">
-                        <rect key="frame" x="0.0" y="724" width="1024" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="j7t-UI-aQx" kind="relationship" relationship="rootViewController" id="IUD-ap-LKE"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L3T-Z1-NPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3674" y="-5259"/>
-        </scene>
-        <!--Menu View Controller - Boxes, Coins, & Triangles-->
-        <scene sceneID="suJ-0z-65G">
-            <objects>
-                <viewController id="j7t-UI-aQx" customClass="SCGMenuViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LSx-zP-snu">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MJ6-9e-k2s">
-                                <rect key="frame" x="468" y="252" width="88" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="New Game">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ydy-7y-7So">
-                                <rect key="frame" x="472" y="323" width="81" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Settings">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="4E2-Ic-Kvu">
-                                <rect key="frame" x="451" y="423" width="123" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="2"/>
-                                    <segment title="3"/>
-                                    <segment title="4"/>
-                                </segments>
-                                <connections>
-                                    <action selector="numberOfPlayersButtonChanged:" destination="j7t-UI-aQx" eventType="valueChanged" id="6Rx-Sw-QBn"/>
-                                </connections>
-                            </segmentedControl>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Players" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hRu-Kc-SBc">
-                                <rect key="frame" x="434" y="394" width="156" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Boxes, Coins, &amp; Triangles" id="nGR-yP-Snq"/>
-                    <connections>
-                        <outlet property="numberPlayersButton" destination="4E2-Ic-Kvu" id="ZgN-wa-TIs"/>
-                        <outlet property="startGameButton" destination="MJ6-9e-k2s" id="lYI-Kh-FGg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ntB-zP-dd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2496" y="-5259"/>
+            <point key="canvasLocation" x="-5940" y="-5163"/>
         </scene>
         <!--Settings View Controller - Item-->
         <scene sceneID="9id-q4-Rbv">
@@ -164,7 +99,6 @@
                                 </segments>
                                 <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <action selector="numberOfPlayersButtonChanged:" destination="j7t-UI-aQx" eventType="valueChanged" id="95j-hb-4ka"/>
                                     <action selector="numberOfPlayersChanged:" destination="8Bt-K5-WC3" eventType="valueChanged" id="sgB-d8-PMB"/>
                                 </connections>
                             </segmentedControl>
@@ -320,11 +254,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CWe-Wh-cr5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2202" y="-3865"/>
+            <point key="canvasLocation" x="-5958" y="-6097"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hdY-BB-UOY">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dbs-eJ-hPY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7WQ-cW-pE0" customClass="SCGTabBarController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
@@ -337,11 +272,11 @@
                     <connections>
                         <segue destination="8Bt-K5-WC3" kind="relationship" relationship="viewControllers" id="0Ou-SO-eua"/>
                         <segue destination="aVO-UE-KGo" kind="relationship" relationship="viewControllers" id="VoO-as-VaS"/>
+                        <segue destination="wkv-S4-0Hz" kind="relationship" relationship="viewControllers" id="6vD-gb-kfk"/>
                     </connections>
                 </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Dbs-eJ-hPY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3660" y="-3865"/>
+            <point key="canvasLocation" x="-7768" y="-6105"/>
         </scene>
     </scenes>
     <resources>

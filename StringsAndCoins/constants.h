@@ -59,6 +59,9 @@
 #define kSettingsIndex      0
 #define kResumeGameIndex    1
 #define kNewGameIndex       2
+#define kAboutBoxIndex      3
+
+#define kMaxNumberOfPlayers 4
 
 //#define SHOWROWANDCOL
 

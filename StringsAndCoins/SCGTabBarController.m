@@ -40,6 +40,8 @@
             tabBarItem.title = @"Resume Game";
         else if (itemIdx == kNewGameIndex)
             tabBarItem.title = @"New Game";
+        else if (itemIdx == kAboutBoxIndex)
+            tabBarItem.title = @"About";
         itemIdx++;
     }
 }

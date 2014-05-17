@@ -67,7 +67,7 @@
     return self;
 }
 
-- (void) updateScores:(int)currentPlayer
+- (void) updateScores:(int)currentPlayer andDone:(BOOL)done
 {
     CGFloat width = self.bounds.size.width;
     CGFloat left = 0;
@@ -84,7 +84,10 @@
         left += blockWidth;
     }
 
-    self.layer.borderColor = ((SCGGamePlayer *)([self.players objectAtIndex:currentPlayer])).color.CGColor;
+    if (done)
+        self.layer.borderColor = [UIColor whiteColor].CGColor;
+    else
+        self.layer.borderColor = ((SCGGamePlayer *)([self.players objectAtIndex:currentPlayer])).color.CGColor;
 }
 
 /*

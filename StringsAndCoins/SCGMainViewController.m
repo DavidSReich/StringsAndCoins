@@ -12,6 +12,7 @@
 #import "SCGSettings.h"
 #import "SCGAppDelegate.h"
 #import "SCGNewGameViewController.h"
+#import "SCGGameOverViewController.h"
 
 @interface SCGMainViewController ()
 @property (strong, nonatomic) SCGBoardController *controller;
@@ -65,8 +66,9 @@
 - (void) startNewGame:(SCGSettings *)settings
 {    
 	// Do any additional setup after loading the view, typically from a nib.
-
     self.controller.boardView = self.view;
+    self.controller.mainViewController = self;
+
 	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
                            andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController andView:self.view];
     
@@ -108,6 +110,15 @@
         self.settings.newGame = YES;
         //if there's any delays, just directly call clearGameBoard and startNewGame
         [self.tabBarController setSelectedIndex:alertView.tag];
+    }
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"GameOver"])
+    {
+        SCGGameOverViewController *gameOverController = segue.destinationViewController;
+        gameOverController.players = [self.controller getPlayers];
     }
 }
 

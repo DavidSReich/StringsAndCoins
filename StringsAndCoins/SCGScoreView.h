@@ -31,6 +31,6 @@ typedef NS_ENUM(NSInteger, ScoreOrientation)
 
 - (instancetype) initWithLevel:(SCGLevel *)l andOrientation:(ScoreOrientation)o andPlayers:(NSMutableArray *)p andWidth:(CGFloat)w;
 
-- (void) updateScores:(int)currentPlayer;
+- (void) updateScores:(int)currentPlayer andDone:(BOOL)done;
 
 @end

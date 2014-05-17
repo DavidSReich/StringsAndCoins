@@ -42,6 +42,7 @@
     [super viewDidAppear:animated];
 
     SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.settings.gameInProgress = NO;
     appDelegate.settings.newGame = YES;
     [self.tabBarController setSelectedIndex:kResumeGameIndex];
 }

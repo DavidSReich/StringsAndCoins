@@ -10,11 +10,15 @@
 
 @class SCGLevel;
 @class SCGBoundaryView;
+@class SCGMainViewController;
 
 @interface SCGBoardController : NSObject
 
 //the board - play game here
 @property (weak, nonatomic) UIView *boardView;
+
+//the board's controller
+@property (weak, nonatomic) IBOutlet SCGMainViewController *mainViewController;
 
 //contains game settings
 @property (strong, nonatomic) SCGLevel *level;
@@ -35,9 +39,11 @@
 
 - (BOOL) testBoard;
 
-- (void) refreshScores;
+- (void) refreshScores:(BOOL)done;
 
 - (void) gotoNextPlayer;
 - (void) gotoPreviousPlayer;
+
+- (NSMutableArray *)getPlayers;
 
 @end

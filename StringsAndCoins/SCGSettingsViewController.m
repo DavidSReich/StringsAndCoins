@@ -314,20 +314,35 @@
     if (tabBarController == self.tabBarController)
     {
         //if New Game was pressed
-        if (self.settings.gameInProgress && ([viewController isKindOfClass:[SCGNewGameViewController class]]))
+        if (self.settings.gameInProgress)
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Stop the current game?", @"")
-                                                                message:NSLocalizedString(@"This will stop the current game.  Are you sure you want to start a new game?", @"")
-                                                               delegate:self
-                                                      cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
-                                                      otherButtonTitles:NSLocalizedString(@"New Game", @""), nil];
-            alertView.tag = [tabBarController.viewControllers indexOfObject:viewController];
-            [alertView show];
-            return NO;
+            if ([viewController isKindOfClass:[SCGNewGameViewController class]])
+            {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Stop the current game?", @"")
+                                                                    message:NSLocalizedString(@"This will stop the current game.  Are you sure you want to start a new game?", @"")
+                                                                   delegate:self
+                                                          cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
+                                                          otherButtonTitles:NSLocalizedString(@"New Game", @""), nil];
+                alertView.tag = [tabBarController.viewControllers indexOfObject:viewController];
+                [alertView show];
+                return NO;
+            }
+            else if ([viewController isKindOfClass:[SCGMainViewController class]])
+            {
+                //resume
+                [self resetButtonTouched:nil];
+            }
         }
-        else if (self.settings.gameInProgress && ([viewController isKindOfClass:[SCGMainViewController class]]))
+        else
         {
-            [self resetButtonTouched:nil];
+            if ([viewController isKindOfClass:[SCGNewGameViewController class]])
+            {
+                //we're starting a new game ... make the settings the new original
+                originalSettings.levelType = self.settings.levelType;
+                originalSettings.levelShape = self.settings.levelShape;
+                originalSettings.levelSize = self.settings.levelSize;
+                originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
+            }
         }
     }
     
@@ -338,7 +353,13 @@
 {
     if (buttonIndex != alertView.cancelButtonIndex)
     {
-        [self resetButtonTouched:nil];
+//        [self resetButtonTouched:nil];
+        //we're starting a new game ... make the settings the new original
+        originalSettings.levelType = self.settings.levelType;
+        originalSettings.levelShape = self.settings.levelShape;
+        originalSettings.levelSize = self.settings.levelSize;
+        originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
+
         self.settings.gameInProgress = NO;
         self.settings.newGame = YES;
         [self.tabBarController setSelectedIndex:alertView.tag];

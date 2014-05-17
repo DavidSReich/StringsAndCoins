@@ -16,6 +16,7 @@
 #import "SCGScoreView.h"
 #import "constants.h"
 #import "SCGAppDelegate.h"
+#import "SCGMainViewController.h"
 
 @implementation SCGBoardController
 {
@@ -56,13 +57,18 @@
 {
     [self clearGameBoard];
 
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Canvas1a_offwhite_1.png"]];
+    backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.width, self.boardView.frame.size.height);
+    [self.boardView addSubview:backgroundView];
+    [self.boardView sendSubviewToBack:backgroundView];
+
     self.lastBoundary = nil;
 	self.level = level;
 
     level.numberOfCells = 0;
 
 //	self.boardView.layer.borderWidth = 3.f;
-//    self.boardView.layer.borderColor = [UIColor redColor].CGColor;
+//  self.boardView.layer.borderColor = [UIColor redColor].CGColor;
     
 	//cells
 	CGFloat xOffset = 0;
@@ -486,6 +492,7 @@
     for (int p = 0; p < numberOfPlayers; p++)
     {
         SCGPlayer *player = [SCGPlayer alloc];
+        player.playerName = [NSMutableString stringWithFormat:@"Player %d", p + 1];
         UIColor *color;
         if (p == 0)
             color = [UIColor redColor];
@@ -510,7 +517,7 @@
     scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
-    scoreView.center = CGPointMake(level.statusBarHeight, yHeightCenter);
+    scoreView.center = CGPointMake(level.statusBarHeight + 2, yHeightCenter);
 
     scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
@@ -527,9 +534,9 @@
     scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:BottomScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
-    scoreView.center = CGPointMake(xWidthCenter, level.topMarginHeight + level.bottomMarginHeight + level.boardHeight);// + level.statusBarOffset?
+    scoreView.center = CGPointMake(xWidthCenter, level.topMarginHeight + level.bottomMarginHeight + level.boardHeight - 2);// + level.statusBarOffset?
 
-    [self refreshScores];
+    [self refreshScores:NO];
 }
 
 - (void) boundaryClicked:(SCGBoundaryView *)boundary
@@ -546,6 +553,12 @@
         if ([self testBoard])
         {
             //all done!
+            [self refreshScores:YES];
+            if (self.lastBoundary)
+                [self.lastBoundary LockBoundary];
+            
+            [self.mainViewController performSegueWithIdentifier:@"GameOver" sender:self];
+            return;
         }
     }
     else
@@ -556,7 +569,7 @@
     else
         lastPlayer = currentPlayer;
 
-    [self refreshScores];
+    [self refreshScores:NO];
 }
 
 - (void) boundaryDoubleClicked
@@ -567,7 +580,7 @@
     [self gotoPreviousPlayer];
     self.lastBoundary = nil;
     
-    [self refreshScores];
+    [self refreshScores:NO];
 }
 
 - (BOOL) testCells
@@ -979,11 +992,16 @@
     return allDone;
 }
 
-- (void) refreshScores
+- (void) refreshScores:(BOOL)done
 {
     for (SCGScoreView *scoreView in scoreViews)
-        [scoreView updateScores:currentPlayer];
+        [scoreView updateScores:currentPlayer andDone:done];
     
+}
+
+- (NSMutableArray *)getPlayers
+{
+    return players;
 }
 
 @end

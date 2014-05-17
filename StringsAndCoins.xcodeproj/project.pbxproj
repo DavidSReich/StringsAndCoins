@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63306FCD1925E9F900CA57F7 /* SCGGameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63306FCC1925E9F900CA57F7 /* SCGGameOverViewController.m */; };
 		633B9FC718EFC9D000E98B22 /* SCGScoreLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 633B9FC618EFC9D000E98B22 /* SCGScoreLabel.m */; };
 		63486DFE1904B0E50072208D /* SCGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 63486DFD1904B0E50072208D /* SCGButton.m */; };
 		63491CE218F5AF3300A9309C /* SCGTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63491CE118F5AF3300A9309C /* SCGTabBarController.m */; };
@@ -56,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		63306FCB1925E9F900CA57F7 /* SCGGameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGGameOverViewController.h; sourceTree = "<group>"; };
+		63306FCC1925E9F900CA57F7 /* SCGGameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGGameOverViewController.m; sourceTree = "<group>"; };
 		633B9FC518EFC9BA00E98B22 /* SCGScoreLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGScoreLabel.h; sourceTree = "<group>"; };
 		633B9FC618EFC9D000E98B22 /* SCGScoreLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGScoreLabel.m; sourceTree = "<group>"; };
 		63486DFC1904B0E50072208D /* SCGButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGButton.h; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 				63491CE118F5AF3300A9309C /* SCGTabBarController.m */,
 				63F52BBA1924BC1100C2A9A8 /* SCGNewGameViewController.h */,
 				63F52BBB1924BC1100C2A9A8 /* SCGNewGameViewController.m */,
+				63306FCB1925E9F900CA57F7 /* SCGGameOverViewController.h */,
+				63306FCC1925E9F900CA57F7 /* SCGGameOverViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -274,6 +279,8 @@
 			children = (
 				6368AE9D18C18DB10054E34B /* SCGBoundaryView.h */,
 				6368AE9E18C18DB10054E34B /* SCGBoundaryView.m */,
+				63486DFC1904B0E50072208D /* SCGButton.h */,
+				63486DFD1904B0E50072208D /* SCGButton.m */,
 				6368AE9F18C18DB10054E34B /* SCGCellView.h */,
 				6368AEA018C18DB10054E34B /* SCGCellView.m */,
 				6368AEA118C18DB10054E34B /* SCGDotView.h */,
@@ -282,8 +289,6 @@
 				63A4871318D98FD3009418B1 /* SCGScoreView.m */,
 				633B9FC518EFC9BA00E98B22 /* SCGScoreLabel.h */,
 				633B9FC618EFC9D000E98B22 /* SCGScoreLabel.m */,
-				63486DFC1904B0E50072208D /* SCGButton.h */,
-				63486DFD1904B0E50072208D /* SCGButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -394,6 +399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63306FCD1925E9F900CA57F7 /* SCGGameOverViewController.m in Sources */,
 				6368AEAD18C18E020054E34B /* SCGGamePlayer.m in Sources */,
 				6368AEA818C18DDF0054E34B /* SCGBoardController.m in Sources */,
 				63BFF09C18C331130080BA9F /* SCGSettingsViewController.m in Sources */,

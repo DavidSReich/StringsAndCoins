@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6313A6871927BA6800B4CE74 /* SCGAboutBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313A6861927BA6800B4CE74 /* SCGAboutBoxViewController.m */; };
 		63306FCD1925E9F900CA57F7 /* SCGGameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63306FCC1925E9F900CA57F7 /* SCGGameOverViewController.m */; };
 		633B9FC718EFC9D000E98B22 /* SCGScoreLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 633B9FC618EFC9D000E98B22 /* SCGScoreLabel.m */; };
 		63486DFE1904B0E50072208D /* SCGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 63486DFD1904B0E50072208D /* SCGButton.m */; };
@@ -57,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6313A6851927BA6800B4CE74 /* SCGAboutBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGAboutBoxViewController.h; sourceTree = "<group>"; };
+		6313A6861927BA6800B4CE74 /* SCGAboutBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGAboutBoxViewController.m; sourceTree = "<group>"; };
 		63306FCB1925E9F900CA57F7 /* SCGGameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGGameOverViewController.h; sourceTree = "<group>"; };
 		63306FCC1925E9F900CA57F7 /* SCGGameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGGameOverViewController.m; sourceTree = "<group>"; };
 		633B9FC518EFC9BA00E98B22 /* SCGScoreLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGScoreLabel.h; sourceTree = "<group>"; };
@@ -270,6 +273,8 @@
 				63F52BBB1924BC1100C2A9A8 /* SCGNewGameViewController.m */,
 				63306FCB1925E9F900CA57F7 /* SCGGameOverViewController.h */,
 				63306FCC1925E9F900CA57F7 /* SCGGameOverViewController.m */,
+				6313A6851927BA6800B4CE74 /* SCGAboutBoxViewController.h */,
+				6313A6861927BA6800B4CE74 /* SCGAboutBoxViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 				6368AEAE18C18E020054E34B /* SCGPlayer.m in Sources */,
 				6368AEA518C18DB10054E34B /* SCGDotView.m in Sources */,
 				6368AEB118C18E140054E34B /* SCGLevel.m in Sources */,
+				6313A6871927BA6800B4CE74 /* SCGAboutBoxViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

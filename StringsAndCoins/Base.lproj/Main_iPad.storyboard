@@ -386,10 +386,10 @@
             </objects>
             <point key="canvasLocation" x="-4773" y="-5163"/>
         </scene>
-        <!--View Controller - Item-->
+        <!--About Box View Controller - Item-->
         <scene sceneID="DVX-T1-wGR">
             <objects>
-                <viewController storyboardIdentifier="AboutBox" id="Knt-cx-Tsy" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AboutBox" id="Knt-cx-Tsy" customClass="SCGAboutBoxViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="orH-Nc-DgR">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="719"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

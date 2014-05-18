@@ -17,7 +17,7 @@
 
 @implementation SCGTabBarController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -26,27 +26,29 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+
+    self.selectedIndex = kNewGameIndex;
 
     int itemIdx = 0;
     for (UITabBarItem *tabBarItem in [self.tabBar items])
     {
         if (itemIdx == kSettingsIndex)
-            tabBarItem.title = @"Settings";
+            tabBarItem.title = kSettingsName;
         else if (itemIdx == kResumeGameIndex)
-            tabBarItem.title = @"Resume Game";
+            tabBarItem.title = kGameBoardName;
         else if (itemIdx == kNewGameIndex)
-            tabBarItem.title = @"New Game";
+            tabBarItem.title = kNewGameName;
         else if (itemIdx == kAboutBoxIndex)
-            tabBarItem.title = @"About";
+            tabBarItem.title = kAboutName;
         itemIdx++;
     }
 }
 
-- (void)didReceiveMemoryWarning
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

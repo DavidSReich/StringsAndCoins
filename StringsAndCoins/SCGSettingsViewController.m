@@ -101,7 +101,6 @@
     self.tabBarController.delegate = nil;
 }
 
-
 - (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -313,9 +312,9 @@
 {
     if (tabBarController == self.tabBarController)
     {
-        //if New Game was pressed
         if (self.settings.gameInProgress)
         {
+            //if New Game was pressed
             if ([viewController isKindOfClass:[SCGNewGameViewController class]])
             {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Stop the current game?", @"")
@@ -330,7 +329,6 @@
             else if ([viewController isKindOfClass:[SCGMainViewController class]])
             {
                 //resume
-                [self resetButtonTouched:nil];
             }
         }
         else
@@ -342,10 +340,14 @@
                 originalSettings.levelShape = self.settings.levelShape;
                 originalSettings.levelSize = self.settings.levelSize;
                 originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
+                return YES;
             }
         }
     }
-    
+
+    //we're not going to current game or new game, so throw away any setting changes
+    [self resetButtonTouched:nil];
+
     return YES;
 }
 

@@ -54,6 +54,10 @@
     if (self.settings.newGame)
         [self startNewGame:self.settings];
 
+    //always enable this, so it is not grayed out
+    UIBarItem *resumeButton = [self.tabBarController.tabBar.items objectAtIndex:kResumeGameIndex];
+    [resumeButton setEnabled:YES];
+
     self.settings.newGame = NO;
 }
 

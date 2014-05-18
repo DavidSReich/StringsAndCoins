@@ -63,6 +63,11 @@
 
 #define kMaxNumberOfPlayers 4
 
+#define kSettingsName   @"Game Options"
+#define kGameBoardName  @"Current Game"
+#define kAboutName      @"About"
+#define kNewGameName    @"New Game"
+
 //#define SHOWROWANDCOL
 
 #endif

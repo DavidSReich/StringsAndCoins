@@ -10,8 +10,6 @@
 #import "SCGLevel.h"
 #import "constants.h"
 
-//#define SHOWTRIANGLES
-
 @implementation SCGCellView
 #if defined(SHOWROWANDCOL)
 {
@@ -23,22 +21,14 @@
 {
 	if (l.levelType == BoxesType)
     {
-#if defined(SHOWTRIANGLES)
-        if (l.levelShape == TriangleShape)
-        {
-            if ((t && (c % 2 != 0)) || (!t && (c % 2 == 0)))
-                self = [super initWithImage: [UIImage imageNamed:@"triangleDown-md.png"]];
-            else
-                self = [super initWithImage: [UIImage imageNamed:@"triangleUp-md.png"]];
-        }
-        else
-            self = [super init];	//no image for boxes
-#else
         self = [super init];	//no image for boxes
-#endif
     }
 	else
-		self = [super initWithImage: l.cellImage];
+    {
+		//self = [super initWithImage: l.cellImage];
+        //no image for coins either
+		self = [super init];
+    }
 	
     if (self != nil)
     {
@@ -92,32 +82,72 @@
 {
     if (self.level.levelType == CoinsType)
     {
+        CGFloat cellSize = MIN(self.level.cellWidth, self.level.cellHeight);
+        if (self.level.levelShape == HexagonShape)
+            ;//cellSize *= 0.6;
+        //convert the following two adjustments into scaling factors!
+        else if (self.level.levelShape == SquareShape)
+            cellSize += 20;
+        else
+            cellSize += 0.6;
+        
+        self.bounds = CGRectMake(0.0, 0.0, cellSize, cellSize);
+#if true
+        CGPoint offCenter;
+        if (self.isUpTriangle)
+            offCenter = CGPointMake(self.center0.x, self.center0.y + self.level.cellHeight / 6);
+        else
+            offCenter = CGPointMake(self.center0.x, self.center0.y - self.level.cellHeight / 6);
+        self.center = offCenter;
+#else
+        self.center = self.center0;
+#endif
+        self.image = nil;
+        
+        //set the image context
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.frame.size.width, self.frame.size.height), NO, 0.0);
+        
+        //use the the image that is going to be drawn on as the receiver
+        UIImage *img = self.image;
+        
+        [img drawInRect:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)];
+        
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        
+        UIGraphicsPushContext(ctx);
+
+        CGFloat ringRadius = self.frame.size.width / 4;
+        CGFloat ringOffset = ((self.frame.size.width / 2) - ringRadius) * 1.5;
+
+        CGContextSetLineWidth(ctx, ringRadius / 2);
+#if true
+        CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+        CGContextStrokeEllipseInRect(ctx, CGRectMake(ringOffset, ringOffset, ringRadius, ringRadius));
         if (self.complete)
         {
-            [self setImage:nil];
-            self.frame = CGRectMake(0, 0, self.level.cellWidth, self.level.cellHeight);
-            self.center = self.center0;
-#if defined(SHOWROWANDCOL)
-            rcLabel.hidden = NO;
-#endif
+            CGContextSetStrokeColorWithColor(ctx, self.completeColor.CGColor);
+            CGContextStrokeEllipseInRect(ctx, CGRectMake(ringOffset + 2, ringOffset + 2, ringRadius - 4, ringRadius - 4));
         }
+#else
+        if (self.complete)
+            CGContextSetStrokeColorWithColor(ctx, self.completeColor.CGColor);
         else
-        {
-            [self setImage:self.level.cellImage];
-
-            CGFloat cellSize = MIN(self.level.cellWidth, self.level.cellHeight);
-            if (self.level.levelShape == HexagonShape)
-                cellSize *= 0.6;
-            else
-                cellSize += 0.6;
-
-            self.bounds = CGRectMake(0.0, 0.0, cellSize, cellSize);
-            self.center = self.center0;
-
-#if defined(SHOWROWANDCOL)
-            rcLabel.hidden = YES;
+            CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+        CGContextStrokeEllipseInRect(ctx, CGRectMake(ringOffset, ringOffset, ringRadius, ringRadius));
 #endif
-        }
+        UIGraphicsPopContext();
+        
+        //get the new image
+        UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+        
+        [self setImage:img2];
+        
+        UIGraphicsEndImageContext();
+        
+#if defined(SHOWROWANDCOL)
+        rcLabel.hidden = YES;
+#endif
+        return;
     }
     else
     {
@@ -184,8 +214,7 @@
                 thirdPt = CGPointMake(((float)self.level.cellWidth) / 2, self.level.cellHeight + overLapExtend);
             }
 
-            //get the image context with options(recommended funct to use)
-            //get the size of the imageView
+            //set the image context
             UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.level.cellWidth, self.level.cellHeight), NO, 0.0);
             
             //use the the image that is going to be drawn on as the receiver
@@ -230,7 +259,7 @@
             }
         }
     }
-    else //if (0)
+    else //hexagon
     {
         if (!self.complete)
         {

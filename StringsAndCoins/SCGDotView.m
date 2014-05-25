@@ -35,7 +35,10 @@
 //#endif
 
         //resize
-        self.frame = CGRectMake(0, 0, l.cellWidth / 8, l.cellWidth / 8);
+        if (l.levelShape == HexagonShape)
+            self.frame = CGRectMake(0, 0, l.cellWidth * .18, l.cellWidth * .18);
+        else
+            self.frame = CGRectMake(0, 0, l.cellWidth / 4, l.cellWidth / 4);
     }
 	
     return self;

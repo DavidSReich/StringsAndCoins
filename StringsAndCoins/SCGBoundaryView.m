@@ -32,6 +32,7 @@
 		self.level = l;
 		self.topHalf = t;
         self.orientation = o;
+        self.canUndo = NO;
         self.userInteractionEnabled = YES;
 
         CGFloat aspect = l.boundaryImage.size.height / l.boundaryImage.size.width;
@@ -42,7 +43,10 @@
         if (l.levelType == BoxesType)
         {
             if (l.levelShape == HexagonShape)
+            {
                 length = l.cellWidth * .5;
+                aspect *= 1.8;
+            }
             else
                 length = l.cellWidth;
         }
@@ -61,9 +65,10 @@
         //overlay a button -- makes presses easier?
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.btn.frame = self.frame;
-        [self.btn setBackgroundImage:l.boundaryImage forState:UIControlStateNormal];
+//        [self.btn setBackgroundImage:l.boundaryImage forState:UIControlStateNormal];
         self.btn.userInteractionEnabled = YES;
         [self.btn addTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
+        self.btn.showsTouchWhenHighlighted = YES;
         [self addSubview: self.btn];
 
 #if defined(SHOWROWANDCOL)
@@ -76,7 +81,7 @@
         [self.btn addSubview: rcLabel];
 #endif
 
-        [self updateImage];
+        [self UpdateImage];
 
         //rotate AFTER setting dimensions
         CGFloat rotation = 0;
@@ -126,54 +131,167 @@
 
 - (void) ActionTapped
 {
-//    self.btn.backgroundColor = [UIColor greenColor];
     self.complete = YES;
-    [self updateImage];
+    [self UpdateImage];
     [self.btn removeTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
     [self.btn addTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
-    [self.board boundaryClicked:self];
+    [self.board boundaryClicked:self];  //boundary color set by boundaryClicked
+    self.canUndo = YES;
+    [self UpdateImage];
 }
 
 - (void) ActionDoubleTapped
 {
-//    self.btn.backgroundColor = [UIColor orangeColor];
     self.complete = NO;
-    [self updateImage];
+    [self UpdateImage];
     [self.btn addTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
     [self.btn removeTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
     [self.board boundaryDoubleClicked];
+    self.canUndo = NO;
+    [self UpdateImage];
 }
 
 - (void) LockBoundary
 {
     [self.btn removeTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
     [self.btn removeTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
+    self.btn.showsTouchWhenHighlighted = NO;
+//    self.btn.enabled = NO;
+    self.canUndo = NO;
+    [self UpdateImage];
 }
 
-- (void) updateImage
+- (void) UpdateImage
 {
     if (self.level.levelType == CoinsType)
     {
-        if (self.complete)
-        {
-            [self.btn setBackgroundImage:nil forState:UIControlStateNormal];
+//        if (self.complete)
+//        {
+//            [self.btn setBackgroundImage:nil forState:UIControlStateNormal];
+//            //set the image context
+//            UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.frame.size.width, self.frame.size.height), NO, 0.0);
+//            
+//            //use the the image that is going to be drawn on as the receiver
+//            UIImage *img = [self.btn backgroundImageForState:UIControlStateNormal];
+//            
+//            [img drawInRect:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)];
+//            
+//            CGContextRef ctx = UIGraphicsGetCurrentContext();
+//            
+//            UIGraphicsPushContext(ctx);
+//            
+//            CGContextSetFillColorWithColor(ctx, [UIColor blackColor].CGColor);
+//            CGFloat w;
+//            w = self.frame.size.height;
+//            w = w * .8;
+//            
+//            CGContextFillRect(ctx, CGRectMake(0.0 - 2, (self.frame.size.height - w) / 2, self.frame.size.width + 4, w));
+//            UIGraphicsPopContext();
+//            
+//            //get the new image
+//            UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+//            
+//            [self.btn setBackgroundImage:img2 forState:UIControlStateNormal];
+//            
+//            UIGraphicsEndImageContext();
+//#if defined(SHOWROWANDCOL)
+//            rcLabel.hidden = YES;
+//#endif
+//        }
+//        else
+//        {
+#if true
+            //set the image context
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.frame.size.width, self.frame.size.height), NO, 0.0);
+            
+            //use the the image that is going to be drawn on as the receiver
+            UIImage *img = [self.btn backgroundImageForState:UIControlStateNormal];
+            
+            [img drawInRect:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)];
+            
+            CGContextRef ctx = UIGraphicsGetCurrentContext();
+            
+            UIGraphicsPushContext(ctx);
+            
+            CGContextSetFillColorWithColor(ctx, [UIColor blackColor].CGColor);
+            CGFloat w;
+            w = self.frame.size.height;
+            w = w * .8;
+            
+            CGContextFillRect(ctx, CGRectMake(0.0 - 2, (self.frame.size.height - w) / 2, self.frame.size.width + 4, w));
+            UIGraphicsPopContext();
+            
+            //get the new image
+            UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+            
+            [self.btn setBackgroundImage:img2 forState:UIControlStateNormal];
+            
+            UIGraphicsEndImageContext();
+#else
+            //set the image context
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.frame.size.width, self.frame.size.height), NO, 0.0);
+            
+            //use the the image that is going to be drawn on as the receiver
+            UIImage *img = [self.btn backgroundImageForState:UIControlStateNormal];
+            
+            [img drawInRect:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)];
+            
+            CGContextRef ctx = UIGraphicsGetCurrentContext();
+            CGContextSetLineWidth(ctx, 0.5);
+            
+            UIGraphicsPushContext(ctx);
+            
+            CGContextSetFillColorWithColor(ctx, [UIColor blackColor].CGColor);
+            CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
+            CGContextAddEllipseInRect(ctx, CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height));
+            CGContextFillPath(ctx);
+            CGContextStrokePath(ctx);
+            
+            UIGraphicsPopContext();
+            
+            //get the new image
+            UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            [self.btn setBackgroundImage:img2 forState:UIControlStateNormal];
+#endif
+            
 #if defined(SHOWROWANDCOL)
             rcLabel.hidden = YES;
 #endif
-        }
-        else
-        {
-            [self.btn setBackgroundImage:self.level.boundaryImage forState:UIControlStateNormal];
-#if defined(SHOWROWANDCOL)
-            rcLabel.hidden = YES;
-#endif
-        }
+//        }
     }
     else
     {
         if (self.complete)
         {
-            [self.btn setBackgroundImage:self.level.boundaryImage forState:UIControlStateNormal];
+            //set the image context
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.frame.size.width, self.frame.size.height), NO, 0.0);
+            
+            //use the the image that is going to be drawn on as the receiver
+            UIImage *img = [self.btn backgroundImageForState:UIControlStateNormal];
+            
+            [img drawInRect:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)];
+            
+            CGContextRef ctx = UIGraphicsGetCurrentContext();
+            
+            UIGraphicsPushContext(ctx);
+
+            CGContextSetFillColorWithColor(ctx, [UIColor blackColor].CGColor);
+            CGFloat w;
+            w = self.frame.size.height;
+            w = w * .8;
+            
+            CGContextFillRect(ctx, CGRectMake(0.0 - 2, (self.frame.size.height - w) / 2, self.frame.size.width + 4, w));
+            UIGraphicsPopContext();
+            
+            //get the new image
+            UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+
+            [self.btn setBackgroundImage:img2 forState:UIControlStateNormal];
+
+            UIGraphicsEndImageContext();
+
 #if defined(SHOWROWANDCOL)
             rcLabel.hidden = YES;
 #endif
@@ -193,11 +311,90 @@
 //#endif
 //#endif
     }
+
+    [self UpdateDetails];
 }
 
-- (void)CheckStatus
+- (void) CheckStatus
 {
 	//
+}
+
+- (void) UpdateDetails
+{
+    [self.btn setImage:nil forState:UIControlStateNormal];
+
+    if (!self.canUndo && !self.complete)
+        return;
+
+    CGFloat fullWidth, fullLength;
+
+    //set the image context
+    if (self.orientation == Horizontal)
+    {
+        fullWidth = self.frame.size.height;
+        fullLength = self.frame.size.width;
+    }
+    else if ((self.level.levelShape == HexagonShape) && (self.orientation != Vertical))
+    {
+        fullWidth = self.frame.size.height;
+        fullLength = self.frame.size.width;
+    }
+    else
+    {
+        fullWidth = self.frame.size.width;
+        fullLength = self.frame.size.height;
+    }
+
+    if (self.level.levelType == CoinsType)
+    {
+        CGFloat temp = fullWidth;
+        fullWidth = fullLength;
+        fullLength = temp;
+    }
+
+    CGFloat undoWidth, completeWidth, length;
+    undoWidth = fullWidth * .29;
+    length = fullLength;
+    completeWidth = fullWidth * .54;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(fullLength, fullWidth), NO, 0.0);
+
+    //use the the image that is going to be drawn on as the receiver
+    UIImage *img = [self.btn imageForState:UIControlStateNormal];
+    
+    [img drawInRect:CGRectMake(0.0, 0, length, fullWidth)];
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    UIGraphicsPushContext(ctx);
+
+    if (self.complete)
+    {
+        CGContextSetStrokeColorWithColor(ctx, self.boundaryColor.CGColor);
+        if ((self.level.levelShape == TriangleShape) && (self.orientation != Horizontal))
+            CGContextSetLineWidth(ctx, 4);
+        else if ((self.level.levelShape == HexagonShape) && (self.orientation != Vertical))
+            CGContextSetLineWidth(ctx, 4);
+        else
+            CGContextSetLineWidth(ctx, 2);
+        CGContextStrokeRect(ctx, CGRectMake(0.0, (fullWidth - completeWidth) / 2, length, completeWidth));
+    }
+    
+    if (self.canUndo)
+    {
+        CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+        CGContextSetLineWidth(ctx, 0.5);
+        CGContextFillEllipseInRect(ctx, CGRectMake(0.0, (fullWidth - undoWidth) / 2, length, undoWidth));
+    }
+
+    UIGraphicsPopContext();
+    
+    //get the new image
+    UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [self.btn setImage:img2 forState:UIControlStateNormal];
 }
 
 @end

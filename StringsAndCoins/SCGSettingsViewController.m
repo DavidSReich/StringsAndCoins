@@ -171,7 +171,9 @@
 
 - (IBAction) defaultButtonTouched:(id)sender
 {
+    BOOL gameInProgress = self.settings.gameInProgress;
     [self.settings setDefaultSettings];
+    self.settings.gameInProgress = gameInProgress;
     [self resetButtons];
 }
 
@@ -343,10 +345,13 @@
                 return YES;
             }
         }
-    }
 
-    //we're not going to current game or new game, so throw away any setting changes
-    [self resetButtonTouched:nil];
+        //we're not going to current game or new game, so throw away any setting changes
+        //if we have clicked on the settings button don't do anything, we're already here
+        if (![viewController isKindOfClass:[SCGSettingsViewController class]])
+            [self resetButtonTouched:nil];
+        
+    }
 
     return YES;
 }

@@ -32,12 +32,15 @@ typedef NS_ENUM(NSInteger, BoundaryOrientation)
 @property (strong, nonatomic) UIButton *btn;  //touch me
 @property (weak, nonatomic) SCGLevel *level;
 @property (weak, nonatomic) SCGBoardController *board;
+@property (assign, nonatomic) UIColor *boundaryColor;
+@property (assign, nonatomic) BOOL canUndo;
 
 - (instancetype) initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c andTopHalf:(BOOL)t andOrientation:(BoundaryOrientation)o;
 - (void) CheckStatus;
 - (void) ActionTapped;
 - (void) ActionDoubleTapped;
-- (void) updateImage;
+- (void) UpdateImage;
 - (void) LockBoundary;
+- (void) UpdateDetails;
 
 @end

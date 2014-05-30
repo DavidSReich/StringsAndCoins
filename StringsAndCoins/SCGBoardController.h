@@ -29,6 +29,10 @@
 //start a new game
 - (void) setupGameBoard:(SCGLevel *)level;
 - (void) clearGameBoard;
+- (void) makeDots;
+- (void) makeCells;
+- (void) makeBoundaries;
+- (void) makeBoardFrame;
 
 //user actions
 - (void) boundaryClicked:(SCGBoundaryView *)boundary;

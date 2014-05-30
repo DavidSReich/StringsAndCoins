@@ -41,10 +41,13 @@
     [self.view sendSubviewToBack:backgroundView];
 
     int numberOfPlayers = self.players.count;
-    int numberOfCells = 0;
+    int maxScore = 0;
 
     for (SCGGamePlayer *player  in self.players)
-        numberOfCells += player.score;
+    {
+        if (maxScore < player.score)
+            maxScore = player.score;
+    }
     
     for (UILabel *playerScoreLabel in self.scoreGrid.subviews)
     {
@@ -64,7 +67,7 @@
         {
             //score
             CGFloat width = playerScoreLabel.bounds.size.width;
-            CGFloat blockWidth = (width * player.score) / numberOfCells;
+            CGFloat blockWidth = (width * player.score) / maxScore;
             
             playerScoreLabel.frame = CGRectMake(playerScoreLabel.frame.origin.x, playerScoreLabel.frame.origin.y, blockWidth, playerScoreLabel.frame.size.height);
             playerScoreLabel.text = [NSString stringWithFormat:@" %d", player.score];

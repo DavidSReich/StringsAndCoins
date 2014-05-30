@@ -93,12 +93,15 @@
         
         self.bounds = CGRectMake(0.0, 0.0, cellSize, cellSize);
 #if true
-        CGPoint offCenter;
-        if (self.isUpTriangle)
-            offCenter = CGPointMake(self.center0.x, self.center0.y + self.level.cellHeight / 6);
-        else
-            offCenter = CGPointMake(self.center0.x, self.center0.y - self.level.cellHeight / 6);
-        self.center = offCenter;
+        if (self.level.levelShape == TriangleShape)
+        {
+            CGPoint offCenter;
+            if (self.isUpTriangle)
+                offCenter = CGPointMake(self.center0.x, self.center0.y + self.level.cellHeight / 6);
+            else
+                offCenter = CGPointMake(self.center0.x, self.center0.y - self.level.cellHeight / 6);
+            self.center = offCenter;
+        }
 #else
         self.center = self.center0;
 #endif

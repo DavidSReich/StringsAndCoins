@@ -135,8 +135,8 @@
     [self UpdateImage];
     [self.btn removeTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
     [self.btn addTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
-    [self.board boundaryClicked:self];  //boundary color set by boundaryClicked
     self.canUndo = YES;
+    [self.board boundaryClicked:self];  //boundary color set by boundaryClicked
     [self UpdateImage];
 }
 
@@ -146,8 +146,8 @@
     [self UpdateImage];
     [self.btn addTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
     [self.btn removeTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
-    [self.board boundaryDoubleClicked];
     self.canUndo = NO;
+    [self.board boundaryDoubleClicked];
     [self UpdateImage];
 }
 
@@ -217,8 +217,16 @@
             CGFloat w;
             w = self.frame.size.height;
             w = w * .8;
-            
-            CGContextFillRect(ctx, CGRectMake(0.0 - 2, (self.frame.size.height - w) / 2, self.frame.size.width + 4, w));
+
+            CGRect drawRect = CGRectMake(0.0 - 2, (self.frame.size.height - w) / 2, self.frame.size.width + 4, w);
+            CGContextFillRect(ctx, drawRect);
+
+            if (self.complete)
+            {
+                CGFloat truncateLength = drawRect.size.width / 3;
+                CGContextClearRect(ctx, CGRectMake(drawRect.origin.x + truncateLength, drawRect.origin.y - 4, drawRect.size.width - (2 * truncateLength), drawRect.size.height + 8));
+            }
+        
             UIGraphicsPopContext();
             
             //get the new image
@@ -369,6 +377,8 @@
     
     UIGraphicsPushContext(ctx);
 
+    CGRect drawRect = CGRectMake(0.0, (fullWidth - completeWidth) / 2, length, completeWidth);
+
     if (self.complete)
     {
         CGContextSetStrokeColorWithColor(ctx, self.boundaryColor.CGColor);
@@ -378,14 +388,20 @@
             CGContextSetLineWidth(ctx, 4);
         else
             CGContextSetLineWidth(ctx, 2);
-        CGContextStrokeRect(ctx, CGRectMake(0.0, (fullWidth - completeWidth) / 2, length, completeWidth));
+        CGContextStrokeRect(ctx, drawRect);
     }
     
     if (self.canUndo)
     {
         CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
         CGContextSetLineWidth(ctx, 0.5);
-        CGContextFillEllipseInRect(ctx, CGRectMake(0.0, (fullWidth - undoWidth) / 2, length, undoWidth));
+        CGContextFillRect(ctx, CGRectMake(0.0, (fullWidth - undoWidth) / 2, length, undoWidth));
+    }
+
+    if ((self.level.levelType == CoinsType) && (self.complete))
+    {
+        CGFloat truncateLength = drawRect.size.width / 3;
+        CGContextClearRect(ctx, CGRectMake(drawRect.origin.x + truncateLength, drawRect.origin.y - 2, drawRect.size.width - (2 * truncateLength), drawRect.size.height + 4));
     }
 
     UIGraphicsPopContext();

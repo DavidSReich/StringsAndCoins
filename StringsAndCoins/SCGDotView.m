@@ -37,6 +37,8 @@
         //resize
         if (l.levelShape == HexagonShape)
             self.frame = CGRectMake(0, 0, l.cellWidth * .18, l.cellWidth * .18);
+        else if (l.levelShape == TriangleShape)
+            self.frame = CGRectMake(0, 0, l.cellWidth * .3, l.cellWidth * .3);
         else
             self.frame = CGRectMake(0, 0, l.cellWidth / 4, l.cellWidth / 4);
     }

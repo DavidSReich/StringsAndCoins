@@ -70,433 +70,23 @@
 //	self.boardView.layer.borderWidth = 3.f;
 //  self.boardView.layer.borderColor = [UIColor redColor].CGColor;
     
-	//horizontal boundaries
-	CGFloat xOffset = level.sideMarginWidth + level.cellWidth / 2;
-    CGFloat yOffset = level.topMarginHeight + level.statusBarOffset;
-    yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
-
-    if (level.levelShape == SquareShape)
-        xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
+	//cells before boundaries if boxes
+    if (level.levelType == BoxesType)
+        [self makeCells];
     
-	horizontalBoundaries = [[NSMutableArray alloc] initWithCapacity:level.numRows + 1];
-	
-	for (int r = 0; r < level.numRows + 1; r++)
-	{
-		[horizontalBoundaries addObject:[NSMutableArray array]];
-		
-        if (level.levelShape == SquareShape)
-        {
-            BOOL topHalf = (r <= level.numRows / 2);
-            
-            int numCols = [level numberOfCols:r];
-            
-            for (int c = 0; c < numCols; c++)
-            {
-                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andOrientation:Horizontal];
-                [[horizontalBoundaries objectAtIndex:r] addObject:boundary];
-                //set center
-                //add to view
-                boundary.center = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
-                boundary.board = self;
-                [self.boardView addSubview:boundary];
-//                [self.boardView bringSubviewToFront:boundary];
-            }
-        }
-        else if (level.levelShape == TriangleShape)
-        {
-            BOOL topHalf = (r < (level.numRows / 2));
-            int rowDelta;
-            int numCols;
-
-            if (topHalf)
-            {
-                numCols = ([level numberOfCols:r - 1] + 1) / 2;
-                rowDelta = ((level.numRows / 2) + 1) - r;
-            }
-            else
-            {
-                numCols = ([level numberOfCols:r] + 1) / 2;
-                rowDelta = r - (level.numRows / 2) + 1;
-            }
-
-            xOffset = level.sideMarginWidth + (level.cellWidth / 2) * rowDelta;
-            xOffset += (level.boardWidth - (level.cellWidth * (level.numCols + 1) / 2)) / 2;
-            
-            for (int c = 0; c < numCols; c++)
-            {
-                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andOrientation:Horizontal];
-                [[horizontalBoundaries objectAtIndex:r] addObject:boundary];
-                //set center
-                //add to view
-                boundary.center = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
-                boundary.board = self;
-                [self.boardView addSubview:boundary];
-//                [self.boardView bringSubviewToFront:boundary];
-            }
-        }
-        else    //hexagons
-        {
-            BOOL topHalf = (r < (level.numRows + 1) / 2);
-            int rowDelta;
-            int numCols;
-            BoundaryOrientation orientation;
-            
-            if (topHalf)
-            {
-                numCols = [level numberOfCols:r] * 2;
-                rowDelta = ((level.numRows + 1) / 2) - r - 1;
-            }
-            else
-            {
-                numCols = [level numberOfCols:r - 1] * 2;
-                rowDelta = r - ((level.numRows + 1) / 2);
-            }
-
-            xOffset = level.sideMarginWidth + level.cellWidth / 4 + (level.cellWidth / 2) * rowDelta;
-            xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
-
-            for (int c = 0; c < numCols; c++)
-            {
-                if (topHalf == (c % 2 == 0))
-                    orientation = HorizontalRight;
-                else
-                    orientation = HorizontalLeft;
-                
-                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andOrientation:orientation];
-                [[horizontalBoundaries objectAtIndex:r] addObject:boundary];
-                //set center
-                //add to view
-                boundary.center = CGPointMake(xOffset + (c * level.cellWidth) / 2, yOffset + r * level.rowHeight);
-                boundary.board = self;
-                [self.boardView addSubview:boundary];
-//                [self.boardView bringSubviewToFront:boundary];
-            }
-        }
-	}
-
-	//vertical boundaries
-    //triangles need different xOffsets, odd and even -- and angles too
-	xOffset = level.sideMarginWidth;
-	yOffset = level.topMarginHeight + level.rowHeight / 2 + level.statusBarOffset;
-    yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
-
-	verticalBoundaries = [[NSMutableArray alloc] initWithCapacity:level.numRows + 1];
-	
-    if (level.levelShape == SquareShape)
-        xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
-
-	for (int r = 0; r < level.numRows; r++)
-	{
-		[verticalBoundaries addObject:[NSMutableArray array]];
-		
-		BOOL topHalf = (r <= level.numRows / 2);
-        BoundaryOrientation orientation;
-		
-		int numCols = [level numberOfCols:r] + 1;
-        
-        if (level.levelShape == SquareShape)
-        {
-            for (int c = 0; c < numCols; c++)
-            {
-                orientation = Vertical;
-                
-                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andOrientation:orientation];
-                [[verticalBoundaries objectAtIndex:r] addObject:boundary];
-                //set center
-                //add to view
-                boundary.center = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
-                boundary.board = self;
-                [self.boardView addSubview:boundary];
-//                [self.boardView bringSubviewToFront:boundary];
-            }
-        }
-        else if (level.levelShape == TriangleShape)
-        {
-            BOOL topHalf = (r < (level.numRows / 2));
-            int rowDelta;
-            
-            if (topHalf)
-                rowDelta = (level.numRows / 2) - r - 1;
-            else
-                rowDelta = r - (level.numRows / 2);
-            
-            xOffset = level.sideMarginWidth + (level.cellWidth / 4) + (level.cellWidth / 2) * rowDelta;
-            xOffset += (level.boardWidth - (level.cellWidth * ((level.numCols + 1) / 2))) / 2;
-
-            for (int c = 0; c < numCols; c++)
-            {
-                if (topHalf == (c % 2 == 0))
-                    orientation = VerticalRight;
-                else
-                    orientation = VerticalLeft;
-                
-                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andOrientation:orientation];
-                [[verticalBoundaries objectAtIndex:r] addObject:boundary];
-                //set center
-                //add to view
-                boundary.center = CGPointMake(xOffset + (c * level.cellWidth) / 2, yOffset + r * level.rowHeight);
-                boundary.board = self;
-                [self.boardView addSubview:boundary];
-//                [self.boardView bringSubviewToFront:boundary];
-            }
-        }
-        else    //hexagons
-        {
-            BOOL topHalf = (r < (level.numRows + 1) / 2);
-            int rowDelta;
-            
-            if (topHalf)
-                rowDelta = ((level.numRows + 1) / 2) - r;
-            else
-                rowDelta = r - ((level.numRows + 1) / 2) + 2;
-            
-            int numCols = [level numberOfCols:r] + 1;
-            
-            xOffset = level.sideMarginWidth + (level.cellWidth / 2) * (rowDelta - 1);
-            xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
-            
-            for (int c = 0; c < numCols; c++)
-            {
-                orientation = Vertical;
-                
-                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andOrientation:orientation];
-                [[verticalBoundaries objectAtIndex:r] addObject:boundary];
-                //set center
-                //add to view
-                if (level.levelType == BoxesType)
-                    boundary.center = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
-//                boundary.center = CGPointMake(xOffset + c * level.cellWidth, (yOffset * 1.01) + r * level.rowHeight);
-                else
-                    boundary.center = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
-                boundary.board = self;
-                [self.boardView addSubview:boundary];
-//                [self.boardView bringSubviewToFront:boundary];
-            }
-        }
-	}
+	//boundaries
+    [self makeBoundaries];
     
-	//cells
-	xOffset = 0;
-	yOffset = level.statusBarOffset;
-    
-	cells = [[NSMutableArray alloc] initWithCapacity:level.numRows];
-	
-	for (int r = 0; r < level.numRows; r++)
-	{
-		[cells addObject:[NSMutableArray array]];
-        
-        if (level.levelShape == SquareShape)
-        {
-            BOOL topHalf = (r <= level.numRows / 2);
-            int numCols = [level numberOfCols:r];
-            
-            xOffset = level.sideMarginWidth + level.cellWidth / 2;
-            yOffset = level.topMarginHeight + level.rowHeight / 2 + level.statusBarOffset;
-            
-            xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
-            yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
-            
-            for (int c = 0; c < numCols; c++)
-            {
-                //set center
-                CGPoint cellCenter = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
-                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andCenter:cellCenter];
-                [[cells objectAtIndex:r] addObject:cell];
-                //add to view
-                [self.boardView addSubview:cell];
-                
-                level.numberOfCells++;
-            }
-        }
-        else if (level.levelShape == TriangleShape)
-        {
-            BOOL topHalf = (r < (level.numRows / 2));
-            int rowDelta;
-            
-            if (topHalf)
-                rowDelta = (level.numRows / 2) - r;
-            else
-                rowDelta = r - (level.numRows / 2) + 1;
-            
-            int numCols = [level numberOfCols:r];
-            
-            xOffset = level.sideMarginWidth + (level.cellWidth / 2) * rowDelta;
-            yOffset = level.topMarginHeight + level.rowHeight / 2 + level.statusBarOffset;
-            
-            xOffset += (level.boardWidth - (level.cellWidth * (level.numCols + 1) / 2)) / 2;
-            yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
-            
-            for (int c = 0; c < numCols; c++)
-            {
-                //set center
-                CGPoint cellCenter = CGPointMake(xOffset + (c * level.cellWidth / 2), yOffset + r * level.rowHeight);
-                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andCenter:cellCenter];
-                [[cells objectAtIndex:r] addObject:cell];
-                //add to view
-                [self.boardView addSubview:cell];
-                
-                level.numberOfCells++;
-            }
-        }
-        else    //hexagons
-        {
-            BOOL topHalf = (r < (level.numRows + 1) / 2);
-            int rowDelta;
-            
-            if (topHalf)
-                rowDelta = ((level.numRows + 1) / 2) - r;
-            else
-                rowDelta = r - ((level.numRows + 1) / 2) + 2;
-            
-            int numCols = [level numberOfCols:r];
-            
-            xOffset = level.sideMarginWidth + (level.cellWidth / 2) * rowDelta;
-            yOffset = level.topMarginHeight + level.rowHeight / 2 + level.statusBarOffset;
-            xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
-            yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
-            
-            for (int c = 0; c < numCols; c++)
-            {
-                //set center
-                CGPoint cellCenter = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
-                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:level andRow:r andCol:c andTopHalf:topHalf andCenter:cellCenter];
-                [[cells objectAtIndex:r] addObject:cell];
-                //add to view
-                [self.boardView addSubview:cell];
-                
-                level.numberOfCells++;
-            }
-        }
-    }
-    
-	xOffset = 0;
-	yOffset = level.statusBarOffset;
+	//cells after boundaries if coins
+    if (level.levelType == CoinsType)
+        [self makeCells];
     
     //grid for Boxes
     if (level.levelType == BoxesType)
-    {
-        dots = [[NSMutableArray alloc] initWithCapacity:level.numRows + 1];
-        
-        if (level.levelShape == SquareShape)
-        {
-            xOffset = level.sideMarginWidth;
-            yOffset = level.topMarginHeight + level.statusBarOffset;
-            
-            xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
-            yOffset += (level.boardHeight - (level.cellHeight * level.numRows)) / 2;
-            
-            for (int r = 0; r < level.numRows + 1; r++)
-            {
-                [dots addObject:[NSMutableArray array]];
-                
-                for (int c = 0; c < level.numCols + 1; c++)
-                {
-                    SCGDotView *dot = [[SCGDotView alloc] initWithLevel:level];
-                    [[dots objectAtIndex:r] addObject:dot];
-                    //set center
-                    //add to view
-                    dot.center = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
-                    [self.boardView addSubview:dot];
-                }
-            }
-        }
-        else if (level.levelShape == TriangleShape)
-        {
-            int numColDots;
-            
-            yOffset = level.topMarginHeight + level.statusBarOffset;
-            yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
-            
-            for (int r = 0; r < level.numRows + 1; r++)
-            {
-                BOOL topHalf = (r < (level.numRows / 2) + 1);
-                int rowDelta = r - (level.numRows / 2);
-                int rowForCols = r - 1;
-                
-                if (topHalf)
-                {
-                    rowForCols++;
-                    rowDelta = -rowDelta;
-                }
-                
-                numColDots = ([level numberOfCols:rowForCols] + 1) / 2;
-                xOffset = level.sideMarginWidth + (level.cellWidth / 2) * rowDelta;
-                xOffset += (level.boardWidth - (level.cellWidth * (level.numCols + 1) / 2)) / 2;
-                
-                if (r == level.numRows / 2)
-                    numColDots++;
-                
-                [dots addObject:[NSMutableArray array]];
-                
-                for (int c = 0; c < numColDots; c++)
-                {
-                    SCGDotView *dot = [[SCGDotView alloc] initWithLevel:level];
-                    [[dots objectAtIndex:r] addObject:dot];
-                    //set center
-                    //add to view
-                    dot.center = CGPointMake(xOffset + c * level.cellWidth, yOffset + r * level.rowHeight);
-                    [self.boardView addSubview:dot];
-                    //                    if (topHalf)
-                    //                        dot.backgroundColor = [UIColor greenColor];
-                    //                    else
-                    //                        dot.backgroundColor = [UIColor redColor];
-                }
-            }
-        }
-        else    //hexagons
-        {
-            int numColDots;
-            
-            yOffset = level.topMarginHeight + level.statusBarOffset;
-            yOffset += (level.boardHeight - (level.rowHeight * level.numRows)) / 2;
-            
-            for (int r = 0; r < level.numRows + 1; r++)
-            {
-                BOOL topHalf = (r < (level.numRows + 1) / 2);
-                int rowDelta;
-                
-                if (topHalf)
-                {
-                    numColDots = [level numberOfCols:r] * 2 + 1;
-                    rowDelta = ((level.numRows + 1) / 2) - r - 1;
-                }
-                else
-                {
-                    numColDots = [level numberOfCols:r - 1] * 2 + 1;
-                    rowDelta = r - ((level.numRows + 1) / 2);
-                }
-                
-                xOffset = level.sideMarginWidth + (level.cellWidth / 2) * rowDelta;
-                xOffset += (level.boardWidth - (level.cellWidth * level.numCols)) / 2;
-                
-                [dots addObject:[NSMutableArray array]];
-                
-                for (int c = 0; c < numColDots; c++)
-                {
-#if defined(SHOWROWANDCOL)
-                    SCGDotView *dot = [[SCGDotView alloc] initWithLevel:level andRow:r andCol:c];
-#else
-                    SCGDotView *dot = [[SCGDotView alloc] initWithLevel:level];
-#endif
-                    [[dots objectAtIndex:r] addObject:dot];
-                    
-                    CGFloat yOffsetOffset;
-                    if (topHalf == (c % 2 == 0))
-                        yOffsetOffset = yOffset + level.cellHeight / 8;
-                    else
-                        yOffsetOffset = yOffset - level.cellHeight / 8;
-                    //set center
-                    //add to view
-                    dot.center = CGPointMake(xOffset + (c * level.cellWidth) / 2, yOffsetOffset + r * level.rowHeight);
-                    [self.boardView addSubview:dot];
-                    //                    if (topHalf)
-                    //                        dot.backgroundColor = [UIColor greenColor];
-                    //                    else
-                    //                        dot.backgroundColor = [UIColor redColor];
-                }
-            }
-        }
-    }
+        [self makeDots];
+
+    if (level.levelType == CoinsType)
+        [self makeBoardFrame];
     
     //players will come from outside later
     numberOfPlayers = level.numberOfPlayers;
@@ -552,6 +142,576 @@
     [self refreshScores:NO];
 }
 
+- (void) makeDots
+{
+    if (self.level.levelType != BoxesType)
+        return;
+
+	CGFloat xOffset = 0;
+	CGFloat yOffset = self.level.statusBarOffset;
+    
+    //grid for Boxes
+    dots = [[NSMutableArray alloc] initWithCapacity:self.level.numRows + 1];
+    
+    if (self.level.levelShape == SquareShape)
+    {
+        xOffset = self.level.sideMarginWidth;
+        yOffset = self.level.topMarginHeight + self.level.statusBarOffset;
+        
+        xOffset += (self.level.boardWidth - (self.level.cellWidth * self.level.numCols)) / 2;
+        yOffset += (self.level.boardHeight - (self.level.cellHeight * self.level.numRows)) / 2;
+        
+        for (int r = 0; r < self.level.numRows + 1; r++)
+        {
+            [dots addObject:[NSMutableArray array]];
+            
+            for (int c = 0; c < self.level.numCols + 1; c++)
+            {
+                SCGDotView *dot = [[SCGDotView alloc] initWithLevel:self.level];
+                [[dots objectAtIndex:r] addObject:dot];
+                //set center
+                //add to view
+                dot.center = CGPointMake(xOffset + c * self.level.cellWidth, yOffset + r * self.level.rowHeight);
+                [self.boardView addSubview:dot];
+            }
+        }
+    }
+    else if (self.level.levelShape == TriangleShape)
+    {
+        int numColDots;
+        
+        yOffset = self.level.topMarginHeight + self.level.statusBarOffset;
+        yOffset += (self.level.boardHeight - (self.level.rowHeight * self.level.numRows)) / 2;
+        
+        for (int r = 0; r < self.level.numRows + 1; r++)
+        {
+            BOOL topHalf = (r < (self.level.numRows / 2) + 1);
+            int rowDelta = r - (self.level.numRows / 2);
+            int rowForCols = r - 1;
+            
+            if (topHalf)
+            {
+                rowForCols++;
+                rowDelta = -rowDelta;
+            }
+            
+            numColDots = ([self.level numberOfCols:rowForCols] + 1) / 2;
+            xOffset = self.level.sideMarginWidth + (self.level.cellWidth / 2) * rowDelta;
+            xOffset += (self.level.boardWidth - (self.level.cellWidth * (self.level.numCols + 1) / 2)) / 2;
+            
+            if (r == self.level.numRows / 2)
+                numColDots++;
+            
+            [dots addObject:[NSMutableArray array]];
+            
+            for (int c = 0; c < numColDots; c++)
+            {
+                SCGDotView *dot = [[SCGDotView alloc] initWithLevel:self.level];
+                [[dots objectAtIndex:r] addObject:dot];
+                //set center
+                //add to view
+                dot.center = CGPointMake(xOffset + c * self.level.cellWidth, yOffset + r * self.level.rowHeight);
+                [self.boardView addSubview:dot];
+            }
+        }
+    }
+    else    //hexagons
+    {
+        int numColDots;
+        
+        yOffset = self.level.topMarginHeight + self.level.statusBarOffset;
+        yOffset += (self.level.boardHeight - (self.level.rowHeight * self.level.numRows)) / 2;
+        
+        for (int r = 0; r < self.level.numRows + 1; r++)
+        {
+            BOOL topHalf = (r < (self.level.numRows + 1) / 2);
+            int rowDelta;
+            
+            if (topHalf)
+            {
+                numColDots = [self.level numberOfCols:r] * 2 + 1;
+                rowDelta = ((self.level.numRows + 1) / 2) - r - 1;
+            }
+            else
+            {
+                numColDots = [self.level numberOfCols:r - 1] * 2 + 1;
+                rowDelta = r - ((self.level.numRows + 1) / 2);
+            }
+            
+            xOffset = self.level.sideMarginWidth + (self.level.cellWidth / 2) * rowDelta;
+            xOffset += (self.level.boardWidth - (self.level.cellWidth * self.level.numCols)) / 2;
+            
+            [dots addObject:[NSMutableArray array]];
+            
+            for (int c = 0; c < numColDots; c++)
+            {
+#if defined(SHOWROWANDCOL)
+                SCGDotView *dot = [[SCGDotView alloc] initWithLevel:self.level andRow:r andCol:c];
+#else
+                SCGDotView *dot = [[SCGDotView alloc] initWithLevel:self.level];
+#endif
+                [[dots objectAtIndex:r] addObject:dot];
+                
+                CGFloat yOffsetOffset;
+                if (topHalf == (c % 2 == 0))
+                    yOffsetOffset = yOffset + self.level.cellHeight / 8;
+                else
+                    yOffsetOffset = yOffset - self.level.cellHeight / 8;
+                //set center
+                //add to view
+                dot.center = CGPointMake(xOffset + (c * self.level.cellWidth) / 2, yOffsetOffset + r * self.level.rowHeight);
+                [self.boardView addSubview:dot];
+            }
+        }
+    }
+}
+
+- (void) makeCells
+{
+	CGFloat xOffset = 0;
+	CGFloat yOffset = self.level.statusBarOffset;
+    
+	cells = [[NSMutableArray alloc] initWithCapacity:self.level.numRows];
+	
+	for (int r = 0; r < self.level.numRows; r++)
+	{
+		[cells addObject:[NSMutableArray array]];
+        
+        if (self.level.levelShape == SquareShape)
+        {
+            BOOL topHalf = (r <= self.level.numRows / 2);
+            int numCols = [self.level numberOfCols:r];
+            
+            xOffset = self.level.sideMarginWidth + self.level.cellWidth / 2;
+            yOffset = self.level.topMarginHeight + self.level.rowHeight / 2 + self.level.statusBarOffset;
+            
+            xOffset += (self.level.boardWidth - (self.level.cellWidth * self.level.numCols)) / 2;
+            yOffset += (self.level.boardHeight - (self.level.cellHeight * self.level.numRows)) / 2;
+            
+            for (int c = 0; c < numCols; c++)
+            {
+                //set center
+                CGPoint cellCenter = CGPointMake(xOffset + c * self.level.cellWidth, yOffset + r * self.level.rowHeight);
+                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:self.level andRow:r andCol:c andTopHalf:topHalf andCenter:cellCenter];
+                [[cells objectAtIndex:r] addObject:cell];
+                //add to view
+                [self.boardView addSubview:cell];
+                
+                self.level.numberOfCells++;
+            }
+        }
+        else if (self.level.levelShape == TriangleShape)
+        {
+            BOOL topHalf = (r < (self.level.numRows / 2));
+            int rowDelta;
+            
+            if (topHalf)
+                rowDelta = (self.level.numRows / 2) - r;
+            else
+                rowDelta = r - (self.level.numRows / 2) + 1;
+            
+            int numCols = [self.level numberOfCols:r];
+            
+            xOffset = self.level.sideMarginWidth + (self.level.cellWidth / 2) * rowDelta;
+            yOffset = self.level.topMarginHeight + self.level.rowHeight / 2 + self.level.statusBarOffset;
+            
+            xOffset += (self.level.boardWidth - (self.level.cellWidth * (self.level.numCols + 1) / 2)) / 2;
+            yOffset += (self.level.boardHeight - (self.level.rowHeight * self.level.numRows)) / 2;
+            
+            for (int c = 0; c < numCols; c++)
+            {
+                //set center
+                CGPoint cellCenter = CGPointMake(xOffset + (c * self.level.cellWidth / 2), yOffset + r * self.level.rowHeight);
+                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:self.level andRow:r andCol:c andTopHalf:topHalf andCenter:cellCenter];
+                [[cells objectAtIndex:r] addObject:cell];
+                //add to view
+                [self.boardView addSubview:cell];
+                
+                self.level.numberOfCells++;
+            }
+        }
+        else    //hexagons
+        {
+            BOOL topHalf = (r < (self.level.numRows + 1) / 2);
+            int rowDelta;
+            
+            if (topHalf)
+                rowDelta = ((self.level.numRows + 1) / 2) - r;
+            else
+                rowDelta = r - ((self.level.numRows + 1) / 2) + 2;
+            
+            int numCols = [self.level numberOfCols:r];
+            
+            xOffset = self.level.sideMarginWidth + (self.level.cellWidth / 2) * rowDelta;
+            yOffset = self.level.topMarginHeight + self.level.rowHeight / 2 + self.level.statusBarOffset;
+            xOffset += (self.level.boardWidth - (self.level.cellWidth * self.level.numCols)) / 2;
+            yOffset += (self.level.boardHeight - (self.level.rowHeight * self.level.numRows)) / 2;
+            
+            for (int c = 0; c < numCols; c++)
+            {
+                //set center
+                CGPoint cellCenter = CGPointMake(xOffset + c * self.level.cellWidth, yOffset + r * self.level.rowHeight);
+                SCGCellView *cell = [[SCGCellView alloc] initWithLevel:self.level andRow:r andCol:c andTopHalf:topHalf andCenter:cellCenter];
+                [[cells objectAtIndex:r] addObject:cell];
+                //add to view
+                [self.boardView addSubview:cell];
+                
+                self.level.numberOfCells++;
+            }
+        }
+    }
+}
+
+- (void) makeBoundaries
+{
+	//horizontal boundaries
+
+	CGFloat xOffset = self.level.sideMarginWidth + self.level.cellWidth / 2;
+    CGFloat yOffset = self.level.topMarginHeight + self.level.statusBarOffset;
+    yOffset += (self.level.boardHeight - (self.level.rowHeight * self.level.numRows)) / 2;
+    
+    if (self.level.levelShape == SquareShape)
+        xOffset += (self.level.boardWidth - (self.level.cellWidth * self.level.numCols)) / 2;
+    
+	horizontalBoundaries = [[NSMutableArray alloc] initWithCapacity:self.level.numRows + 1];
+	
+	for (int r = 0; r < self.level.numRows + 1; r++)
+	{
+		[horizontalBoundaries addObject:[NSMutableArray array]];
+		
+        if (self.level.levelShape == SquareShape)
+        {
+            BOOL topHalf = (r <= self.level.numRows / 2);
+            
+            int numCols = [self.level numberOfCols:r];
+            
+            for (int c = 0; c < numCols; c++)
+            {
+                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:self.level andRow:r andCol:c andTopHalf:topHalf andOrientation:Horizontal];
+                [[horizontalBoundaries objectAtIndex:r] addObject:boundary];
+                //set center
+                //add to view
+                boundary.center = CGPointMake(xOffset + c * self.level.cellWidth, yOffset + r * self.level.rowHeight);
+                boundary.board = self;
+                [self.boardView addSubview:boundary];
+            }
+        }
+        else if (self.level.levelShape == TriangleShape)
+        {
+            BOOL topHalf = (r < (self.level.numRows / 2));
+            int rowDelta;
+            int numCols;
+            
+            if (topHalf)
+            {
+                numCols = ([self.level numberOfCols:r - 1] + 1) / 2;
+                rowDelta = ((self.level.numRows / 2) + 1) - r;
+            }
+            else
+            {
+                numCols = ([self.level numberOfCols:r] + 1) / 2;
+                rowDelta = r - (self.level.numRows / 2) + 1;
+            }
+            
+            xOffset = self.level.sideMarginWidth + (self.level.cellWidth / 2) * rowDelta;
+            xOffset += (self.level.boardWidth - (self.level.cellWidth * (self.level.numCols + 1) / 2)) / 2;
+            
+            for (int c = 0; c < numCols; c++)
+            {
+                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:self.level andRow:r andCol:c andTopHalf:topHalf andOrientation:Horizontal];
+                [[horizontalBoundaries objectAtIndex:r] addObject:boundary];
+                //set center
+                //add to view
+                boundary.center = CGPointMake(xOffset + c * self.level.cellWidth, yOffset + r * self.level.rowHeight);
+                boundary.board = self;
+                [self.boardView addSubview:boundary];
+            }
+        }
+        else    //hexagons
+        {
+            BOOL topHalf = (r < (self.level.numRows + 1) / 2);
+            int rowDelta;
+            int numCols;
+            BoundaryOrientation orientation;
+            
+            if (topHalf)
+            {
+                numCols = [self.level numberOfCols:r] * 2;
+                rowDelta = ((self.level.numRows + 1) / 2) - r - 1;
+            }
+            else
+            {
+                numCols = [self.level numberOfCols:r - 1] * 2;
+                rowDelta = r - ((self.level.numRows + 1) / 2);
+            }
+            
+            xOffset = self.level.sideMarginWidth + self.level.cellWidth / 4 + (self.level.cellWidth / 2) * rowDelta;
+            xOffset += (self.level.boardWidth - (self.level.cellWidth * self.level.numCols)) / 2;
+            
+            for (int c = 0; c < numCols; c++)
+            {
+                if (topHalf == (c % 2 == 0))
+                    orientation = HorizontalRight;
+                else
+                    orientation = HorizontalLeft;
+                
+                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:self.level andRow:r andCol:c andTopHalf:topHalf andOrientation:orientation];
+                [[horizontalBoundaries objectAtIndex:r] addObject:boundary];
+                //set center
+                //add to view
+                boundary.center = CGPointMake(xOffset + (c * self.level.cellWidth) / 2, yOffset + r * self.level.rowHeight);
+                boundary.board = self;
+                [self.boardView addSubview:boundary];
+            }
+        }
+	}
+    
+	//vertical boundaries
+    //triangles need different xOffsets, odd and even -- and angles too
+	xOffset = self.level.sideMarginWidth;
+	yOffset = self.level.topMarginHeight + self.level.rowHeight / 2 + self.level.statusBarOffset;
+    yOffset += (self.level.boardHeight - (self.level.rowHeight * self.level.numRows)) / 2;
+    
+	verticalBoundaries = [[NSMutableArray alloc] initWithCapacity:self.level.numRows + 1];
+	
+    if (self.level.levelShape == SquareShape)
+        xOffset += (self.level.boardWidth - (self.level.cellWidth * self.level.numCols)) / 2;
+    
+	for (int r = 0; r < self.level.numRows; r++)
+	{
+		[verticalBoundaries addObject:[NSMutableArray array]];
+		
+		BOOL topHalf = (r <= self.level.numRows / 2);
+        BoundaryOrientation orientation;
+		
+		int numCols = [self.level numberOfCols:r] + 1;
+        
+        if (self.level.levelShape == SquareShape)
+        {
+            for (int c = 0; c < numCols; c++)
+            {
+                orientation = Vertical;
+                
+                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:self.level andRow:r andCol:c andTopHalf:topHalf andOrientation:orientation];
+                [[verticalBoundaries objectAtIndex:r] addObject:boundary];
+                //set center
+                //add to view
+                boundary.center = CGPointMake(xOffset + c * self.level.cellWidth, yOffset + r * self.level.rowHeight);
+                boundary.board = self;
+                [self.boardView addSubview:boundary];
+            }
+        }
+        else if (self.level.levelShape == TriangleShape)
+        {
+            BOOL topHalf = (r < (self.level.numRows / 2));
+            int rowDelta;
+            
+            if (topHalf)
+                rowDelta = (self.level.numRows / 2) - r - 1;
+            else
+                rowDelta = r - (self.level.numRows / 2);
+            
+            xOffset = self.level.sideMarginWidth + (self.level.cellWidth / 4) + (self.level.cellWidth / 2) * rowDelta;
+            xOffset += (self.level.boardWidth - (self.level.cellWidth * ((self.level.numCols + 1) / 2))) / 2;
+            
+            for (int c = 0; c < numCols; c++)
+            {
+                if (topHalf == (c % 2 == 0))
+                    orientation = VerticalRight;
+                else
+                    orientation = VerticalLeft;
+                
+                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:self.level andRow:r andCol:c andTopHalf:topHalf andOrientation:orientation];
+                [[verticalBoundaries objectAtIndex:r] addObject:boundary];
+                //set center
+                //add to view
+                boundary.center = CGPointMake(xOffset + (c * self.level.cellWidth) / 2, yOffset + r * self.level.rowHeight);
+                boundary.board = self;
+                [self.boardView addSubview:boundary];
+            }
+        }
+        else    //hexagons
+        {
+            BOOL topHalf = (r < (self.level.numRows + 1) / 2);
+            int rowDelta;
+            
+            if (topHalf)
+                rowDelta = ((self.level.numRows + 1) / 2) - r;
+            else
+                rowDelta = r - ((self.level.numRows + 1) / 2) + 2;
+            
+            int numCols = [self.level numberOfCols:r] + 1;
+            
+            xOffset = self.level.sideMarginWidth + (self.level.cellWidth / 2) * (rowDelta - 1);
+            xOffset += (self.level.boardWidth - (self.level.cellWidth * self.level.numCols)) / 2;
+            
+            for (int c = 0; c < numCols; c++)
+            {
+                orientation = Vertical;
+                
+                SCGBoundaryView *boundary = [[SCGBoundaryView alloc] initWithLevel:self.level andRow:r andCol:c andTopHalf:topHalf andOrientation:orientation];
+                [[verticalBoundaries objectAtIndex:r] addObject:boundary];
+                //set center
+                //add to view
+                if (self.level.levelType == BoxesType)
+                    boundary.center = CGPointMake(xOffset + c * self.level.cellWidth, yOffset + r * self.level.rowHeight);
+                //                boundary.center = CGPointMake(xOffset + c * level.cellWidth, (yOffset * 1.01) + r * level.rowHeight);
+                else
+                    boundary.center = CGPointMake(xOffset + c * self.level.cellWidth, yOffset + r * self.level.rowHeight);
+                boundary.board = self;
+                [self.boardView addSubview:boundary];
+            }
+        }
+	}
+}
+
+- (void) makeBoardFrame
+{
+    if (self.level.levelType != CoinsType)
+        return;
+
+    UIImageView *boardFrame = [[UIImageView alloc] initWithFrame:self.boardView.frame];
+    CGFloat boundaryLength;
+
+    boardFrame.layer.borderWidth = 3.f;
+    boardFrame.layer.borderColor = [UIColor redColor].CGColor;
+
+    if (self.level.levelShape == SquareShape)
+    {
+        CGFloat top, left, bottom, right;
+
+        SCGBoundaryView *boundary;
+        boundary = [[horizontalBoundaries objectAtIndex:0] objectAtIndex:0];
+        top = boundary.frame.origin.y;
+
+        boundary = [[verticalBoundaries objectAtIndex:0] objectAtIndex:0];
+        left = boundary.frame.origin.x;
+
+        boundary = [[horizontalBoundaries objectAtIndex:self.level.numRows] objectAtIndex:0];
+        bottom = boundary.frame.origin.y + boundary.frame.size.height;
+
+        boundary = [[verticalBoundaries objectAtIndex:0] objectAtIndex:self.level.numCols];
+        right = boundary.frame.origin.x + boundary.frame.size.width;
+
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(boardFrame.frame.size.width, boardFrame.frame.size.height), NO, 0.0);
+        
+        //use the the image that is going to be drawn on as the receiver
+        UIImage *img = boardFrame.image;
+        
+        [img drawInRect:CGRectMake(0.0, 0.0, boardFrame.frame.size.width, boardFrame.frame.size.height)];
+        
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        
+        UIGraphicsPushContext(ctx);
+
+        CGFloat lineWidth = 16;
+        CGFloat lineOffset = (lineWidth - 4) / 2;
+
+        CGContextSetLineWidth(ctx, lineWidth);
+        CGContextSetStrokeColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
+        
+        CGRect drawRect = CGRectMake(left - lineOffset, top - lineOffset, right - left + lineWidth - 4, bottom - top + lineWidth - 4);
+        CGContextStrokeRect(ctx, drawRect);
+        
+        UIGraphicsPopContext();
+        
+        //get the new image
+        UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+        boardFrame.image = img2;
+        
+        UIGraphicsEndImageContext();
+    }
+    else if (self.level.levelShape == TriangleShape)
+    {
+        CGFloat top, topLeft, topRight, farLeft, farRight, left, bottom, right;
+        CGFloat boundaryWidth;
+
+        SCGBoundaryView *boundary;
+        boundary = [[horizontalBoundaries objectAtIndex:0] objectAtIndex:0];
+        top = boundary.frame.origin.y;
+        boundaryWidth = boundary.frame.size.width;
+        topLeft = boundary.frame.origin.x + boundary.frame.size.width / 2 - self.level.cellWidth / 2;
+        topRight = topLeft + (self.level.cellWidth * ([self.level numberOfCols:0] / 2));
+        
+        //we want middle row, not top
+        boundary = [[verticalBoundaries objectAtIndex:self.level.numRows / 2] objectAtIndex:0];
+        left = boundary.frame.origin.x + boundaryWidth / 2;
+        farLeft = boundary.frame.origin.x + boundaryWidth / 2 - self.level.cellWidth / 4;
+        farRight = farLeft + (self.level.cellWidth * ([self.level numberOfCols:self.level.numRows / 2] / 2 + 1));
+        farRight += -boundary.frame.size.width / 2 + self.level.cellWidth / 2;
+        
+        boundary = [[horizontalBoundaries objectAtIndex:self.level.numRows] objectAtIndex:0];
+        bottom = boundary.frame.origin.y + boundary.frame.size.height;
+        
+        //we want middle row, not top
+        boundary = [[verticalBoundaries objectAtIndex:self.level.numRows / 2] objectAtIndex:self.level.numCols];
+        right = boundary.frame.origin.x + boundary.frame.size.width - boundaryWidth / 2;
+        
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(boardFrame.frame.size.width, boardFrame.frame.size.height), NO, 0.0);
+        
+        //use the the image that is going to be drawn on as the receiver
+        UIImage *img = boardFrame.image;
+        
+        [img drawInRect:CGRectMake(0.0, 0.0, boardFrame.frame.size.width, boardFrame.frame.size.height)];
+        
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        
+        UIGraphicsPushContext(ctx);
+
+#if false
+        CGFloat lineWidth = 1;
+        CGFloat lineOffset = 0;
+#else
+        CGFloat lineWidth = 16;
+        CGFloat lineOffset = (lineWidth - 4) / 2;
+#endif
+        
+        CGContextSetLineWidth(ctx, lineWidth);
+        CGContextSetStrokeColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
+        
+        if (self.level.levelSize == SmallSize)
+        {
+            CGRect drawRect = CGRectMake(left - lineOffset, top - lineOffset, right - left + lineWidth - 4, bottom - top + lineWidth - 4);
+            CGContextStrokeRect(ctx, drawRect);
+        }
+        else
+        {
+            CGPoint pts[6];
+            CGFloat xOffset = boundaryWidth + 2;
+
+            pts[0] = CGPointMake(topLeft - xOffset, top);
+            pts[1] = CGPointMake(topRight + xOffset, top);
+            pts[2] = CGPointMake(farRight + xOffset, (top + bottom) / 2);
+            pts[3] = CGPointMake(topRight + xOffset, bottom);
+            pts[4] = CGPointMake(topLeft - xOffset, bottom);
+            pts[5] = CGPointMake(farLeft - xOffset, (top + bottom) / 2);
+
+            CGContextBeginPath(ctx);
+            //draw the hexagon
+            CGContextMoveToPoint(ctx, pts[0].x, pts[0].y);
+            for (int i = 1; i < 6; i++)
+                CGContextAddLineToPoint(ctx, pts[i].x, pts[i].y);
+            //close the path
+            CGContextClosePath(ctx);
+            CGContextStrokePath(ctx);
+        }
+
+        UIGraphicsPopContext();
+        
+        //get the new image
+        UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+        boardFrame.image = img2;
+        
+        UIGraphicsEndImageContext();
+    }
+    else    //hexagons
+    {
+        boundaryLength = self.level.cellWidth * .8;
+    }
+
+    [self.boardView addSubview:boardFrame];
+}
+
 - (void) boundaryClicked:(SCGBoundaryView *)boundary
 {
     SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -568,6 +728,7 @@
         if ([self testBoard])
         {
             //all done!
+            self.mainViewController.settings.gameInProgress = false;
             [self refreshScores:YES];
             if (self.lastBoundary)
                 [self.lastBoundary LockBoundary];

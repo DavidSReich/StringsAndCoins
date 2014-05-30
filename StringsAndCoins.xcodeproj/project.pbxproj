@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		6313A6871927BA6800B4CE74 /* SCGAboutBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313A6861927BA6800B4CE74 /* SCGAboutBoxViewController.m */; };
+		632F3CBC193613BD0085F981 /* about-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 632F3CBB193613BD0085F981 /* about-32.png */; };
+		632F3CC0193614230085F981 /* org_unit-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 632F3CBF193614230085F981 /* org_unit-32.png */; };
+		632F3CC21936143C0085F981 /* process-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 632F3CC11936143C0085F981 /* process-32.png */; };
+		632F3CC41936144D0085F981 /* settings3-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 632F3CC31936144D0085F981 /* settings3-32.png */; };
 		63306FCD1925E9F900CA57F7 /* SCGGameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63306FCC1925E9F900CA57F7 /* SCGGameOverViewController.m */; };
 		633B9FC718EFC9D000E98B22 /* SCGScoreLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 633B9FC618EFC9D000E98B22 /* SCGScoreLabel.m */; };
 		63486DFE1904B0E50072208D /* SCGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 63486DFD1904B0E50072208D /* SCGButton.m */; };
@@ -60,6 +64,10 @@
 /* Begin PBXFileReference section */
 		6313A6851927BA6800B4CE74 /* SCGAboutBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGAboutBoxViewController.h; sourceTree = "<group>"; };
 		6313A6861927BA6800B4CE74 /* SCGAboutBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGAboutBoxViewController.m; sourceTree = "<group>"; };
+		632F3CBB193613BD0085F981 /* about-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "about-32.png"; sourceTree = "<group>"; };
+		632F3CBF193614230085F981 /* org_unit-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "org_unit-32.png"; sourceTree = "<group>"; };
+		632F3CC11936143C0085F981 /* process-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "process-32.png"; sourceTree = "<group>"; };
+		632F3CC31936144D0085F981 /* settings3-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings3-32.png"; sourceTree = "<group>"; };
 		63306FCB1925E9F900CA57F7 /* SCGGameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGGameOverViewController.h; sourceTree = "<group>"; };
 		63306FCC1925E9F900CA57F7 /* SCGGameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGGameOverViewController.m; sourceTree = "<group>"; };
 		633B9FC518EFC9BA00E98B22 /* SCGScoreLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGScoreLabel.h; sourceTree = "<group>"; };
@@ -229,6 +237,10 @@
 				6368AEBB18C18E310054E34B /* ellipse-md-horz.png */,
 				6368AEBF18C18E320054E34B /* triangleDown-md.png */,
 				6368AEC018C18E320054E34B /* triangleUp-md.png */,
+				632F3CBB193613BD0085F981 /* about-32.png */,
+				632F3CBF193614230085F981 /* org_unit-32.png */,
+				632F3CC11936143C0085F981 /* process-32.png */,
+				632F3CC31936144D0085F981 /* settings3-32.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -377,6 +389,8 @@
 			files = (
 				6368AE7418C18AEA0054E34B /* Main_iPad.storyboard in Resources */,
 				6368AE7C18C18AEB0054E34B /* Images.xcassets in Resources */,
+				632F3CC41936144D0085F981 /* settings3-32.png in Resources */,
+				632F3CC21936143C0085F981 /* process-32.png in Resources */,
 				63D42CEF1903B10700615BFD /* Canvas1a_offwhite_1.png in Resources */,
 				6368AECF18C18E320054E34B /* triangleUp-md.png in Resources */,
 				6368AE7118C18AEA0054E34B /* Main_iPhone.storyboard in Resources */,
@@ -384,6 +398,8 @@
 				63D42CED190380DE00615BFD /* newEllipse.png in Resources */,
 				6368AEC518C18E320054E34B /* coin-md.png in Resources */,
 				6368AECA18C18E320054E34B /* ellipse-md-horz.png in Resources */,
+				632F3CC0193614230085F981 /* org_unit-32.png in Resources */,
+				632F3CBC193613BD0085F981 /* about-32.png in Resources */,
 				6368AECE18C18E320054E34B /* triangleDown-md.png in Resources */,
 				6368AEC818C18E320054E34B /* dot-md.png in Resources */,
 			);

@@ -36,8 +36,8 @@
     if (self) {
         // Custom initialization
 //        self.title = @"Settings";
-        self.view.layer.borderWidth = 3.f;
-        self.view.layer.borderColor = [UIColor redColor].CGColor;
+//        self.view.layer.borderWidth = 3.f;
+//        self.view.layer.borderColor = [UIColor redColor].CGColor;
     }
     return self;
 }
@@ -47,8 +47,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 //    self.title = @"Settings";
-    self.view.layer.borderWidth = 3.f;
-    self.view.layer.borderColor = [UIColor redColor].CGColor;
+//    self.view.layer.borderWidth = 3.f;
+//    self.view.layer.borderColor = [UIColor redColor].CGColor;
 
     SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.settings = appDelegate.settings;
@@ -61,6 +61,12 @@
 
 //    self.title = @"Settings";
 
+    UIFont *btnFont = [UIFont systemFontOfSize:23.0f];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:btnFont forKey:NSFontAttributeName];
+    [self.typeButton setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    [self.sizeButton setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    [self.numberOfPlayersButton setTitleTextAttributes:attributes forState:UIControlStateNormal];
+
     for (SCGButton *button in self.view.subviews)
     {
         if ([button isKindOfClass:[SCGButton class]])
@@ -68,7 +74,7 @@
             button.layer.borderWidth = 1;
             button.layer.borderColor = [UIColor blueColor].CGColor;
             button.layer.cornerRadius = 5;
-            button.titleLabel.font = [UIFont systemFontOfSize:13];
+            button.titleLabel.font = [UIFont systemFontOfSize:23.0f];
         }
     }
 

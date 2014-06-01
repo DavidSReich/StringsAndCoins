@@ -13,7 +13,7 @@
 @interface SCGGamePlayer : NSObject
 
 @property (strong, nonatomic) SCGPlayer *player;
-@property (assign, nonatomic) UIColor *color;
+@property (strong, nonatomic) UIColor *color;
 @property (assign, nonatomic) int score;
 
 - (instancetype) initWithPlayer:(SCGPlayer *)p andColor:(UIColor *)c;

@@ -92,11 +92,59 @@
     numberOfPlayers = level.numberOfPlayers;
     players = [[NSMutableArray alloc] initWithCapacity:numberOfPlayers];
     
+    int paletteNumber = 1;
+    
     for (int p = 0; p < numberOfPlayers; p++)
     {
         SCGPlayer *player = [SCGPlayer alloc];
         player.playerName = [NSMutableString stringWithFormat:@"Player %d", p + 1];
         UIColor *color;
+#if true
+        if (paletteNumber == 0)
+        {
+            if (p == 0)
+                color = [UIColor redColor];
+            else if (p == 1)
+                color = [UIColor blueColor];
+            else if (p == 2)
+                color = [UIColor yellowColor];
+            else //if (p == 3)
+                color = [UIColor cyanColor];
+        }
+        else if (paletteNumber == 1)
+        {
+            if (p == 0)
+                color = [UIColor colorWithRed:215.0f/255.0f green:25.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
+            else if (p == 1)
+                color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:1.0f/255.0f alpha:1.0f];
+            else if (p == 2)
+                color = [UIColor colorWithRed:171.0f/255.0f green:217.0f/255.0f blue:233.0f/255.0f alpha:1.0f];
+            else //if (p == 3)
+                color = [UIColor colorWithRed:44.0f/255.0f green:123.0f/255.0f blue:182.0f/255.0f alpha:1.0f];
+        }
+        else if (paletteNumber == 2)
+        {
+            if (p == 0)
+                color = [UIColor colorWithRed:166.0f/255.0f green:97.0f/255.0f blue:26.0f/255.0f alpha:1.0f];
+            else if (p == 1)
+                color = [UIColor colorWithRed:223.0f/255.0f green:194.0f/255.0f blue:125.0f/255.0f alpha:1.0f];
+            else if (p == 2)
+                color = [UIColor colorWithRed:128.0f/255.0f green:205.0f/255.0f blue:193.0f/255.0f alpha:1.0f];
+            else //if (p == 3)
+                color = [UIColor colorWithRed:1.0f/255.0f green:133.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
+        }
+        else if (paletteNumber == 3)
+        {
+            if (p == 0)
+                color = [UIColor colorWithRed:216.0f/255.0f green:179.0f/255.0f blue:101.0f/255.0f alpha:1.0f];
+            else if (p == 1)
+                color = [UIColor colorWithRed:199.0f/255.0f green:234.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
+            else if (p == 2)
+                color = [UIColor colorWithRed:90.0f/255.0f green:180.0f/255.0f blue:172.0f/255.0f alpha:1.0f];
+            else //if (p == 3)
+                color = [UIColor colorWithRed:1.0f/255.0f green:102.0f/255.0f blue:94.0f/255.0f alpha:1.0f];
+        }
+#else
         if (p == 0)
             color = [UIColor redColor];
         else if (p == 1)
@@ -105,6 +153,7 @@
             color = [UIColor yellowColor];
         else //if (p == 3)
             color = [UIColor cyanColor];
+#endif
         SCGGamePlayer *gamePlayer = [[SCGGamePlayer alloc] initWithPlayer:player andColor:(UIColor *)color];
         [players addObject:gamePlayer];
     }
@@ -571,16 +620,29 @@
         return;
 
     UIImageView *boardFrame = [[UIImageView alloc] initWithFrame:self.boardView.frame];
-    CGFloat boundaryLength;
 
-    boardFrame.layer.borderWidth = 3.f;
-    boardFrame.layer.borderColor = [UIColor redColor].CGColor;
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(boardFrame.frame.size.width, boardFrame.frame.size.height), NO, 0.0);
+    
+    //use the the image that is going to be drawn on as the receiver
+    UIImage *img = boardFrame.image;
+    
+    [img drawInRect:CGRectMake(0.0, 0.0, boardFrame.frame.size.width, boardFrame.frame.size.height)];
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    UIGraphicsPushContext(ctx);
+    
+    CGFloat lineWidth = 16;
+    
+    CGContextSetLineWidth(ctx, lineWidth);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
+
+    CGFloat top, topLeft, topRight, farLeft, farRight, left, bottom, right;
+    CGFloat boundaryWidth;
+    SCGBoundaryView *boundary;
 
     if (self.level.levelShape == SquareShape)
     {
-        CGFloat top, left, bottom, right;
-
-        SCGBoundaryView *boundary;
         boundary = [[horizontalBoundaries objectAtIndex:0] objectAtIndex:0];
         top = boundary.frame.origin.y;
 
@@ -593,40 +655,13 @@
         boundary = [[verticalBoundaries objectAtIndex:0] objectAtIndex:self.level.numCols];
         right = boundary.frame.origin.x + boundary.frame.size.width;
 
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(boardFrame.frame.size.width, boardFrame.frame.size.height), NO, 0.0);
-        
-        //use the the image that is going to be drawn on as the receiver
-        UIImage *img = boardFrame.image;
-        
-        [img drawInRect:CGRectMake(0.0, 0.0, boardFrame.frame.size.width, boardFrame.frame.size.height)];
-        
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        
-        UIGraphicsPushContext(ctx);
-
-        CGFloat lineWidth = 16;
         CGFloat lineOffset = (lineWidth - 4) / 2;
-
-        CGContextSetLineWidth(ctx, lineWidth);
-        CGContextSetStrokeColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
         
         CGRect drawRect = CGRectMake(left - lineOffset, top - lineOffset, right - left + lineWidth - 4, bottom - top + lineWidth - 4);
         CGContextStrokeRect(ctx, drawRect);
-        
-        UIGraphicsPopContext();
-        
-        //get the new image
-        UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
-        boardFrame.image = img2;
-        
-        UIGraphicsEndImageContext();
     }
     else if (self.level.levelShape == TriangleShape)
     {
-        CGFloat top, topLeft, topRight, farLeft, farRight, left, bottom, right;
-        CGFloat boundaryWidth;
-
-        SCGBoundaryView *boundary;
         boundary = [[horizontalBoundaries objectAtIndex:0] objectAtIndex:0];
         top = boundary.frame.origin.y;
         boundaryWidth = boundary.frame.size.width;
@@ -647,67 +682,69 @@
         boundary = [[verticalBoundaries objectAtIndex:self.level.numRows / 2] objectAtIndex:self.level.numCols];
         right = boundary.frame.origin.x + boundary.frame.size.width - boundaryWidth / 2;
         
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(boardFrame.frame.size.width, boardFrame.frame.size.height), NO, 0.0);
-        
-        //use the the image that is going to be drawn on as the receiver
-        UIImage *img = boardFrame.image;
-        
-        [img drawInRect:CGRectMake(0.0, 0.0, boardFrame.frame.size.width, boardFrame.frame.size.height)];
-        
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        
-        UIGraphicsPushContext(ctx);
+        CGPoint pts[6];
+        CGFloat xOffset = boundaryWidth + 2;
 
-#if false
-        CGFloat lineWidth = 1;
-        CGFloat lineOffset = 0;
-#else
-        CGFloat lineWidth = 16;
-        CGFloat lineOffset = (lineWidth - 4) / 2;
-#endif
-        
-        CGContextSetLineWidth(ctx, lineWidth);
-        CGContextSetStrokeColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
-        
-        if (self.level.levelSize == SmallSize)
-        {
-            CGRect drawRect = CGRectMake(left - lineOffset, top - lineOffset, right - left + lineWidth - 4, bottom - top + lineWidth - 4);
-            CGContextStrokeRect(ctx, drawRect);
-        }
-        else
-        {
-            CGPoint pts[6];
-            CGFloat xOffset = boundaryWidth + 2;
+        pts[0] = CGPointMake(topLeft - xOffset, top);
+        pts[1] = CGPointMake(topRight + xOffset, top);
+        pts[2] = CGPointMake(farRight + xOffset, (top + bottom) / 2);
+        pts[3] = CGPointMake(topRight + xOffset, bottom);
+        pts[4] = CGPointMake(topLeft - xOffset, bottom);
+        pts[5] = CGPointMake(farLeft - xOffset, (top + bottom) / 2);
 
-            pts[0] = CGPointMake(topLeft - xOffset, top);
-            pts[1] = CGPointMake(topRight + xOffset, top);
-            pts[2] = CGPointMake(farRight + xOffset, (top + bottom) / 2);
-            pts[3] = CGPointMake(topRight + xOffset, bottom);
-            pts[4] = CGPointMake(topLeft - xOffset, bottom);
-            pts[5] = CGPointMake(farLeft - xOffset, (top + bottom) / 2);
-
-            CGContextBeginPath(ctx);
-            //draw the hexagon
-            CGContextMoveToPoint(ctx, pts[0].x, pts[0].y);
-            for (int i = 1; i < 6; i++)
-                CGContextAddLineToPoint(ctx, pts[i].x, pts[i].y);
-            //close the path
-            CGContextClosePath(ctx);
-            CGContextStrokePath(ctx);
-        }
-
-        UIGraphicsPopContext();
-        
-        //get the new image
-        UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
-        boardFrame.image = img2;
-        
-        UIGraphicsEndImageContext();
+        CGContextBeginPath(ctx);
+        //draw the hexagon
+        CGContextMoveToPoint(ctx, pts[0].x, pts[0].y);
+        for (int i = 1; i < 6; i++)
+            CGContextAddLineToPoint(ctx, pts[i].x, pts[i].y);
+        //close the path
+        CGContextClosePath(ctx);
+        CGContextStrokePath(ctx);
     }
     else    //hexagons
     {
-        boundaryLength = self.level.cellWidth * .8;
+        boundary = [[horizontalBoundaries objectAtIndex:0] objectAtIndex:0];
+        boundaryWidth = boundary.frame.size.width;
+        top = boundary.frame.origin.y + boundaryWidth * 0.07;
+        topLeft = boundary.frame.origin.x + boundaryWidth * 0.08;
+        topRight = boundary.frame.origin.x + (self.level.cellWidth * [self.level numberOfCols:0]);
+
+        //we want middle row, not top
+        boundary = [[verticalBoundaries objectAtIndex:self.level.numRows / 2] objectAtIndex:0];
+        farLeft = boundary.frame.origin.x;
+        
+        boundary = [[horizontalBoundaries objectAtIndex:self.level.numRows] objectAtIndex:0];
+        bottom = boundary.frame.origin.y + boundary.frame.size.height - boundaryWidth * 0.07;
+        
+        //we want middle row, not top
+        boundary = [[verticalBoundaries objectAtIndex:self.level.numRows / 2] objectAtIndex:self.level.numCols];
+        farRight = boundary.frame.origin.x + boundary.frame.size.width;
+
+        CGPoint pts[6];
+        pts[0] = CGPointMake(topLeft, top);
+        pts[1] = CGPointMake(topRight, top);
+        pts[2] = CGPointMake(farRight, (top + bottom) / 2);
+        pts[3] = CGPointMake(topRight, bottom);
+        pts[4] = CGPointMake(topLeft, bottom);
+        pts[5] = CGPointMake(farLeft, (top + bottom) / 2);
+        
+        CGContextBeginPath(ctx);
+        //draw the hexagon
+        CGContextMoveToPoint(ctx, pts[0].x, pts[0].y);
+        for (int i = 1; i < 6; i++)
+            CGContextAddLineToPoint(ctx, pts[i].x, pts[i].y);
+        //close the path
+        CGContextClosePath(ctx);
+        CGContextStrokePath(ctx);
     }
+    
+    UIGraphicsPopContext();
+    
+    //get the new image
+    UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+    boardFrame.image = img2;
+    
+    UIGraphicsEndImageContext();
 
     [self.boardView addSubview:boardFrame];
 }

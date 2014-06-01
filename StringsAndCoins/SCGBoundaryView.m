@@ -401,7 +401,8 @@
     if ((self.level.levelType == CoinsType) && (self.complete))
     {
         CGFloat truncateLength = drawRect.size.width / 3;
-        CGContextClearRect(ctx, CGRectMake(drawRect.origin.x + truncateLength, drawRect.origin.y - 2, drawRect.size.width - (2 * truncateLength), drawRect.size.height + 4));
+        CGFloat clearWider = 8;
+        CGContextClearRect(ctx, CGRectMake(drawRect.origin.x + truncateLength, drawRect.origin.y - (clearWider / 2), drawRect.size.width - (2 * truncateLength), drawRect.size.height + clearWider));
     }
 
     UIGraphicsPopContext();

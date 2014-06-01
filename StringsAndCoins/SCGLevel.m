@@ -42,10 +42,23 @@
         level.topMarginHeight = kBoardMargin + 10;
         level.bottomMarginHeight = kBoardMargin + 10;
     }
-    if ((level.levelType == CoinsType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
+    else if ((level.levelType == CoinsType) && (level.levelShape == HexagonShape))
     {
-        level.topMarginHeight = kBoardMargin + 25;
-        level.bottomMarginHeight = kBoardMargin + 25;
+        if (level.levelSize == SmallSize)
+        {
+            level.topMarginHeight = kBoardMargin + kScoreViewHeight;
+            level.bottomMarginHeight = kBoardMargin + kScoreViewHeight;
+        }
+        else
+        {
+//            level.topMarginHeight = kBoardMargin + kScoreViewHeight / 2;
+//            level.bottomMarginHeight = kBoardMargin + kScoreViewHeight / 2;
+            level.sideMarginWidth = kBoardMargin + kScoreViewHeight / 2;
+        }
+    }
+    else if ((level.levelType == CoinsType) && (level.levelShape == TriangleShape) && (level.levelSize == SmallSize))
+    {
+        level.sideMarginWidth = kBoardMargin + kScoreViewHeight;
     }
 
     CGFloat boardWidth = view.bounds.size.width - (2 * level.sideMarginWidth);

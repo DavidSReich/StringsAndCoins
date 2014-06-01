@@ -26,6 +26,12 @@
         self.text = [NSString stringWithFormat:@"%d", 0];
         self.font = [UIFont fontWithName:@"Verdana-Bold" size:frame.size.height / 1.5];
         self.clipsToBounds = NO;
+
+        NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:self.text];
+        [attributeString addAttribute:NSUnderlineStyleAttributeName
+                                value:[NSNumber numberWithInt:1]
+                                range:(NSRange){0,[attributeString length]}];
+        self.attributedText = attributeString;
     }
 
     return self;
@@ -37,6 +43,12 @@
         self.text = @"";
     else
         self.text = [NSString stringWithFormat:@"%d", self.player.score];
+    
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:self.text];
+    [attributeString addAttribute:NSUnderlineStyleAttributeName
+                            value:[NSNumber numberWithInt:1]
+                            range:(NSRange){0,[attributeString length]}];
+    self.attributedText = attributeString;
 }
 
 /*

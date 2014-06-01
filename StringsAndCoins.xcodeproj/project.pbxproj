@@ -43,6 +43,7 @@
 		6368AECA18C18E320054E34B /* ellipse-md-horz.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEBB18C18E310054E34B /* ellipse-md-horz.png */; };
 		6368AECE18C18E320054E34B /* triangleDown-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEBF18C18E320054E34B /* triangleDown-md.png */; };
 		6368AECF18C18E320054E34B /* triangleUp-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEC018C18E320054E34B /* triangleUp-md.png */; };
+		638413201939EA8B00400068 /* SCGPaletteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384131F1939EA8B00400068 /* SCGPaletteViewController.m */; };
 		63A4871418D98FD3009418B1 /* SCGScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A4871318D98FD3009418B1 /* SCGScoreView.m */; };
 		63BFF09918C32E7B0080BA9F /* SCGSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09818C32E7B0080BA9F /* SCGSettings.m */; };
 		63BFF09C18C331130080BA9F /* SCGSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09B18C331130080BA9F /* SCGSettingsViewController.m */; };
@@ -116,6 +117,8 @@
 		6368AEBF18C18E320054E34B /* triangleDown-md.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangleDown-md.png"; sourceTree = "<group>"; };
 		6368AEC018C18E320054E34B /* triangleUp-md.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangleUp-md.png"; sourceTree = "<group>"; };
 		6368AED018C18E420054E34B /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		6384131E1939EA8B00400068 /* SCGPaletteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGPaletteViewController.h; sourceTree = "<group>"; };
+		6384131F1939EA8B00400068 /* SCGPaletteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGPaletteViewController.m; sourceTree = "<group>"; };
 		63A4871218D98FD3009418B1 /* SCGScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGScoreView.h; sourceTree = "<group>"; };
 		63A4871318D98FD3009418B1 /* SCGScoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGScoreView.m; sourceTree = "<group>"; };
 		63BFF09718C32E7B0080BA9F /* SCGSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGSettings.h; sourceTree = "<group>"; };
@@ -287,6 +290,8 @@
 				63306FCC1925E9F900CA57F7 /* SCGGameOverViewController.m */,
 				6313A6851927BA6800B4CE74 /* SCGAboutBoxViewController.h */,
 				6313A6861927BA6800B4CE74 /* SCGAboutBoxViewController.m */,
+				6384131E1939EA8B00400068 /* SCGPaletteViewController.h */,
+				6384131F1939EA8B00400068 /* SCGPaletteViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -420,6 +425,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				638413201939EA8B00400068 /* SCGPaletteViewController.m in Sources */,
 				63306FCD1925E9F900CA57F7 /* SCGGameOverViewController.m in Sources */,
 				6368AEAD18C18E020054E34B /* SCGGamePlayer.m in Sources */,
 				6368AEA818C18DDF0054E34B /* SCGBoardController.m in Sources */,

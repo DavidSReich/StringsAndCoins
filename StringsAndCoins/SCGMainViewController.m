@@ -74,7 +74,8 @@
     self.controller.mainViewController = self;
 
 	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
-                           andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController andView:self.view];
+                           andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController
+                           andView:self.view andPalette:settings.paletteNumber];
     
 	[self.controller setupGameBoard:level];
 }

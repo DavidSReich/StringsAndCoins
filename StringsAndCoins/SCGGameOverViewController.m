@@ -74,7 +74,9 @@
             playerScoreLabel.textColor = [UIColor whiteColor];
             playerScoreLabel.backgroundColor = player.color;
             playerScoreLabel.opaque = YES;
-            playerScoreLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:playerScoreLabel.frame.size.height / 1.5];
+            playerScoreLabel.font = [UIFont fontWithName:@"Verdana" size:playerScoreLabel.frame.size.height / 2];
+            playerScoreLabel.shadowColor = [UIColor blackColor];
+            playerScoreLabel.shadowOffset = CGSizeMake(2, 2);
             playerScoreLabel.clipsToBounds = NO;
         }
         else if ([playerScoreLabel isKindOfClass:[UILabel class]])

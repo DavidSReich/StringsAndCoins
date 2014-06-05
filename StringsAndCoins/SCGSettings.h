@@ -15,6 +15,8 @@
 @property (assign, nonatomic) LevelShape levelShape;
 @property (assign, nonatomic) LevelSize levelSize;
 @property (assign, nonatomic) int numberOfPlayers;
+@property (assign, nonatomic) int paletteNumber;
+@property (assign, nonatomic) NSMutableArray *playerColors;
 @property (assign, nonatomic) BOOL gameInProgress;
 @property (assign, nonatomic) BOOL newGame;
 

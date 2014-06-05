@@ -20,11 +20,13 @@
         // Initialization code
         self.player = p;
         self.textAlignment = NSTextAlignmentCenter;
-        self.textColor = [UIColor whiteColor];
+        self.textColor = [UIColor lightGrayColor];
         self.backgroundColor = p.color;
         self.opaque = YES;
         self.text = [NSString stringWithFormat:@"%d", 0];
-        self.font = [UIFont fontWithName:@"Verdana-Bold" size:frame.size.height / 1.5];
+        self.font = [UIFont fontWithName:@"Verdana" size:frame.size.height / 2];
+        self.shadowColor = [UIColor blackColor];
+        self.shadowOffset = CGSizeMake(2, 2);
         self.clipsToBounds = NO;
 
         NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:self.text];

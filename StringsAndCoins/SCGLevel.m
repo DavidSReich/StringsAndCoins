@@ -13,7 +13,7 @@
 
 //factory
 + (instancetype) levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
-       andNavigationController:(UINavigationController *)navController andView:(UIView *)view
+       andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum
 {
 	SCGLevel *level = [[SCGLevel alloc] init];
 
@@ -27,6 +27,7 @@
 	level.levelSize = size;
     level.numberOfPlayers = numPlayers;
     level.numberOfCells = 0;
+    //level.paletteNumber = paletteNum;
     level.navigationController = navController;
     level.boardView = view;
 

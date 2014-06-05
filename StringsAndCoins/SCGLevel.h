@@ -57,11 +57,14 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (assign, nonatomic) int numberOfCells;
 @property (weak, nonatomic) UINavigationController *navigationController;
 @property (weak, nonatomic) UIView *boardView;
+
+@property (assign, nonatomic) UIColor *playerColor0;
+
 //CGFloat;
 
 //factory
 + (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
-             andNavigationController:(UINavigationController *)navController andView:(UIView *)view;
+      andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum;
 
 //how many cols in this row?
 - (int) numberOfCols:(int) row;

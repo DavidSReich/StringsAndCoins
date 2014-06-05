@@ -12,6 +12,7 @@
 #define kKeyLevelShape  @"levelShape"
 #define kKeyLevelSize   @"levelSize"
 #define kKeyNumPlayers  @"numberOfPlayers"
+#define kKeyPaletteNumber   @"paletteNumber"
 
 @implementation SCGSettings
 
@@ -35,6 +36,7 @@
         self.levelShape = [decoder decodeIntForKey:kKeyLevelShape];
         self.levelSize = [decoder decodeIntForKey:kKeyLevelSize];
         self.numberOfPlayers = [decoder decodeIntForKey:kKeyNumPlayers];
+        self.paletteNumber = [decoder decodeIntForKey:kKeyPaletteNumber];
         self.gameInProgress = NO;
         self.newGame = NO;
     }
@@ -48,6 +50,7 @@
     [encoder encodeInt:self.levelShape forKey:kKeyLevelShape];
     [encoder encodeInt:self.levelSize forKey:kKeyLevelSize];
     [encoder encodeInt:self.numberOfPlayers forKey:kKeyNumPlayers];
+    [encoder encodeInt:self.paletteNumber forKey:kKeyPaletteNumber];
 }
 
 - (void) setDefaultSettings
@@ -56,6 +59,7 @@
     self.levelShape = SquareShape;
     self.levelSize = SmallSize;
     self.numberOfPlayers = 2;
+    self.paletteNumber = 0;
     self.gameInProgress = NO;
     self.newGame = NO;
 }

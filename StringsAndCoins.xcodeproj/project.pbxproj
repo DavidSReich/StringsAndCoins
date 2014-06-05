@@ -45,6 +45,8 @@
 		6368AECF18C18E320054E34B /* triangleUp-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 6368AEC018C18E320054E34B /* triangleUp-md.png */; };
 		638413201939EA8B00400068 /* SCGPaletteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384131F1939EA8B00400068 /* SCGPaletteViewController.m */; };
 		63A4871418D98FD3009418B1 /* SCGScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A4871318D98FD3009418B1 /* SCGScoreView.m */; };
+		63ADCED0193F5E5A0045352C /* SCGPaletteGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADCECF193F5E5A0045352C /* SCGPaletteGridView.m */; };
+		63ADCED2193F5E9D0045352C /* SCGPaletteGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63ADCED1193F5E9D0045352C /* SCGPaletteGridView.xib */; };
 		63BFF09918C32E7B0080BA9F /* SCGSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09818C32E7B0080BA9F /* SCGSettings.m */; };
 		63BFF09C18C331130080BA9F /* SCGSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09B18C331130080BA9F /* SCGSettingsViewController.m */; };
 		63D42CED190380DE00615BFD /* newEllipse.png in Resources */ = {isa = PBXBuildFile; fileRef = 63D42CEC190380DE00615BFD /* newEllipse.png */; };
@@ -121,6 +123,9 @@
 		6384131F1939EA8B00400068 /* SCGPaletteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGPaletteViewController.m; sourceTree = "<group>"; };
 		63A4871218D98FD3009418B1 /* SCGScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGScoreView.h; sourceTree = "<group>"; };
 		63A4871318D98FD3009418B1 /* SCGScoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGScoreView.m; sourceTree = "<group>"; };
+		63ADCECE193F5E5A0045352C /* SCGPaletteGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGPaletteGridView.h; sourceTree = "<group>"; };
+		63ADCECF193F5E5A0045352C /* SCGPaletteGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGPaletteGridView.m; sourceTree = "<group>"; };
+		63ADCED1193F5E9D0045352C /* SCGPaletteGridView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCGPaletteGridView.xib; sourceTree = "<group>"; };
 		63BFF09718C32E7B0080BA9F /* SCGSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGSettings.h; sourceTree = "<group>"; };
 		63BFF09818C32E7B0080BA9F /* SCGSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGSettings.m; sourceTree = "<group>"; };
 		63BFF09A18C331130080BA9F /* SCGSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGSettingsViewController.h; sourceTree = "<group>"; };
@@ -269,6 +274,9 @@
 				6368AEAC18C18E020054E34B /* SCGPlayer.m */,
 				63BFF09718C32E7B0080BA9F /* SCGSettings.h */,
 				63BFF09818C32E7B0080BA9F /* SCGSettings.m */,
+				63ADCECE193F5E5A0045352C /* SCGPaletteGridView.h */,
+				63ADCECF193F5E5A0045352C /* SCGPaletteGridView.m */,
+				63ADCED1193F5E9D0045352C /* SCGPaletteGridView.xib */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -396,6 +404,7 @@
 				6368AE7C18C18AEB0054E34B /* Images.xcassets in Resources */,
 				632F3CC41936144D0085F981 /* settings3-32.png in Resources */,
 				632F3CC21936143C0085F981 /* process-32.png in Resources */,
+				63ADCED2193F5E9D0045352C /* SCGPaletteGridView.xib in Resources */,
 				63D42CEF1903B10700615BFD /* Canvas1a_offwhite_1.png in Resources */,
 				6368AECF18C18E320054E34B /* triangleUp-md.png in Resources */,
 				6368AE7118C18AEA0054E34B /* Main_iPhone.storyboard in Resources */,
@@ -428,6 +437,7 @@
 				638413201939EA8B00400068 /* SCGPaletteViewController.m in Sources */,
 				63306FCD1925E9F900CA57F7 /* SCGGameOverViewController.m in Sources */,
 				6368AEAD18C18E020054E34B /* SCGGamePlayer.m in Sources */,
+				63ADCED0193F5E5A0045352C /* SCGPaletteGridView.m in Sources */,
 				6368AEA818C18DDF0054E34B /* SCGBoardController.m in Sources */,
 				63BFF09C18C331130080BA9F /* SCGSettingsViewController.m in Sources */,
 				6368AEA418C18DB10054E34B /* SCGCellView.m in Sources */,

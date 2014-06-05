@@ -116,7 +116,7 @@
             if (p == 0)
                 color = [UIColor colorWithRed:215.0f/255.0f green:25.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
             else if (p == 1)
-                color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:1.0f/255.0f alpha:1.0f];
+                color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:191.0f/255.0f alpha:1.0f];
             else if (p == 2)
                 color = [UIColor colorWithRed:171.0f/255.0f green:217.0f/255.0f blue:233.0f/255.0f alpha:1.0f];
             else //if (p == 3)

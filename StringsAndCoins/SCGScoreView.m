@@ -39,7 +39,7 @@
         }
 
         self.backgroundColor = [UIColor clearColor];
-        self.layer.borderWidth = 1.f;
+        self.layer.borderWidth = 5.f;
         self.layer.borderColor = [UIColor blackColor].CGColor;
         
         CGFloat rotation = 0;

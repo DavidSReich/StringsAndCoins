@@ -8,10 +8,12 @@
 
 #import "SCGLevel.h"
 #import "SCGSettings.h"
+#import "SCGPaletteGridView.h"
 
 @interface SCGMainViewController : UIViewController <UITabBarControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet SCGSettings *settings;
+@property (strong, nonatomic) IBOutlet SCGPaletteGridView *paletteGridView;
 
 - (void) startNewGame:(SCGSettings *)settings;
 

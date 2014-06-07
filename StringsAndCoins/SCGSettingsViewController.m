@@ -28,6 +28,7 @@
 @synthesize trianglesButton;
 @synthesize squaresButton;
 @synthesize hexagonsButton;
+@synthesize paletteGridView;
 
 
 - (instancetype) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,12 +53,14 @@
 
     SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.settings = appDelegate.settings;
+    self.paletteGridView.settings = self.settings;
     
     originalSettings = [[SCGSettings alloc] init];
     originalSettings.levelType = self.settings.levelType;
     originalSettings.levelShape = self.settings.levelShape;
     originalSettings.levelSize = self.settings.levelSize;
     originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
+    originalSettings.paletteNumber = self.settings.paletteNumber;
 
 //    self.title = @"Settings";
 
@@ -163,6 +166,8 @@
         else    //4 players
             numberOfPlayersButton.selectedSegmentIndex = 2;
     }
+
+    [self.paletteGridView updatePaletteSelection];
 }
 
 - (IBAction) resetButtonTouched:(UIButton *)sender
@@ -171,6 +176,7 @@
     self.settings.levelShape = originalSettings.levelShape;
     self.settings.levelSize = originalSettings.levelSize;
     self.settings.numberOfPlayers = originalSettings.numberOfPlayers;
+    self.settings.paletteNumber = originalSettings.paletteNumber;
     
     [self resetButtons];
 }
@@ -348,6 +354,7 @@
                 originalSettings.levelShape = self.settings.levelShape;
                 originalSettings.levelSize = self.settings.levelSize;
                 originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
+                originalSettings.paletteNumber = self.settings.paletteNumber;
                 return YES;
             }
         }
@@ -372,6 +379,7 @@
         originalSettings.levelShape = self.settings.levelShape;
         originalSettings.levelSize = self.settings.levelSize;
         originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
+        originalSettings.paletteNumber = self.settings.paletteNumber;
 
         self.settings.gameInProgress = NO;
         self.settings.newGame = YES;

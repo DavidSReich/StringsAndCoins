@@ -22,6 +22,7 @@
 {
 //	self = [super initWithImage: l.boundaryImage];
 	self = [super init];
+//	self = [super initWithImage:nil];
 	
     if (self != nil)
     {
@@ -35,7 +36,8 @@
         self.canUndo = NO;
         self.userInteractionEnabled = YES;
 
-        CGFloat aspect = l.boundaryImage.size.height / l.boundaryImage.size.width;
+//        CGFloat aspect = l.boundaryImage.size.height / l.boundaryImage.size.width;
+        CGFloat aspect = 61.0 / 302.0;
         
 		//resize
         CGFloat length;

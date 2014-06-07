@@ -27,7 +27,7 @@
 	level.levelSize = size;
     level.numberOfPlayers = numPlayers;
     level.numberOfCells = 0;
-    //level.paletteNumber = paletteNum;
+    level.paletteNumber = paletteNum;
     level.navigationController = navController;
     level.boardView = view;
 
@@ -68,18 +68,18 @@
     level.boardHeight = boardHeight;
     
 #if true
-    if (level.levelType == BoxesType)
-    {
-        //boxes have dots but no cell image
-        level.dotImage = [UIImage imageNamed:@"dot-md.png"];
-        level.boundaryImage = [UIImage imageNamed:@"newEllipse.png"];
-    }
-    else
-    {
-        //coins have cell image, but no dots
-        level.cellImage = [UIImage imageNamed:@"coin-md.png"];
-        level.boundaryImage = [UIImage imageNamed:@"newEllipse.png"];
-    }
+//    if (level.levelType == BoxesType)
+//    {
+//        //boxes have dots but no cell image
+//        level.dotImage = [UIImage imageNamed:@"dot-md.png"];
+//        level.boundaryImage = [UIImage imageNamed:@"newEllipse.png"];
+//    }
+//    else
+//    {
+//        //coins have cell image, but no dots
+//        level.cellImage = [UIImage imageNamed:@"coin-md.png"];
+//        level.boundaryImage = [UIImage imageNamed:@"newEllipse.png"];
+//    }
 #else
 	if (level.levelSize == SmallSize)
 	{

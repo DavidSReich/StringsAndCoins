@@ -183,7 +183,8 @@
     {
         if (!self.complete)
         {
-            [self setImage:self.level.cellImage];
+//            [self setImage:self.level.cellImage];
+            [self setImage:nil];
             if (self.level.levelType == CoinsType)
             {
                 CGFloat cellSize = MIN(self.level.cellWidth / 2, self.level.cellHeight / 2);
@@ -266,7 +267,8 @@
     {
         if (!self.complete)
         {
-            [self setImage:self.level.cellImage];
+//            [self setImage:self.level.cellImage];
+            [self setImage:nil];
         }
         else
         {

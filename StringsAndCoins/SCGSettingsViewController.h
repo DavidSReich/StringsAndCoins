@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SCGSettings.h"
 #import "SCGButton.h"
+#import "SCGPaletteGridView.h"
 
 @interface SCGSettingsViewController : UIViewController <UITabBarControllerDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet SCGButton *trianglesButton;
 @property (strong, nonatomic) IBOutlet SCGButton *squaresButton;
 @property (strong, nonatomic) IBOutlet SCGButton *hexagonsButton;
+@property (strong, nonatomic) IBOutlet SCGPaletteGridView *paletteGridView;
 
 - (void) resetButtons;
 - (void) updateShapeControls;

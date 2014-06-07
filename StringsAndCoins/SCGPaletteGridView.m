@@ -2,26 +2,79 @@
 //  SCGPaletteGridView.m
 //  StringsAndCoins
 //
-//  Created by David S Reich on 5/06/2014.
+//  Created by David S Reich on 6/06/2014.
 //  Copyright (c) 2014 Stellar Software Pty Ltd. All rights reserved.
 //
 
 #import "SCGPaletteGridView.h"
+#import "constants.h"
 
 @implementation SCGPaletteGridView
 
-- (void) awakeFromNib {
-    [[NSBundle mainBundle] loadNibNamed:@"SCGPaletteGridView" owner:self options:nil];
-    [self addSubview: self.paletteGridView];
+-(id) initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [super initWithCoder:aDecoder]))
+    {
+        [self addSubview:[[[NSBundle mainBundle] loadNibNamed:@"SCGPaletteGridView" owner:self options:nil] objectAtIndex:0]];
+    }
+    return self;
 }
 
 - (id) initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         // Initialization code
     }
     return self;
+}
+
+- (IBAction) paletteTouch:(id)sender
+{
+    self.settings.paletteNumber = [(UIView *)sender superview].tag;
+    [self updatePaletteSelection];
+}
+
+- (void) updatePaletteSelection
+{
+    for (UIView *view in self.paletteGridInnerView.subviews)
+    {
+        if (view.tag == self.settings.paletteNumber)
+        {
+            view.layer.borderWidth = 2.f;
+            view.layer.borderColor = [UIColor whiteColor].CGColor;
+        }
+        else
+        {
+            view.layer.borderWidth = 2.f;
+            view.layer.borderColor = [UIColor clearColor].CGColor;
+        }
+    }
+}
+
+- (NSMutableArray *) getPaletteColors:(int)paletteNumber
+{
+    NSMutableArray *colors = [[NSMutableArray alloc] initWithCapacity:kMaxNumberOfPlayers];
+
+    for (UIView *view in self.paletteGridInnerView.subviews)
+    {
+        if (view.tag == paletteNumber)
+        {
+            for (UIView *colorView in view.subviews)
+            {
+                if (![colorView isKindOfClass:[UIButton class]])
+                {
+                    [colors addObject: colorView.backgroundColor];
+//                    SCGGamePlayer *gamePlayer = [[SCGGamePlayer alloc] initWithPlayer:player andColor:(UIColor *)color];
+//                    [players addObject:gamePlayer];
+                }
+            }
+            break;
+        }
+    }
+
+    return colors;
 }
 
 /*

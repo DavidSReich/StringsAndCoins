@@ -19,8 +19,9 @@
 
 - (instancetype) initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c
 {
-	if (l.levelType == BoxesType)
-		self = [super initWithImage: l.dotImage];
+//	if (l.levelType == BoxesType)
+//		self = [super initWithImage: l.dotImage];
+    self = [super init];
 	
     if (self != nil)
     {
@@ -41,6 +42,33 @@
             self.frame = CGRectMake(0, 0, l.cellWidth * .3, l.cellWidth * .3);
         else
             self.frame = CGRectMake(0, 0, l.cellWidth / 4, l.cellWidth / 4);
+
+    
+        self.image = nil;
+        
+        //set the image context
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.frame.size.width, self.frame.size.height), NO, 0.0);
+        
+        //use the the image that is going to be drawn on as the receiver
+        UIImage *img = self.image;
+        
+        [img drawInRect:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)];
+        
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        
+        UIGraphicsPushContext(ctx);
+        
+        CGContextSetLineWidth(ctx, 1.0);
+        CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+        CGContextFillEllipseInRect(ctx, CGRectMake(0, 0, self.frame.size.width, self.frame.size.height));
+        UIGraphicsPopContext();
+        
+        //get the new image
+        UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
+        
+        [self setImage:img2];
+        
+        UIGraphicsEndImageContext();
     }
 	
     return self;

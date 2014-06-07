@@ -92,14 +92,22 @@
     numberOfPlayers = level.numberOfPlayers;
     players = [[NSMutableArray alloc] initWithCapacity:numberOfPlayers];
     
-    int paletteNumber = 1;
+    UIColor *color;
+#if true
+    NSMutableArray *colors = [self.mainViewController.paletteGridView getPaletteColors:self.level.paletteNumber];
+#endif
     
     for (int p = 0; p < numberOfPlayers; p++)
     {
         SCGPlayer *player = [SCGPlayer alloc];
         player.playerName = [NSMutableString stringWithFormat:@"Player %d", p + 1];
-        UIColor *color;
 #if true
+        int colorNum = arc4random_uniform(colors.count);
+        color = [colors objectAtIndex:colorNum];
+        [colors removeObjectAtIndex:colorNum];
+#elif true
+        int paletteNumber = 1;
+        
         if (paletteNumber == 0)
         {
             if (p == 0)
@@ -154,7 +162,7 @@
         else //if (p == 3)
             color = [UIColor cyanColor];
 #endif
-        SCGGamePlayer *gamePlayer = [[SCGGamePlayer alloc] initWithPlayer:player andColor:(UIColor *)color];
+        SCGGamePlayer *gamePlayer = [[SCGGamePlayer alloc] initWithPlayer:player andColor:color];
         [players addObject:gamePlayer];
     }
 

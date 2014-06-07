@@ -59,7 +59,7 @@
     self.levelShape = SquareShape;
     self.levelSize = SmallSize;
     self.numberOfPlayers = 2;
-    self.paletteNumber = 0;
+    self.paletteNumber = 1;
     self.gameInProgress = NO;
     self.newGame = NO;
 }

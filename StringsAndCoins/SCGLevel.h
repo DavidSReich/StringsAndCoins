@@ -50,15 +50,14 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (assign, nonatomic) CGFloat cellWidth;
 @property (assign, nonatomic) CGFloat cellHeight;
 @property (assign, nonatomic) CGFloat rowHeight;
-@property (strong, nonatomic) UIImage *cellImage;
-@property (strong, nonatomic) UIImage *dotImage;
-@property (strong, nonatomic) UIImage *boundaryImage;
+//@property (strong, nonatomic) UIImage *cellImage;
+//@property (strong, nonatomic) UIImage *dotImage;
+//@property (strong, nonatomic) UIImage *boundaryImage;
 @property (assign, nonatomic) int numberOfPlayers;
 @property (assign, nonatomic) int numberOfCells;
+@property (assign, nonatomic) int paletteNumber;
 @property (weak, nonatomic) UINavigationController *navigationController;
 @property (weak, nonatomic) UIView *boardView;
-
-@property (assign, nonatomic) UIColor *playerColor0;
 
 //CGFloat;
 

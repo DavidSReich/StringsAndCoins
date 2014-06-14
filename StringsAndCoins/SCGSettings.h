@@ -18,6 +18,7 @@
 @property (assign, nonatomic) int paletteNumber;
 @property (assign, nonatomic) BOOL gameInProgress;
 @property (assign, nonatomic) BOOL newGame;
+@property (assign, nonatomic) BOOL isIphone;
 
 - (void) setDefaultSettings;
 

@@ -22,6 +22,7 @@
     if (self != nil)
     {
         [self setDefaultSettings];
+        self.isIphone = ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad);
     }
     
     return self;
@@ -39,6 +40,7 @@
         self.paletteNumber = [decoder decodeIntForKey:kKeyPaletteNumber];
         self.gameInProgress = NO;
         self.newGame = NO;
+        self.isIphone = ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad);
     }
 
     return self;

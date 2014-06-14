@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @class SCGGamePlayer;
+@class SCGLevel;
 
 @interface SCGScoreLabel : UILabel
 
+@property (weak, nonatomic) SCGLevel *level;
 @property (weak, nonatomic) SCGGamePlayer *player;
 
-- (instancetype) initWithFrame:(CGRect)frame andPlayer:(SCGGamePlayer *)p;
+- (instancetype) initWithFrame:(CGRect)frame andPlayer:(SCGGamePlayer *)p andLevel:(SCGLevel *)l;
 
 - (void) refreshScore:(BOOL)blank;
 

@@ -8,16 +8,18 @@
 
 #import "SCGScoreLabel.h"
 #import "SCGGamePlayer.h"
+#import "SCGLevel.h"
 
 @implementation SCGScoreLabel
 
-- (instancetype) initWithFrame:(CGRect)frame andPlayer:(SCGGamePlayer *)p
+- (instancetype) initWithFrame:(CGRect)frame andPlayer:(SCGGamePlayer *)p andLevel:(SCGLevel *)l
 {
     self = [super initWithFrame:frame];
 
     if (self)
     {
         // Initialization code
+        self.level = l;
         self.player = p;
         self.textAlignment = NSTextAlignmentCenter;
         self.textColor = [UIColor lightGrayColor];
@@ -26,7 +28,10 @@
         self.text = [NSString stringWithFormat:@"%d", 0];
         self.font = [UIFont fontWithName:@"Verdana" size:frame.size.height / 2];
         self.shadowColor = [UIColor blackColor];
-        self.shadowOffset = CGSizeMake(2, 2);
+        if (l.isIphone)
+            self.shadowOffset = CGSizeMake(1, 1);
+        else
+            self.shadowOffset = CGSizeMake(2, 2);
         self.clipsToBounds = NO;
 
         NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:self.text];

@@ -50,4 +50,6 @@
 
 - (NSMutableArray *)getPlayers;
 
+- (void) MenuButtonTapped;
+
 @end

@@ -30,6 +30,8 @@ typedef NS_ENUM(NSInteger, LevelSize)
 	LargeSize
 };
 
+@property (assign, nonatomic) BOOL isIphone;
+
 @property (assign, nonatomic) LevelType levelType;
 @property (assign, nonatomic) LevelShape levelShape;
 @property (assign, nonatomic) LevelSize levelSize;
@@ -44,6 +46,7 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (assign, nonatomic) CGFloat bottomMarginHeight;
 @property (assign, nonatomic) CGFloat sideMarginWidth;
 @property (assign, nonatomic) CGFloat scoreViewHeight;
+@property (assign, nonatomic) CGFloat scaleGeometry;
 
 @property (assign, nonatomic) int numRows;
 @property (assign, nonatomic) int numCols;
@@ -63,7 +66,7 @@ typedef NS_ENUM(NSInteger, LevelSize)
 
 //factory
 + (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
-      andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum;
+      andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning;
 
 //how many cols in this row?
 - (int) numberOfCols:(int) row;

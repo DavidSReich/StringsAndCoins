@@ -41,8 +41,22 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
+//    CGRect fullScreen = [[UIScreen mainScreen] bounds];
+
+    if (self.settings.isIphone)
+    {
+        CGRect fullScreen = [[UIScreen mainScreen] bounds];
+        ((UITabBarController *)self.parentViewController).tabBar.hidden = YES;
+        [[((UITabBarController *)self.parentViewController).view.subviews objectAtIndex:0] setFrame:fullScreen];
+        [self.view setFrame:fullScreen];
+//        self.controller.boardView.userInteractionEnabled = YES; //make sure this is enabled
+//        [self.view bringSubviewToFront:self.controller.boardView];
+    }
+
     if (self.settings.newGame)
         [self.controller clearGameBoard];
+
+//    [self.view setFrame:fullScreen];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -53,12 +67,25 @@
 
     if (self.settings.newGame)
         [self startNewGame:self.settings];
+    else if (self.settings.isIphone)
+    {
+        self.controller.boardView.userInteractionEnabled = YES; //make sure this is enabled
+        CGRect fullScreen = [[UIScreen mainScreen] bounds];
+        CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
+        [self.view.superview setFrame:fullScreenRotated];
+        [self.view setFrame:fullScreenRotated];
+    }
 
     //always enable this, so it is not grayed out
     UIBarItem *resumeButton = [self.tabBarController.tabBar.items objectAtIndex:kResumeGameIndex];
     [resumeButton setEnabled:YES];
 
     self.settings.newGame = NO;
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    ((UITabBarController *) self.parentViewController).tabBar.hidden = NO;
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -68,15 +95,38 @@
 }
 
 - (void) startNewGame:(SCGSettings *)settings
-{    
+{
 	// Do any additional setup after loading the view, typically from a nib.
     self.controller.boardView = self.view;
     self.controller.mainViewController = self;
 
+    if (settings.isIphone)
+    {
+//        UIView *parent = self.view;
+//        do {
+//            NSLog(@"%@", parent);
+//            parent = parent.superview;
+//        } while (parent);
+
+        self.controller.boardView.userInteractionEnabled = YES; //make sure this is enabled
+        CGRect fullScreen = [[UIScreen mainScreen] bounds];
+        CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
+        [self.view.superview setFrame:fullScreenRotated];
+        [self.view setFrame:fullScreenRotated];
+        
+//        NSLog(@"fullScreen: (%f %f; %f %f)", fullScreen.origin.x, fullScreen.origin.y, fullScreen.size.width, fullScreen.size.height);
+//        parent = self.view;
+//        do {
+//            NSLog(@"%@", parent);
+//            parent = parent.superview;
+//        } while (parent);
+    }
+
 	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
                            andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController
-                           andView:self.view andPalette:settings.paletteNumber];
+                           andView:self.view andPalette:settings.paletteNumber andIphoneRunning:settings.isIphone];
     
+    self.paletteGridView.settings = settings;
 	[self.controller setupGameBoard:level];
 }
 
@@ -101,6 +151,11 @@
             alertView.tag = [tabBarController.viewControllers indexOfObject:viewController];
             [alertView show];
             return NO;
+        }
+        else if (self.settings.isIphone && [viewController isKindOfClass:[SCGMainViewController class]])
+        {
+            ((UITabBarController *)self.parentViewController).tabBar.hidden = YES;
+            self.controller.boardView.userInteractionEnabled = YES;
         }
     }
 

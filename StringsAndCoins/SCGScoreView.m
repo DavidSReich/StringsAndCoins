@@ -30,16 +30,22 @@
         self.frame = CGRectMake(0, 0, self.frameWidth, self.frameHeight);
  
         self.scoreLabels = [[NSMutableArray alloc] initWithCapacity:l.numberOfPlayers];
-
+        CGFloat labelHeight = self.frameHeight;
+//        if (l.isIphone)
+//            labelHeight -= 2;
+//        labelHeight -= 4;
+        
+        CGRect labelRect = CGRectMake(0, 0, 0, labelHeight);
+        
         for (SCGGamePlayer *player in p)
         {
-            SCGScoreLabel *scoreLabel = [[SCGScoreLabel alloc] initWithFrame:CGRectMake(0, 0, 0, self.frameHeight) andPlayer:player];
+            SCGScoreLabel *scoreLabel = [[SCGScoreLabel alloc] initWithFrame:labelRect andPlayer:player andLevel:l];
             [self.scoreLabels addObject:scoreLabel];
             [self addSubview: scoreLabel];
         }
 
         self.backgroundColor = [UIColor clearColor];
-        self.layer.borderWidth = 5.f;
+        self.layer.borderWidth = (int)(5.f * l.scaleGeometry);
         self.layer.borderColor = [UIColor blackColor].CGColor;
         
         CGFloat rotation = 0;

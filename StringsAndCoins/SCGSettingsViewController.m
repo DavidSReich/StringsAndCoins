@@ -64,7 +64,8 @@
 
 //    self.title = @"Settings";
 
-    UIFont *btnFont = [UIFont systemFontOfSize:23.0f];
+    CGFloat fontSize = self.settings.isIphone ? 12.0f : 23.0f;
+    UIFont *btnFont = [UIFont systemFontOfSize:fontSize];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:btnFont forKey:NSFontAttributeName];
     [self.typeButton setTitleTextAttributes:attributes forState:UIControlStateNormal];
     [self.sizeButton setTitleTextAttributes:attributes forState:UIControlStateNormal];
@@ -77,7 +78,7 @@
             button.layer.borderWidth = 1;
             button.layer.borderColor = [UIColor blueColor].CGColor;
             button.layer.cornerRadius = 5;
-            button.titleLabel.font = [UIFont systemFontOfSize:23.0f];
+            button.titleLabel.font = [UIFont systemFontOfSize:fontSize];
         }
     }
 

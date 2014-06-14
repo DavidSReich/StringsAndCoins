@@ -1,26 +1,21 @@
 //
-//  SCGPaletteGridView.m
+//  SCGPaletteGridView_iPhone.m
 //  StringsAndCoins
 //
 //  Created by David S Reich on 6/06/2014.
 //  Copyright (c) 2014 Stellar Software Pty Ltd. All rights reserved.
 //
 
+#import "SCGPaletteGridView_iPhone.h"
 #import "constants.h"
-#import "SCGPaletteGridView.h"
-#import "SCGAppDelegate.h"
 
-@implementation SCGPaletteGridView
+@implementation SCGPaletteGridView_iPhone
 
 -(id) initWithCoder:(NSCoder *)aDecoder
 {
     if ((self = [super initWithCoder:aDecoder]))
     {
-        SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
-        if (appDelegate.settings.isIphone)
-            [self addSubview:[[[NSBundle mainBundle] loadNibNamed:@"SCGPaletteGridView_iPhone" owner:self options:nil] objectAtIndex:0]];
-        else
-            [self addSubview:[[[NSBundle mainBundle] loadNibNamed:@"SCGPaletteGridView" owner:self options:nil] objectAtIndex:0]];
+        [self addSubview:[[[NSBundle mainBundle] loadNibNamed:@"SCGPaletteGridView_iPhone" owner:self options:nil] objectAtIndex:0]];
     }
     return self;
 }
@@ -46,7 +41,7 @@
     for (UIView *view in self.paletteGridInnerView.subviews)
     {
         if (self.settings.isIphone)
-            view.layer.borderWidth = 2.f;
+            view.layer.borderWidth = 1.f;
         else
             view.layer.borderWidth = 2.f;
 

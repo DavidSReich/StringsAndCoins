@@ -384,12 +384,13 @@
     if (self.complete)
     {
         CGContextSetStrokeColorWithColor(ctx, self.boundaryColor.CGColor);
+        CGFloat lineWidth = 2;
         if ((self.level.levelShape == TriangleShape) && (self.orientation != Horizontal))
-            CGContextSetLineWidth(ctx, 4);
+            lineWidth = 4;
         else if ((self.level.levelShape == HexagonShape) && (self.orientation != Vertical))
-            CGContextSetLineWidth(ctx, 4);
-        else
-            CGContextSetLineWidth(ctx, 2);
+            lineWidth = 4;
+
+        CGContextSetLineWidth(ctx, lineWidth * self.level.scaleGeometry);
         CGContextStrokeRect(ctx, drawRect);
     }
     

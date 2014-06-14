@@ -13,15 +13,23 @@
 
 //factory
 + (instancetype) levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
-       andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum
+       andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning
 {
 	SCGLevel *level = [[SCGLevel alloc] init];
 
+#if true
+    if (isIphoneRunning || true)
+        level.statusBarOffset = kStatusBarHeight;
+    else
+        level.statusBarOffset = 0;
+#else
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7)
         level.statusBarOffset = kStatusBarHeight;
     else
         level.statusBarOffset = 0;
+#endif
 
+    level.isIphone = isIphoneRunning;
 	level.levelType = type;
 	level.levelShape = shape;
 	level.levelSize = size;
@@ -33,11 +41,23 @@
 
     //set level.sideMarginWidth, etc.
     level.statusBarHeight = kStatusBarHeight;
-    level.topMarginHeight = kBoardMargin;
-    level.bottomMarginHeight = kBoardMargin;
-    level.sideMarginWidth = kBoardMargin;
-    level.scoreViewHeight = kScoreViewHeight;
-    
+
+    level.scaleGeometry = 1.0;
+
+    if (isIphoneRunning)
+    {
+        //scale margins
+        CGFloat hRatio = view.bounds.size.height / 712.0;
+        CGFloat wRatio = view.bounds.size.width / 1024;
+        
+        level.scaleGeometry = MIN(hRatio, wRatio);
+    }
+
+    level.topMarginHeight = (int)(kBoardMargin * level.scaleGeometry);
+    level.bottomMarginHeight = (int)(kBoardMargin * level.scaleGeometry);
+    level.sideMarginWidth = (int)(kBoardMargin * level.scaleGeometry);
+    level.scoreViewHeight = (int)(kScoreViewHeight * level.scaleGeometry);
+
     if ((level.levelType == BoxesType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
     {
         level.topMarginHeight = kBoardMargin + 10;

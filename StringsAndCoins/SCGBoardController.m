@@ -30,6 +30,7 @@
     int currentPlayer;
     int lastPlayer;
     int numberOfPlayers;
+    UIButton *menuButton;
 }
 
 - (void) clearGameBoard
@@ -62,13 +63,20 @@
     [self.boardView addSubview:backgroundView];
     [self.boardView sendSubviewToBack:backgroundView];
 
+//    UIView *parent = self.boardView;
+//    do {
+//        NSLog(@"%@", parent);
+//        parent = parent.superview;
+//    } while (parent);
+
     self.lastBoundary = nil;
 	self.level = level;
 
     level.numberOfCells = 0;
 
-//	self.boardView.layer.borderWidth = 3.f;
-//  self.boardView.layer.borderColor = [UIColor redColor].CGColor;
+//    self.boardView.layer.borderWidth = 3.f;
+//    self.boardView.layer.borderColor = [UIColor greenColor].CGColor;
+//    self.boardView.backgroundColor = [UIColor greenColor];
     
 	//cells before boundaries if boxes
     if (level.levelType == BoxesType)
@@ -177,12 +185,18 @@
     scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
-    scoreView.center = CGPointMake(level.statusBarHeight + 2, yHeightCenter);
+    if (level.isIphone)
+        scoreView.center = CGPointMake(level.scoreViewHeight / 2, yHeightCenter);
+    else
+        scoreView.center = CGPointMake(level.statusBarHeight + 2, yHeightCenter);
 
     scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
-    scoreView.center = CGPointMake(level.sideMarginWidth * 2 + level.boardWidth - level.statusBarHeight - 2, yHeightCenter);
+    if (level.isIphone)
+        scoreView.center = CGPointMake(level.sideMarginWidth * 2 + level.boardWidth - (level.scoreViewHeight / 2), yHeightCenter);
+    else
+        scoreView.center = CGPointMake(level.sideMarginWidth * 2 + level.boardWidth - level.statusBarHeight - 2, yHeightCenter);
 
     //set Top and Bottom width to same as Left and Right
 
@@ -194,9 +208,26 @@
     scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:BottomScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
     [self.boardView addSubview:scoreView];
-    scoreView.center = CGPointMake(xWidthCenter, level.topMarginHeight + level.bottomMarginHeight + level.boardHeight - 2);// + level.statusBarOffset?
+    if (level.isIphone)
+        scoreView.center = CGPointMake(xWidthCenter, self.boardView.frame.size.height - (level.scoreViewHeight / 2));// + level.statusBarOffset?
+    else
+        scoreView.center = CGPointMake(xWidthCenter, level.topMarginHeight + level.bottomMarginHeight + level.boardHeight - 2);// + level.statusBarOffset?
 
     [self refreshScores:NO];
+
+    if (level.isIphone)
+    {
+        menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        menuButton.userInteractionEnabled = YES;
+        menuButton.showsTouchWhenHighlighted = YES;
+        [menuButton addTarget:self action:@selector(MenuButtonTapped) forControlEvents:UIControlEventTouchDown];
+        [menuButton setBackgroundImage:[UIImage imageNamed:@"menu-25.png"] forState:UIControlStateNormal];
+        menuButton.frame = CGRectMake(0, 0, 20, 20);
+//        menuButton.center = CGPointMake(level.boardWidth + level.sideMarginWidth, level.boardHeight + level.topMarginHeight);
+//        menuButton.center = CGPointMake(150, 150);
+        menuButton.center = CGPointMake(level.boardWidth + level.sideMarginWidth, scoreView.frame.origin.y);
+        [self.boardView addSubview: menuButton];
+    }
 }
 
 - (void) makeDots
@@ -640,7 +671,7 @@
     
     UIGraphicsPushContext(ctx);
     
-    CGFloat lineWidth = 16;
+    CGFloat lineWidth = (int)(16 * self.level.scaleGeometry);
     
     CGContextSetLineWidth(ctx, lineWidth);
     CGContextSetStrokeColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
@@ -1223,6 +1254,12 @@
 - (NSMutableArray *)getPlayers
 {
     return players;
+}
+
+- (void) MenuButtonTapped
+{
+    ((UITabBarController *)self.mainViewController.parentViewController).tabBar.hidden = NO;
+    self.boardView.userInteractionEnabled = NO;
 }
 
 @end

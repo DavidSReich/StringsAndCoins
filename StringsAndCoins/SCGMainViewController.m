@@ -43,15 +43,17 @@
 {
 //    CGRect fullScreen = [[UIScreen mainScreen] bounds];
 
+#if defined(LANDSCAPE_IPHONE)
     if (self.settings.isIphone)
     {
         CGRect fullScreen = [[UIScreen mainScreen] bounds];
         ((UITabBarController *)self.parentViewController).tabBar.hidden = YES;
         [[((UITabBarController *)self.parentViewController).view.subviews objectAtIndex:0] setFrame:fullScreen];
         [self.view setFrame:fullScreen];
-//        self.controller.boardView.userInteractionEnabled = YES; //make sure this is enabled
+        self.controller.boardView.userInteractionEnabled = YES; //make sure this is enabled
 //        [self.view bringSubviewToFront:self.controller.boardView];
     }
+#endif
 
     if (self.settings.newGame)
         [self.controller clearGameBoard];
@@ -67,6 +69,7 @@
 
     if (self.settings.newGame)
         [self startNewGame:self.settings];
+#if defined(LANDSCAPE_IPHONE)
     else if (self.settings.isIphone)
     {
         self.controller.boardView.userInteractionEnabled = YES; //make sure this is enabled
@@ -75,6 +78,7 @@
         [self.view.superview setFrame:fullScreenRotated];
         [self.view setFrame:fullScreenRotated];
     }
+#endif
 
     //always enable this, so it is not grayed out
     UIBarItem *resumeButton = [self.tabBarController.tabBar.items objectAtIndex:kResumeGameIndex];
@@ -100,6 +104,7 @@
     self.controller.boardView = self.view;
     self.controller.mainViewController = self;
 
+#if defined(LANDSCAPE_IPHONE)
     if (settings.isIphone)
     {
 //        UIView *parent = self.view;
@@ -108,7 +113,6 @@
 //            parent = parent.superview;
 //        } while (parent);
 
-        self.controller.boardView.userInteractionEnabled = YES; //make sure this is enabled
         CGRect fullScreen = [[UIScreen mainScreen] bounds];
         CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
         [self.view.superview setFrame:fullScreenRotated];
@@ -121,6 +125,17 @@
 //            parent = parent.superview;
 //        } while (parent);
     }
+#else
+    if (settings.isIphone)
+    {
+        CGFloat rotation = -kPiOver2;
+        self.view.transform = CGAffineTransformMakeRotation(rotation);
+//        CGRect fullScreen = [[UIScreen mainScreen] bounds];
+//        CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
+//        [self.view.superview setFrame:fullScreenRotated];
+//        [self.view setFrame:fullScreenRotated];
+    }
+#endif
 
 	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
                            andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController
@@ -152,11 +167,13 @@
             [alertView show];
             return NO;
         }
+#if defined(LANDSCAPE_IPHONE)
         else if (self.settings.isIphone && [viewController isKindOfClass:[SCGMainViewController class]])
         {
             ((UITabBarController *)self.parentViewController).tabBar.hidden = YES;
             self.controller.boardView.userInteractionEnabled = YES;
         }
+#endif
     }
 
     return YES;

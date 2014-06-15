@@ -10,6 +10,7 @@
 #import "SCGGameOverViewController.h"
 #import "SCGGamePlayer.h"
 #import "SCGPlayer.h"
+#import "SCGAppDelegate.h"
 
 @interface SCGGameOverViewController ()
 
@@ -36,7 +37,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Canvas1a_offwhite_1.png"]];
-    backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+    
+    SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (appDelegate.settings.isIphone)
+        backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    else
+        backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+
     [self.view addSubview:backgroundView];
     [self.view sendSubviewToBack:backgroundView];
 
@@ -68,8 +75,18 @@
             //score
             CGFloat width = playerScoreLabel.bounds.size.width;
             CGFloat blockWidth = (width * player.score) / maxScore;
-            
+#if false
+//            if (appDelegate.settings.isIphone)
+//            {
+//                CGRect f = CGRectMake(playerScoreLabel.frame.origin.x, playerScoreLabel.frame.origin.y, blockWidth, playerScoreLabel.frame.size.height);
+//                playerScoreLabel.frame = f;
+//                playerScoreLabel.layer.frame = f;
+//            }
+//            else
+//                 playerScoreLabel.frame = CGRectMake(playerScoreLabel.frame.origin.x, playerScoreLabel.frame.origin.y, blockWidth, playerScoreLabel.frame.size.height);
+#else
             playerScoreLabel.frame = CGRectMake(playerScoreLabel.frame.origin.x, playerScoreLabel.frame.origin.y, blockWidth, playerScoreLabel.frame.size.height);
+#endif
             playerScoreLabel.text = [NSString stringWithFormat:@" %d", player.score];
             playerScoreLabel.textColor = [UIColor whiteColor];
             playerScoreLabel.backgroundColor = player.color;

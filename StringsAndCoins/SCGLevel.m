@@ -166,6 +166,15 @@
             level.numRows = kLargeSquareRows;
         }
 
+#if !defined(LANDSCAPE_IPHONE)
+        if (isIphoneRunning)
+        {
+//            int swapInt = level.numCols;
+//            level.numCols = level.numRows;
+//            level.numRows = swapInt;
+        }
+#endif
+
         //calculate maximum w & h
         level.cellWidth = boardWidth / level.numCols;
         if (level.levelType == CoinsType)
@@ -197,6 +206,15 @@
             level.numCols = kLargeTriangleCols;
             level.numRows = kLargeTriangleRows;
         }
+
+#if !defined(LANDSCAPE_IPHONE)
+        if (isIphoneRunning)
+        {
+//            int swapInt = level.numCols;
+//            level.numCols = level.numRows;
+//            level.numRows = swapInt;
+        }
+#endif
 
         //calculate maximum w & h
         int numberOfWidths = (level.numCols + 1) / 2;
@@ -232,6 +250,15 @@
             level.numCols = kLargeHexagonCols;
             level.numRows = kLargeHexagonRows;
         }
+
+#if !defined(LANDSCAPE_IPHONE)
+        if (isIphoneRunning)
+        {
+//            int swapInt = level.numCols;
+//            level.numCols = level.numRows;
+//            level.numRows = swapInt;
+        }
+#endif
 
         //calculate maximum w & h
         level.cellWidth = boardWidth / level.numCols;

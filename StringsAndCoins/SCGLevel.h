@@ -44,9 +44,11 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (assign, nonatomic) CGFloat statusBarHeight;
 @property (assign, nonatomic) CGFloat topMarginHeight;
 @property (assign, nonatomic) CGFloat bottomMarginHeight;
-@property (assign, nonatomic) CGFloat sideMarginWidth;
+@property (assign, nonatomic) CGFloat leftMarginWidth;
+@property (assign, nonatomic) CGFloat rightMarginWidth;
 @property (assign, nonatomic) CGFloat scoreViewHeight;
 @property (assign, nonatomic) CGFloat scaleGeometry;
+@property (assign, nonatomic) CGFloat toolbarHeight;
 
 @property (assign, nonatomic) int numRows;
 @property (assign, nonatomic) int numCols;
@@ -66,7 +68,8 @@ typedef NS_ENUM(NSInteger, LevelSize)
 
 //factory
 + (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
-      andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning;
+        andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning
+        andToolbarHeight:(CGFloat)tbHeight;
 
 //how many cols in this row?
 - (int) numberOfCols:(int) row;

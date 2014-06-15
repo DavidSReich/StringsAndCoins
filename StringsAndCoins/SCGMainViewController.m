@@ -101,9 +101,6 @@
 - (void) startNewGame:(SCGSettings *)settings
 {
 	// Do any additional setup after loading the view, typically from a nib.
-    self.controller.boardView = self.view;
-    self.controller.mainViewController = self;
-
 #if defined(LANDSCAPE_IPHONE)
     if (settings.isIphone)
     {
@@ -130,16 +127,22 @@
     {
         CGFloat rotation = -kPiOver2;
         self.view.transform = CGAffineTransformMakeRotation(rotation);
-//        CGRect fullScreen = [[UIScreen mainScreen] bounds];
+        CGRect fullScreen = [[UIScreen mainScreen] bounds];
 //        CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
 //        [self.view.superview setFrame:fullScreenRotated];
 //        [self.view setFrame:fullScreenRotated];
+        [self.view.superview setFrame:fullScreen];
+        [self.view setFrame:fullScreen];
     }
 #endif
 
+    self.controller.boardView = self.view;
+    self.controller.mainViewController = self;
+    
 	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
-                           andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController
-                           andView:self.view andPalette:settings.paletteNumber andIphoneRunning:settings.isIphone];
+                andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController
+                andView:self.view andPalette:settings.paletteNumber andIphoneRunning:settings.isIphone
+                andToolbarHeight:self.tabBarController.tabBar.bounds.size.height];
     
     self.paletteGridView.settings = settings;
 	[self.controller setupGameBoard:level];

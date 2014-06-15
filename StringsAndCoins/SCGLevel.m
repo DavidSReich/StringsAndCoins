@@ -13,15 +13,16 @@
 
 //factory
 + (instancetype) levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
-       andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning
+            andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning
+            andToolbarHeight:(CGFloat)tbHeight
 {
 	SCGLevel *level = [[SCGLevel alloc] init];
 
 #if true
-    if (isIphoneRunning || true)
-        level.statusBarOffset = kStatusBarHeight;
-    else
+    if (isIphoneRunning)
         level.statusBarOffset = 0;
+    else
+        level.statusBarOffset = kStatusBarHeight;
 #else
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7)
         level.statusBarOffset = kStatusBarHeight;
@@ -38,6 +39,7 @@
     level.paletteNumber = paletteNum;
     level.navigationController = navController;
     level.boardView = view;
+    level.toolbarHeight = tbHeight;
 
     //set level.sideMarginWidth, etc.
     level.statusBarHeight = kStatusBarHeight;
@@ -55,34 +57,67 @@
 
     level.topMarginHeight = (int)(kBoardMargin * level.scaleGeometry);
     level.bottomMarginHeight = (int)(kBoardMargin * level.scaleGeometry);
-    level.sideMarginWidth = (int)(kBoardMargin * level.scaleGeometry);
+    level.leftMarginWidth = (int)(kBoardMargin * level.scaleGeometry);
+    level.rightMarginWidth = (int)(kBoardMargin * level.scaleGeometry);
     level.scoreViewHeight = (int)(kScoreViewHeight * level.scaleGeometry);
 
-    if ((level.levelType == BoxesType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
+    if (level.isIphone)
     {
-        level.topMarginHeight = kBoardMargin + 10;
-        level.bottomMarginHeight = kBoardMargin + 10;
-    }
-    else if ((level.levelType == CoinsType) && (level.levelShape == HexagonShape))
-    {
-        if (level.levelSize == SmallSize)
+        level.leftMarginWidth += tbHeight;
+        level.rightMarginWidth += kStatusBarHeight;
+
+        if ((level.levelType == BoxesType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
         {
-            level.topMarginHeight = kBoardMargin + kScoreViewHeight;
-            level.bottomMarginHeight = kBoardMargin + kScoreViewHeight;
+            level.topMarginHeight += 10 * level.scaleGeometry;
+            level.bottomMarginHeight += 10 * level.scaleGeometry;
         }
-        else
+        else if ((level.levelType == CoinsType) && (level.levelShape == HexagonShape))
         {
-//            level.topMarginHeight = kBoardMargin + kScoreViewHeight / 2;
-//            level.bottomMarginHeight = kBoardMargin + kScoreViewHeight / 2;
-            level.sideMarginWidth = kBoardMargin + kScoreViewHeight / 2;
+            if (level.levelSize == SmallSize)
+            {
+//                level.topMarginHeight = kBoardMargin + kScoreViewHeight;
+//                level.bottomMarginHeight = kBoardMargin + kScoreViewHeight;
+            }
+            else
+            {
+                level.leftMarginWidth += kScoreViewHeight * .5f * level.scaleGeometry;
+                level.rightMarginWidth += kScoreViewHeight * .5f * level.scaleGeometry;
+            }
+        }
+        else if ((level.levelType == CoinsType) && (level.levelShape == TriangleShape) && (level.levelSize == SmallSize))
+        {
+            level.leftMarginWidth += kScoreViewHeight * level.scaleGeometry;
+            level.rightMarginWidth += kScoreViewHeight * level.scaleGeometry;
         }
     }
-    else if ((level.levelType == CoinsType) && (level.levelShape == TriangleShape) && (level.levelSize == SmallSize))
+    else
     {
-        level.sideMarginWidth = kBoardMargin + kScoreViewHeight;
+        if ((level.levelType == BoxesType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
+        {
+            level.topMarginHeight += 10 * level.scaleGeometry;
+            level.bottomMarginHeight += 10 * level.scaleGeometry;
+        }
+        else if ((level.levelType == CoinsType) && (level.levelShape == HexagonShape))
+        {
+            if (level.levelSize == SmallSize)
+            {
+//                level.topMarginHeight = kBoardMargin + kScoreViewHeight;
+//                level.bottomMarginHeight = kBoardMargin + kScoreViewHeight;
+            }
+            else
+            {
+                level.leftMarginWidth += kScoreViewHeight * .5f * level.scaleGeometry;
+                level.rightMarginWidth += kScoreViewHeight * .5f * level.scaleGeometry;
+            }
+        }
+        else if ((level.levelType == CoinsType) && (level.levelShape == TriangleShape) && (level.levelSize == SmallSize))
+        {
+            level.leftMarginWidth += kScoreViewHeight * level.scaleGeometry;
+            level.rightMarginWidth += kScoreViewHeight * level.scaleGeometry;
+        }
     }
 
-    CGFloat boardWidth = view.bounds.size.width - (2 * level.sideMarginWidth);
+    CGFloat boardWidth = view.bounds.size.width - (level.leftMarginWidth + level.rightMarginWidth);
     CGFloat boardHeight = view.bounds.size.height - (level.topMarginHeight + level.bottomMarginHeight) - level.statusBarOffset;
     level.boardWidth = boardWidth;
     level.boardHeight = boardHeight;

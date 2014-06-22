@@ -19,6 +19,7 @@
 @property (assign, nonatomic) BOOL gameInProgress;
 @property (assign, nonatomic) BOOL newGame;
 @property (assign, nonatomic) BOOL isIphone;
+@property (assign, nonatomic) BOOL isIphone4;   //only 3.5", not 4"
 
 - (void) setDefaultSettings;
 

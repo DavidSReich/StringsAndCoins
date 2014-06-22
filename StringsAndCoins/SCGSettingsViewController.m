@@ -90,6 +90,15 @@
         }
     }
 
+    if (self.settings.isIphone4)
+    {
+        for (UIView *view in self.view.subviews)
+        {
+            CGRect r = view.frame;
+            view.frame = CGRectMake(r.origin.x, r.origin.y - 40, r.size.width, r.size.height);
+        }
+    }
+
     [self resetButtons];
 }
 

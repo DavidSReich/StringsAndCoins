@@ -63,9 +63,10 @@
 
     if (level.isIphone)
     {
-        level.leftMarginWidth += tbHeight;
-        level.rightMarginWidth += kStatusBarHeight;
-
+        level.leftMarginWidth += tbHeight - level.scoreViewHeight;
+        level.rightMarginWidth += kStatusBarHeight + level.scoreViewHeight;
+        level.scoreViewHeight *= 2;
+        
         if ((level.levelType == BoxesType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
         {
             level.topMarginHeight += 10 * level.scaleGeometry;
@@ -77,6 +78,8 @@
             {
 //                level.topMarginHeight = kBoardMargin + kScoreViewHeight;
 //                level.bottomMarginHeight = kBoardMargin + kScoreViewHeight;
+                level.leftMarginWidth += kBoardMargin * .4f * level.scaleGeometry;
+                level.rightMarginWidth += kBoardMargin * .4f * level.scaleGeometry;
             }
             else
             {
@@ -103,6 +106,8 @@
             {
 //                level.topMarginHeight = kBoardMargin + kScoreViewHeight;
 //                level.bottomMarginHeight = kBoardMargin + kScoreViewHeight;
+                level.leftMarginWidth += kBoardMargin * level.scaleGeometry;
+                level.rightMarginWidth += kBoardMargin * level.scaleGeometry;
             }
             else
             {
@@ -122,67 +127,6 @@
     level.boardWidth = boardWidth;
     level.boardHeight = boardHeight;
     
-#if true
-//    if (level.levelType == BoxesType)
-//    {
-//        //boxes have dots but no cell image
-//        level.dotImage = [UIImage imageNamed:@"dot-md.png"];
-//        level.boundaryImage = [UIImage imageNamed:@"newEllipse.png"];
-//    }
-//    else
-//    {
-//        //coins have cell image, but no dots
-//        level.cellImage = [UIImage imageNamed:@"coin-md.png"];
-//        level.boundaryImage = [UIImage imageNamed:@"newEllipse.png"];
-//    }
-#else
-	if (level.levelSize == SmallSize)
-	{
-		if (level.levelType == BoxesType)
-		{
-			//boxes have dots but no cell image
-			level.dotImage = [UIImage imageNamed:@"dot-md.png"];
-			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
-		}
-		else
-		{
-			//coins have cell image, but no dots
-			level.cellImage = [UIImage imageNamed:@"coin-md.png"];
-			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
-		}
-	}
-	else if (level.levelSize == MediumSize)
-	{
-		if (level.levelType == BoxesType)
-		{
-			//boxes have dots but no cell image
-			level.dotImage = [UIImage imageNamed:@"dot-md.png"];
-			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
-		}
-		else
-		{
-			//coins have cell image, but no dots
-			level.cellImage = [UIImage imageNamed:@"coin-md.png"];
-			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
-		}
-	}
-	else	//must be large
-	{
-		if (level.levelType == BoxesType)
-		{
-			//boxes have dots but no cell image
-			level.dotImage = [UIImage imageNamed:@"dot-md.png"];
-			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
-		}
-		else
-		{
-			//coins have cell image, but no dots
-			level.cellImage = [UIImage imageNamed:@"coin-md.png"];
-			level.boundaryImage = [UIImage imageNamed:@"ellipse-md-horz.png"];
-		}
-	}
-#endif
-
 	if (level.levelShape == SquareShape)
 	{
         if (level.levelSize == SmallSize)

@@ -34,6 +34,11 @@
 
     SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.settings = appDelegate.settings;
+    if (self.settings.isIphone4)
+    {
+        CGRect r = self.iconLicenseLabel.frame;
+        self.iconLicenseLabel.frame = CGRectMake(r.origin.x, r.origin.y - 88, r.size.width, r.size.height);
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated

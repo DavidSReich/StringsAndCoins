@@ -64,8 +64,8 @@
         CGFloat rotation = -kPiOver2;
         backgroundView.transform = CGAffineTransformMakeRotation(rotation);
         backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.height, self.boardView.frame.size.width);
-        backgroundView.layer.borderWidth = 3.f;
-        backgroundView.layer.borderColor = [UIColor redColor].CGColor;
+//        backgroundView.layer.borderWidth = 3.f;
+//        backgroundView.layer.borderColor = [UIColor redColor].CGColor;
     }
     else
         backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.width, self.boardView.frame.size.height);
@@ -73,8 +73,8 @@
     [self.boardView addSubview:backgroundView];
     [self.boardView sendSubviewToBack:backgroundView];
 
-    self.mainViewController.tabBarController.tabBar.layer.borderColor = [UIColor greenColor].CGColor;
-    self.mainViewController.tabBarController.tabBar.layer.borderWidth = 3.f;
+//    self.mainViewController.tabBarController.tabBar.layer.borderColor = [UIColor greenColor].CGColor;
+//    self.mainViewController.tabBarController.tabBar.layer.borderWidth = 3.f;
     
 //    UIView *parent = self.boardView;
 //    do {
@@ -195,13 +195,16 @@
 
     scoreViews = [[NSMutableArray alloc] initWithCapacity:4];
     SCGScoreView *scoreView;
-    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players andWidth:level.boardHeight];
-    [scoreViews addObject:scoreView];
-    [self.boardView addSubview:scoreView];
-    if (level.isIphone)
-        scoreView.center = CGPointMake(level.toolbarHeight + level.scoreViewHeight / 2, yHeightCenter);
-    else
-        scoreView.center = CGPointMake(level.statusBarHeight + 2, yHeightCenter);
+    if (!level.isIphone)
+    {
+        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players andWidth:level.boardHeight];
+        [scoreViews addObject:scoreView];
+        [self.boardView addSubview:scoreView];
+        if (level.isIphone)
+            scoreView.center = CGPointMake(level.toolbarHeight + level.scoreViewHeight / 2, yHeightCenter);
+        else
+            scoreView.center = CGPointMake(level.statusBarHeight + 2, yHeightCenter);
+    }
 
     scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players andWidth:level.boardHeight];
     [scoreViews addObject:scoreView];
@@ -742,7 +745,7 @@
         right = boundary.frame.origin.x + boundary.frame.size.width - boundaryWidth / 2;
         
         CGPoint pts[6];
-        CGFloat xOffset = boundaryWidth + 2;
+        CGFloat xOffset = boundaryWidth / 2;
 
         pts[0] = CGPointMake(topLeft - xOffset, top);
         pts[1] = CGPointMake(topRight + xOffset, top);
@@ -764,29 +767,61 @@
     {
         boundary = [[horizontalBoundaries objectAtIndex:0] objectAtIndex:0];
         boundaryWidth = boundary.frame.size.width;
-        top = boundary.frame.origin.y + boundaryWidth * 0.07;
+        top = boundary.frame.origin.y;
         topLeft = boundary.frame.origin.x + boundaryWidth * 0.08;
         topRight = boundary.frame.origin.x + (self.level.cellWidth * [self.level numberOfCols:0]);
+#if true
+        //test
+        lineWidth = (int)(1);
+        CGContextSetLineWidth(ctx, lineWidth);
+        CGContextStrokeRect(ctx, boundary.frame);
+//        boundary.touchBtn.layer.borderColor = [UIColor greenColor].CGColor;
+//        boundary.touchBtn.layer.borderWidth = 3.f;
+//        boundary.layer.borderColor = [UIColor yellowColor].CGColor;
+//        boundary.layer.borderWidth = 3.f;
+        boundary = [[horizontalBoundaries objectAtIndex:0] objectAtIndex:([self.level numberOfCols:0] * 2) - 1];
+        CGContextStrokeRect(ctx, boundary.frame);
+//        boundary.touchBtn.layer.borderColor = [UIColor greenColor].CGColor;
+//        boundary.touchBtn.layer.borderWidth = 3.f;
+//        boundary.layer.borderColor = [UIColor yellowColor].CGColor;
+//        boundary.layer.borderWidth = 3.f;
+#endif
 
         //we want middle row, not top
         boundary = [[verticalBoundaries objectAtIndex:self.level.numRows / 2] objectAtIndex:0];
         farLeft = boundary.frame.origin.x;
         
         boundary = [[horizontalBoundaries objectAtIndex:self.level.numRows] objectAtIndex:0];
-        bottom = boundary.frame.origin.y + boundary.frame.size.height - boundaryWidth * 0.07;
+        bottom = boundary.frame.origin.y + boundary.frame.size.height;
         
         //we want middle row, not top
         boundary = [[verticalBoundaries objectAtIndex:self.level.numRows / 2] objectAtIndex:self.level.numCols];
         farRight = boundary.frame.origin.x + boundary.frame.size.width;
 
         CGPoint pts[6];
-        pts[0] = CGPointMake(topLeft, top);
-        pts[1] = CGPointMake(topRight, top);
+        CGFloat topOffset = boundaryWidth * 0.16f;
+
+        pts[0] = CGPointMake(topLeft, top + topOffset);
+        pts[1] = CGPointMake(topRight, top + topOffset);
         pts[2] = CGPointMake(farRight, (top + bottom) / 2);
-        pts[3] = CGPointMake(topRight, bottom);
-        pts[4] = CGPointMake(topLeft, bottom);
+        pts[3] = CGPointMake(topRight, bottom - topOffset);
+        pts[4] = CGPointMake(topLeft, bottom - topOffset);
         pts[5] = CGPointMake(farLeft, (top + bottom) / 2);
         
+//        CGContextBeginPath(ctx);
+//        //draw the hexagon
+//        CGContextMoveToPoint(ctx, pts[0].x, pts[0].y);
+//        for (int i = 1; i < 6; i++)
+//            CGContextAddLineToPoint(ctx, pts[i].x, pts[i].y);
+//        //close the path
+//        CGContextClosePath(ctx);
+//        CGContextStrokePath(ctx);
+#if true
+        //draw black line for testing
+        lineWidth = (int)(1);
+        
+        CGContextSetLineWidth(ctx, lineWidth);
+        CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
         CGContextBeginPath(ctx);
         //draw the hexagon
         CGContextMoveToPoint(ctx, pts[0].x, pts[0].y);
@@ -795,6 +830,7 @@
         //close the path
         CGContextClosePath(ctx);
         CGContextStrokePath(ctx);
+#endif
     }
     
     UIGraphicsPopContext();

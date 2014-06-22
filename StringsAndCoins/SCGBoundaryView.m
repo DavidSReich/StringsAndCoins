@@ -61,18 +61,55 @@
             else
                 length = l.cellWidth * .6;
         }
+ 
+#if true
+        //make the self.frame bigger, the btn smaller and the touchbtn as big as the self.frame
+        CGFloat extraHeight;
+        if (l.levelShape == TriangleShape)
+            extraHeight = length * aspect * 2;
+        else if (l.levelShape == SquareShape)
+            extraHeight = length * aspect * 3;
+        else
+            extraHeight = length * aspect * 3;
+        //extraHeight = 0;
+        self.frame = CGRectMake(0, 0, length, length * aspect + extraHeight);
+        CGRect r = self.frame;
         
+        //overlay a button -- makes presses easier?
+        self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.btn.frame = CGRectMake(r.origin.x, r.origin.y + extraHeight / 2, r.size.width, r.size.height - extraHeight);
+        [self addSubview: self.btn];
+        
+        self.touchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.touchBtn.frame = self.frame;
+        self.touchBtn.userInteractionEnabled = YES;
+        [self.touchBtn addTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
+        self.touchBtn.showsTouchWhenHighlighted = YES;
+        [self addSubview: self.touchBtn];
+#if true
+//testtesttest
+        self.touchBtn.layer.borderColor = [UIColor greenColor].CGColor;
+        self.touchBtn.layer.borderWidth = 3.f;
+        self.touchBtn.imageView.hidden = YES;
+#endif
+#else
         self.frame = CGRectMake(0, 0, length, length * aspect);
         
         //overlay a button -- makes presses easier?
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.btn.frame = self.frame;
-//        [self.btn setBackgroundImage:l.boundaryImage forState:UIControlStateNormal];
-        self.btn.userInteractionEnabled = YES;
-        [self.btn addTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
-        self.btn.showsTouchWhenHighlighted = YES;
         [self addSubview: self.btn];
 
+        CGRect r = self.frame;
+        CGFloat extraHeight = r.size.height;
+        self.touchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.touchBtn.frame = CGRectMake(r.origin.x, r.origin.y - extraHeight / 2, r.size.width, r.size.height + extraHeight);
+        self.touchBtn.userInteractionEnabled = YES;
+        [self.touchBtn addTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
+        self.touchBtn.showsTouchWhenHighlighted = YES;
+        [self addSubview: self.touchBtn];
+#endif
+        
 #if defined(SHOWROWANDCOL)
         rcLabel = [[UILabel alloc] initWithFrame:self.bounds];
         rcLabel.textAlignment = NSTextAlignmentCenter;
@@ -110,7 +147,7 @@
                 rotation = -kPiOver6;
         }
 
-        [self bringSubviewToFront:self.btn];
+        [self bringSubviewToFront:self.touchBtn];
         
         if (self.level.levelType == CoinsType)
         {
@@ -135,8 +172,8 @@
 {
     self.complete = YES;
     [self UpdateImage];
-    [self.btn removeTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
-    [self.btn addTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
+    [self.touchBtn removeTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
+    [self.touchBtn addTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
     self.canUndo = YES;
     [self.board boundaryClicked:self];  //boundary color set by boundaryClicked
     [self UpdateImage];
@@ -146,8 +183,8 @@
 {
     self.complete = NO;
     [self UpdateImage];
-    [self.btn addTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
-    [self.btn removeTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
+    [self.touchBtn addTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
+    [self.touchBtn removeTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
     self.canUndo = NO;
     [self.board boundaryDoubleClicked];
     [self UpdateImage];
@@ -155,10 +192,10 @@
 
 - (void) LockBoundary
 {
-    [self.btn removeTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
-    [self.btn removeTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
-    self.btn.showsTouchWhenHighlighted = NO;
-//    self.btn.enabled = NO;
+    [self.touchBtn removeTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
+    [self.touchBtn removeTarget:self action:@selector(ActionDoubleTapped) forControlEvents:UIControlEventTouchDownRepeat];
+    self.touchBtn.showsTouchWhenHighlighted = NO;
+//    touchBtn = NO;
     self.canUndo = NO;
     [self UpdateImage];
 }
@@ -415,6 +452,44 @@
     UIGraphicsEndImageContext();
     
     [self.btn setImage:img2 forState:UIControlStateNormal];
+}
+
+- (BOOL) pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    BOOL superResult = [super pointInside:point withEvent:event];
+    if (!superResult) {
+        return superResult;
+    }
+    
+//    // Don't check again if we just queried the same point
+//    // (because pointInside:withEvent: gets often called multiple times)
+//    if (CGPointEqualToPoint(point, self.previousTouchPoint)) {
+//        return self.previousTouchHitTestResponse;
+//    } else {
+//        self.previousTouchPoint = point;
+//    }
+    
+    BOOL response = YES;
+    
+//    if (self.buttonImage == nil && self.buttonBackground == nil) {
+//        response = YES;
+//    }
+//    else if (self.buttonImage != nil && self.buttonBackground == nil) {
+//        response = [self isAlphaVisibleAtPoint:point forImage:self.buttonImage];
+//    }
+//    else if (self.buttonImage == nil && self.buttonBackground != nil) {
+//        response = [self isAlphaVisibleAtPoint:point forImage:self.buttonBackground];
+//    }
+//    else {
+//        if ([self isAlphaVisibleAtPoint:point forImage:self.buttonImage]) {
+//            response = YES;
+//        } else {
+//            response = [self isAlphaVisibleAtPoint:point forImage:self.buttonBackground];
+//        }
+//    }
+    
+//    self.previousTouchHitTestResponse = response;
+    return response;
 }
 
 @end

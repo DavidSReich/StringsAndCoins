@@ -29,7 +29,8 @@ typedef NS_ENUM(NSInteger, BoundaryOrientation)
 @property (assign, nonatomic) BOOL complete;
 @property (assign, nonatomic) BOOL topHalf; //only useful for non-square
 @property (assign, nonatomic) BoundaryOrientation orientation;
-@property (strong, nonatomic) UIButton *btn;  //touch me
+@property (strong, nonatomic) UIButton *btn;  //for display items
+@property (strong, nonatomic) UIButton *touchBtn;  //touch me
 @property (weak, nonatomic) SCGLevel *level;
 @property (weak, nonatomic) SCGBoardController *board;
 @property (assign, nonatomic) UIColor *boundaryColor;

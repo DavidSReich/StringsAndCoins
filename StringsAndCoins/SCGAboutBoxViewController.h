@@ -12,5 +12,6 @@
 @interface SCGAboutBoxViewController : UIViewController <UITabBarControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet SCGSettings *settings;
+@property (strong, nonatomic) IBOutlet UILabel *iconLicenseLabel;
 
 @end

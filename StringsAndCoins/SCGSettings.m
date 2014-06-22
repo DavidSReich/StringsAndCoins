@@ -23,6 +23,10 @@
     {
         [self setDefaultSettings];
         self.isIphone = ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad);
+        if (self.isIphone)
+            self.isIphone4 = [[UIScreen mainScreen] bounds].size.height < 500;
+        else
+            self.isIphone4 = false;
     }
     
     return self;
@@ -41,6 +45,10 @@
         self.gameInProgress = NO;
         self.newGame = NO;
         self.isIphone = ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad);
+        if (self.isIphone)
+            self.isIphone4 = [[UIScreen mainScreen] bounds].size.height < 500;
+        else
+            self.isIphone4 = false;
     }
 
     return self;

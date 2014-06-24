@@ -35,6 +35,9 @@ typedef NS_ENUM(NSInteger, BoundaryOrientation)
 @property (weak, nonatomic) SCGBoardController *board;
 @property (assign, nonatomic) UIColor *boundaryColor;
 @property (assign, nonatomic) BOOL canUndo;
+@property (assign, nonatomic) CGPoint previousPointInsidePoint;
+@property (assign, nonatomic) BOOL previousPointInsideResponse;
+@property (strong, nonatomic) UITapGestureRecognizer *tapRecognizer;
 
 - (instancetype) initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c andTopHalf:(BOOL)t andOrientation:(BoundaryOrientation)o;
 - (void) CheckStatus;

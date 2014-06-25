@@ -146,7 +146,7 @@
             UIGraphicsEndImageContext();
             /////////<<<<<
         }
-        else if (l.levelShape == TriangleShape)
+        else if ((l.levelShape == TriangleShape) || true)
         {
             //make the self.frame bigger, the btn smaller and the touchbtn as big as the self.frame
             CGFloat extraHeight;
@@ -159,8 +159,13 @@
             }
             else if (l.levelShape == SquareShape)
                 extraHeight = l.cellHeight - (length * aspect);
-            else
-                extraHeight = length * aspect * 3;
+            else    //hexagons
+            {
+                if (l.levelType == BoxesType)
+                    extraHeight = length * aspect * 3.2;
+                else
+                    extraHeight = length * aspect * 2.6;
+            }
             
             //extraHeight = 0;
             self.frame = CGRectMake(0, 0, length, length * aspect + extraHeight);
@@ -219,6 +224,42 @@
             CGFloat lineWidth = 3.f;
             CGContextSetLineWidth(ctx, lineWidth);
             CGContextSetStrokeColorWithColor(ctx, [UIColor yellowColor].CGColor);
+#if false
+            CGContextMoveToPoint(ctx, 0, 0);
+            CGContextAddLineToPoint(ctx, 0, 5);
+            CGContextAddLineToPoint(ctx, 5, 5);
+            CGContextAddLineToPoint(ctx, 5, 0);
+            CGContextClosePath(ctx);
+            CGContextStrokePath(ctx);
+            CGContextSetStrokeColorWithColor(ctx, [UIColor greenColor].CGColor);
+            CGContextMoveToPoint(ctx, 0, self.frame.size.height);
+            CGContextAddLineToPoint(ctx, 0, self.frame.size.height - 5);
+            CGContextAddLineToPoint(ctx, 5, self.frame.size.height - 5);
+            CGContextAddLineToPoint(ctx, 5, self.frame.size.height);
+            CGContextClosePath(ctx);
+            CGContextStrokePath(ctx);
+            CGContextSetStrokeColorWithColor(ctx, [UIColor cyanColor].CGColor);
+            CGContextMoveToPoint(ctx, self.frame.size.width, 0);
+            CGContextAddLineToPoint(ctx, self.frame.size.width, 5);
+            CGContextAddLineToPoint(ctx, self.frame.size.width - 5, 5);
+            CGContextAddLineToPoint(ctx, self.frame.size.width - 5, 0);
+            CGContextClosePath(ctx);
+            CGContextStrokePath(ctx);
+            CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
+            CGContextMoveToPoint(ctx, self.frame.size.width, self.frame.size.height);
+            CGContextAddLineToPoint(ctx, self.frame.size.width, self.frame.size.height - 5);
+            CGContextAddLineToPoint(ctx, self.frame.size.width - 5, self.frame.size.height - 5);
+            CGContextAddLineToPoint(ctx, self.frame.size.width - 5, self.frame.size.height);
+            CGContextClosePath(ctx);
+            CGContextStrokePath(ctx);
+            CGContextSetStrokeColorWithColor(ctx, [UIColor darkGrayColor].CGColor);
+            CGContextMoveToPoint(ctx, 0, 0);
+            CGContextAddLineToPoint(ctx, 0, self.frame.size.height);
+            CGContextAddLineToPoint(ctx, self.frame.size.width, self.frame.size.height);
+            CGContextAddLineToPoint(ctx, self.frame.size.width, 0);
+            CGContextClosePath(ctx);
+            CGContextStrokePath(ctx);
+#else
             //draw
             CGContextMoveToPoint(ctx, pts[0].x, pts[0].y);
             for (int i = 1; i < 4; i++)
@@ -226,6 +267,7 @@
             //close the path
             CGContextClosePath(ctx);
             CGContextStrokePath(ctx);
+#endif
             UIGraphicsPopContext();
             //get the new image
             UIImage *img2 = UIGraphicsGetImageFromCurrentImageContext();
@@ -247,23 +289,57 @@
             self.frame = CGRectMake(0, 0, length, length * aspect + extraHeight);
             CGRect r = self.frame;
             
+//            self.layer.borderColor = [UIColor greenColor].CGColor;
+//            self.layer.borderWidth = 3.f;
+
             //overlay a button -- makes presses easier?
             self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
             self.btn.frame = CGRectMake(r.origin.x, r.origin.y + extraHeight / 2, r.size.width, r.size.height - extraHeight);
             [self addSubview: self.btn];
+
             
-            self.touchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            self.touchBtn.frame = self.frame;
-            self.touchBtn.userInteractionEnabled = YES;
-            [self.touchBtn addTarget:self action:@selector(ActionTapped) forControlEvents:UIControlEventTouchDown];
-            self.touchBtn.showsTouchWhenHighlighted = YES;
-            [self addSubview: self.touchBtn];
+            //overlay a button -- makes presses easier?
+            //at this point I'm only using the button for its image and backroundimage
+            self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
 #if true
-            //testtesttest
-            self.touchBtn.layer.borderColor = [UIColor greenColor].CGColor;
-            self.touchBtn.layer.borderWidth = 3.f;
-//          self.touchBtn.imageView.hidden = YES;
+            CGPoint ctr = self.center;
+            self.btn.frame = CGRectMake(0, 0, r.size.width, length * aspect);
+            self.btn.center = ctr;
+#else
+            self.btn.frame = CGRectMake(r.origin.x, r.origin.y + extraHeight / 2, r.size.width, length * aspect);
 #endif
+            [self addSubview:self.btn];
+            [self bringSubviewToFront:self.btn];
+            self.btn.userInteractionEnabled = NO;
+            
+            self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ActionTapped)];
+            self.tapRecognizer.numberOfTapsRequired = 1;
+            [self addGestureRecognizer:self.tapRecognizer];
+            
+            //make path
+            CGPoint pts[4];
+            
+            pts[0] = CGPointMake(0, self.frame.size.height / 2);
+            pts[1] = CGPointMake(self.frame.size.width / 2, 0);
+            pts[2] = CGPointMake(self.frame.size.width, self.frame.size.height / 2);
+            pts[3] = CGPointMake(self.frame.size.width / 2, self.frame.size.height);
+            
+            //        NSLog(@"%f %f", pts[0].x, pts[0].y);
+            //        NSLog(@"%f %f", pts[1].x, pts[1].y);
+            //        NSLog(@"%f %f", pts[2].x, pts[2].y);
+            //        NSLog(@"%f %f", pts[3].x, pts[3].y);
+            
+            hotSpotPath = CGPathCreateMutable();
+            //make the path
+            CGPathMoveToPoint(hotSpotPath, NULL, pts[0].x, pts[0].y);
+            for (int i = 1; i < 4; i++)
+                CGPathAddLineToPoint(hotSpotPath, NULL, pts[i].x, pts[i].y);
+            //close the path
+            CGPathCloseSubpath(hotSpotPath);
+
+
+
+            
         }
 #elif true
         //make the self.frame bigger, the btn smaller and the touchbtn as big as the self.frame
@@ -381,7 +457,7 @@
     self.complete = YES;
     [self UpdateImage];
 #if true
-    if ((self.level.levelShape == SquareShape) || (self.level.levelShape == TriangleShape))
+    if ((self.level.levelShape == SquareShape) || (self.level.levelShape == TriangleShape) || true)
     {
         [self.tapRecognizer removeTarget:self action:@selector(ActionTapped)];
         [self.tapRecognizer addTarget:self action:@selector(ActionDoubleTapped)];
@@ -406,7 +482,7 @@
     self.complete = NO;
     [self UpdateImage];
 #if true
-    if ((self.level.levelShape == SquareShape) || (self.level.levelShape == TriangleShape))
+    if ((self.level.levelShape == SquareShape) || (self.level.levelShape == TriangleShape) || true)
     {
         [self.tapRecognizer removeTarget:self action:@selector(ActionDoubleTapped)];
         [self.tapRecognizer addTarget:self action:@selector(ActionTapped)];
@@ -429,7 +505,7 @@
 - (void) LockBoundary
 {
 #if true
-    if ((self.level.levelShape == SquareShape) || (self.level.levelShape == TriangleShape))
+    if ((self.level.levelShape == SquareShape) || (self.level.levelShape == TriangleShape) || true)
     {
         [self.tapRecognizer removeTarget:self action:@selector(ActionDoubleTapped)];
         [self.tapRecognizer removeTarget:self action:@selector(ActionTapped)];
@@ -503,7 +579,8 @@
             
             UIGraphicsPushContext(ctx);
             
-            CGContextSetFillColorWithColor(ctx, [UIColor blackColor].CGColor);
+        CGContextSetFillColorWithColor(ctx, [UIColor blackColor].CGColor);
+        CGContextSetFillColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
             CGFloat w;
             w = self.frame.size.height;
             w = w * .8;
@@ -540,6 +617,7 @@
             UIGraphicsPushContext(ctx);
             
             CGContextSetFillColorWithColor(ctx, [UIColor blackColor].CGColor);
+            CGContextSetFillColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
             CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
             CGContextAddEllipseInRect(ctx, CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height));
             CGContextFillPath(ctx);
@@ -739,7 +817,7 @@
     
     BOOL response = YES;
     
-    if ((self.level.levelShape == SquareShape) || (self.level.levelShape == TriangleShape))
+    if ((self.level.levelShape == SquareShape) || (self.level.levelShape == TriangleShape) || true)
     {
         response = CGPathContainsPoint(hotSpotPath, NULL, point, true);
 

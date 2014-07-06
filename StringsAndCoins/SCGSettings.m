@@ -22,11 +22,6 @@
     if (self != nil)
     {
         [self setDefaultSettings];
-        self.isIphone = ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad);
-        if (self.isIphone)
-            self.isIphone4 = [[UIScreen mainScreen] bounds].size.height < 500;
-        else
-            self.isIphone4 = false;
     }
     
     return self;
@@ -37,18 +32,12 @@
     self = [super init];
     if (self != nil)
     {
+        [self setDefaultSettings];
         self.levelType = [decoder decodeIntForKey:kKeyLevelType];
         self.levelShape = [decoder decodeIntForKey:kKeyLevelShape];
         self.levelSize = [decoder decodeIntForKey:kKeyLevelSize];
         self.numberOfPlayers = [decoder decodeIntForKey:kKeyNumPlayers];
         self.paletteNumber = [decoder decodeIntForKey:kKeyPaletteNumber];
-        self.gameInProgress = NO;
-        self.newGame = NO;
-        self.isIphone = ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad);
-        if (self.isIphone)
-            self.isIphone4 = [[UIScreen mainScreen] bounds].size.height < 500;
-        else
-            self.isIphone4 = false;
     }
 
     return self;
@@ -71,7 +60,19 @@
     self.numberOfPlayers = 2;
     self.paletteNumber = 1;
     self.gameInProgress = NO;
+    self.gameOver = NO;
     self.newGame = NO;
+
+    self.isIphone = ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad);
+    if (self.isIphone)
+        self.isIphone4 = [[UIScreen mainScreen] bounds].size.height < 500;
+    else
+        self.isIphone4 = false;
+
+#if defined(ADJUSTNUMBERROWSCOLS)
+    self.numCols = 4;
+    self.numRows = 2;
+#endif
 }
 
 @end

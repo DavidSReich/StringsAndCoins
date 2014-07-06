@@ -17,6 +17,7 @@
 #import "constants.h"
 #import "SCGAppDelegate.h"
 #import "SCGMainViewController.h"
+#import "SCGGameOverViewController.h"
 
 @implementation SCGBoardController
 {
@@ -30,7 +31,7 @@
     int currentPlayer;
     int lastPlayer;
     int numberOfPlayers;
-//    UIButton *menuButton;
+    SCGGameOverViewController *gameOverViewController;
 }
 
 - (void) clearGameBoard
@@ -56,6 +57,8 @@
 
 - (void) setupGameBoard:(SCGLevel *)level
 {
+    self.mainViewController.settings.gameOver = NO;
+    self.mainViewController.settings.gameInProgress = NO;
     [self clearGameBoard];
 
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Canvas1a_offwhite_1.png"]];
@@ -509,6 +512,7 @@
             
             if (topHalf)
             {
+                //is this a bug?  what happens when r == 0????
                 numCols = ([self.level numberOfCols:r - 1] + 1) / 2;
                 rowDelta = ((self.level.numRows / 2) + 1) - r;
             }
@@ -695,7 +699,7 @@
     UIGraphicsPushContext(ctx);
     
     CGFloat lineWidth = (int)(16 * self.level.scaleGeometry);
-    
+//    lineWidth = 1;
     CGContextSetLineWidth(ctx, lineWidth);
     CGContextSetStrokeColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
 
@@ -727,15 +731,24 @@
         boundary = [[horizontalBoundaries objectAtIndex:0] objectAtIndex:0];
         top = boundary.frame.origin.y;
         boundaryWidth = boundary.frame.size.width;
-        topLeft = boundary.frame.origin.x + boundary.frame.size.width / 2 - self.level.cellWidth / 2;
-        topRight = topLeft + (self.level.cellWidth * ([self.level numberOfCols:0] / 2));
+ 
+        boundary = [[verticalBoundaries objectAtIndex:0] objectAtIndex:1];
+        topLeft = boundary.frame.origin.x;
+        boundary = [[verticalBoundaries objectAtIndex:0] objectAtIndex:[self.level numberOfCols:0] - 1];
+        topRight = boundary.frame.origin.x + boundary.frame.size.width;
         
         //we want middle row, not top
         boundary = [[verticalBoundaries objectAtIndex:self.level.numRows / 2] objectAtIndex:0];
         left = boundary.frame.origin.x + boundaryWidth / 2;
-        farLeft = boundary.frame.origin.x + boundaryWidth / 2 - self.level.cellWidth / 4;
-        farRight = farLeft + (self.level.cellWidth * ([self.level numberOfCols:self.level.numRows / 2] / 2 + 1));
-        farRight += -boundary.frame.size.width / 2 + self.level.cellWidth / 2;
+        farLeft = boundary.frame.origin.x;// + boundaryWidth / 2 - self.level.cellWidth / 4;
+
+        boundary = [[verticalBoundaries objectAtIndex:self.level.numRows / 2] objectAtIndex:[self.level numberOfCols:(self.level.numRows / 2)]];
+        farRight = boundary.frame.origin.x + boundary.frame.size.width;
+
+        topRight -= boundaryWidth * .07;
+        farRight += boundaryWidth * .07;
+        topLeft += boundaryWidth * .07;
+        farLeft -= boundaryWidth * .07;
         
         boundary = [[horizontalBoundaries objectAtIndex:self.level.numRows] objectAtIndex:0];
         bottom = boundary.frame.origin.y + boundary.frame.size.height;
@@ -745,15 +758,14 @@
         right = boundary.frame.origin.x + boundary.frame.size.width - boundaryWidth / 2;
         
         CGPoint pts[6];
-        CGFloat xOffset = boundaryWidth / 2;
-
+        CGFloat xOffset = boundaryWidth * .04;
+        
         pts[0] = CGPointMake(topLeft - xOffset, top);
         pts[1] = CGPointMake(topRight + xOffset, top);
         pts[2] = CGPointMake(farRight + xOffset, (top + bottom) / 2);
         pts[3] = CGPointMake(topRight + xOffset, bottom);
         pts[4] = CGPointMake(topLeft - xOffset, bottom);
         pts[5] = CGPointMake(farLeft - xOffset, (top + bottom) / 2);
-
         CGContextBeginPath(ctx);
         //draw the hexagon
         CGContextMoveToPoint(ctx, pts[0].x, pts[0].y);
@@ -768,24 +780,10 @@
         boundary = [[horizontalBoundaries objectAtIndex:0] objectAtIndex:0];
         boundaryWidth = boundary.frame.size.width;
         top = boundary.frame.origin.y;
-        topLeft = boundary.frame.origin.x + boundaryWidth * 0.08;
-        topRight = boundary.frame.origin.x + (self.level.cellWidth * [self.level numberOfCols:0]);
-#if true
-        //test
-        lineWidth = (int)(1);
-        CGContextSetLineWidth(ctx, lineWidth);
-        CGContextStrokeRect(ctx, boundary.frame);
-//        boundary.touchBtn.layer.borderColor = [UIColor greenColor].CGColor;
-//        boundary.touchBtn.layer.borderWidth = 3.f;
-//        boundary.layer.borderColor = [UIColor yellowColor].CGColor;
-//        boundary.layer.borderWidth = 3.f;
+        topLeft = boundary.frame.origin.x + boundaryWidth * 0.25;
+
         boundary = [[horizontalBoundaries objectAtIndex:0] objectAtIndex:([self.level numberOfCols:0] * 2) - 1];
-        CGContextStrokeRect(ctx, boundary.frame);
-//        boundary.touchBtn.layer.borderColor = [UIColor greenColor].CGColor;
-//        boundary.touchBtn.layer.borderWidth = 3.f;
-//        boundary.layer.borderColor = [UIColor yellowColor].CGColor;
-//        boundary.layer.borderWidth = 3.f;
-#endif
+        topRight = boundary.frame.origin.x + boundary.frame.size.width - boundaryWidth * 0.25;
 
         //we want middle row, not top
         boundary = [[verticalBoundaries objectAtIndex:self.level.numRows / 2] objectAtIndex:0];
@@ -808,20 +806,6 @@
         pts[4] = CGPointMake(topLeft, bottom - topOffset);
         pts[5] = CGPointMake(farLeft, (top + bottom) / 2);
         
-//        CGContextBeginPath(ctx);
-//        //draw the hexagon
-//        CGContextMoveToPoint(ctx, pts[0].x, pts[0].y);
-//        for (int i = 1; i < 6; i++)
-//            CGContextAddLineToPoint(ctx, pts[i].x, pts[i].y);
-//        //close the path
-//        CGContextClosePath(ctx);
-//        CGContextStrokePath(ctx);
-#if true
-        //draw black line for testing
-        lineWidth = (int)(1);
-        
-        CGContextSetLineWidth(ctx, lineWidth);
-        CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
         CGContextBeginPath(ctx);
         //draw the hexagon
         CGContextMoveToPoint(ctx, pts[0].x, pts[0].y);
@@ -830,7 +814,6 @@
         //close the path
         CGContextClosePath(ctx);
         CGContextStrokePath(ctx);
-#endif
     }
     
     UIGraphicsPopContext();
@@ -860,12 +843,44 @@
         if ([self testBoard])
         {
             //all done!
-            self.mainViewController.settings.gameInProgress = false;
+            self.mainViewController.settings.gameInProgress = NO;
+            self.mainViewController.settings.gameOver = YES;
             [self refreshScores:YES];
             if (self.lastBoundary)
                 [self.lastBoundary LockBoundary];
-            
-            [self.mainViewController performSegueWithIdentifier:@"GameOver" sender:self];
+
+            if (self.level.isIphone)
+            {
+                gameOverViewController = [self.mainViewController.storyboard instantiateViewControllerWithIdentifier:@"GameOver"];
+                gameOverViewController.players = [self getPlayers];
+                [self.boardView addSubview:gameOverViewController.view];
+#if true
+                [gameOverViewController.view.superview setFrame:self.boardView.bounds];
+                [gameOverViewController.view setFrame:self.boardView.bounds];
+                CGFloat rotation = kPiOver2;
+                gameOverViewController.view.transform = CGAffineTransformMakeRotation(rotation);
+                [gameOverViewController.view.superview setFrame:self.boardView.bounds];
+                [gameOverViewController.view setFrame:self.boardView.bounds];
+#elif true
+                CGRect fullScreenRotated = CGRectMake(0, 0, self.boardView.frame.size.height, self.boardView.frame.size.width);
+                [gameOverViewController.view.superview setFrame:fullScreenRotated];
+                [gameOverViewController.view setFrame:fullScreenRotated];
+                CGFloat rotation = kPiOver2;
+                gameOverViewController.view.transform = CGAffineTransformMakeRotation(rotation);
+#else
+                CGRect gameOverRect = self.boardView.frame;
+                gameOverRect.origin.x = 0;
+                gameOverRect.origin.y = 0;
+                [gameOverViewController.view.superview setFrame:gameOverRect];
+                [gameOverViewController.view setFrame:gameOverRect];
+                CGFloat rotation = kPiOver2;
+                gameOverViewController.view.transform = CGAffineTransformMakeRotation(rotation);
+//                gameOverRect.origin.x = 0;
+//                gameOverRect.origin.y = 0;
+#endif
+            }
+            else
+                [self.mainViewController performSegueWithIdentifier:@"GameOver" sender:self];
             return;
         }
     }
@@ -1312,10 +1327,10 @@
     return players;
 }
 
-- (void) MenuButtonTapped
+- (void) clearGameOver
 {
-//    ((UITabBarController *)self.mainViewController.parentViewController).tabBar.hidden = NO;
-//    self.boardView.userInteractionEnabled = NO;
+    if (self.level.isIphone)
+        [gameOverViewController.view removeFromSuperview];
 }
 
 @end

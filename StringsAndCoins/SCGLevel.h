@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "constants.h"
 
 @interface SCGLevel : NSObject
 
@@ -67,9 +68,15 @@ typedef NS_ENUM(NSInteger, LevelSize)
 //CGFloat;
 
 //factory
+#if defined(ADJUSTNUMBERROWSCOLS)
++ (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
+      andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning
+             andToolbarHeight:(CGFloat)tbHeight andNumRows:(int)numRows andNumCols:(int)numCols;
+#else
 + (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
         andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning
-        andToolbarHeight:(CGFloat)tbHeight;
+             andToolbarHeight:(CGFloat)tbHeight;
+#endif
 
 //how many cols in this row?
 - (int) numberOfCols:(int) row;

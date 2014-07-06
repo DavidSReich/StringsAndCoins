@@ -40,7 +40,6 @@ typedef NS_ENUM(NSInteger, BoundaryOrientation)
 @property (strong, nonatomic) UITapGestureRecognizer *tapRecognizer;
 
 - (instancetype) initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c andTopHalf:(BOOL)t andOrientation:(BoundaryOrientation)o;
-- (void) CheckStatus;
 - (void) ActionTapped;
 - (void) ActionDoubleTapped;
 - (void) UpdateImage;

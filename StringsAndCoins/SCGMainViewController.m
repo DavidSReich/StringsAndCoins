@@ -57,6 +57,19 @@
 
     if (self.settings.newGame)
         [self.controller clearGameBoard];
+    else if (self.settings.isIphone)
+    {
+        CGRect fullScreen = [[UIScreen mainScreen] bounds];
+        [self.view.superview.superview.superview setFrame:fullScreen];
+        [self.view.superview.superview setFrame:fullScreen];
+        [self.view.superview setFrame:fullScreen];
+        [self.view setFrame:fullScreen];
+//        self.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Canvas1a_offwhite_1.png"]];
+//        CGFloat rotation = -kPiOver2;
+//        self.backgroundView.transform = CGAffineTransformMakeRotation(rotation);
+//        self.backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+//        [self.view addSubview:self.backgroundView];
+    }
 
 //    [self.view setFrame:fullScreen];
 }
@@ -77,6 +90,18 @@
         CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
         [self.view.superview setFrame:fullScreenRotated];
         [self.view setFrame:fullScreenRotated];
+    }
+#else
+    else if (self.settings.isIphone)
+    {
+        [self.controller clearGameOver];
+        CGRect fullScreen = [[UIScreen mainScreen] bounds];
+//        fullScreen.origin.y += self.tabBarController.tabBar.bounds.size.height;
+        [self.view.superview.superview.superview setFrame:fullScreen];
+        [self.view.superview.superview setFrame:fullScreen];
+        [self.view.superview setFrame:fullScreen];
+        [self.view setFrame:fullScreen];
+//        [self.backgroundView removeFromSuperview];
     }
 #endif
 
@@ -139,11 +164,18 @@
     self.controller.boardView = self.view;
     self.controller.mainViewController = self;
     
+#if defined(ADJUSTNUMBERROWSCOLS)
+	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
+                           andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController
+                                      andView:self.view andPalette:settings.paletteNumber andIphoneRunning:settings.isIphone
+                             andToolbarHeight:self.tabBarController.tabBar.bounds.size.height andNumRows:settings.numRows andNumCols:settings.numCols];
+#else
 	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
                 andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController
                 andView:self.view andPalette:settings.paletteNumber andIphoneRunning:settings.isIphone
                 andToolbarHeight:self.tabBarController.tabBar.bounds.size.height];
-    
+#endif
+
     self.paletteGridView.settings = settings;
 	[self.controller setupGameBoard:level];
 }
@@ -177,6 +209,8 @@
             self.controller.boardView.userInteractionEnabled = YES;
         }
 #endif
+        if (self.settings.isIphone && self.settings.gameOver && ([viewController isKindOfClass:[SCGMainViewController class]]))
+            [self.controller clearGameOver];
     }
 
     return YES;

@@ -100,6 +100,12 @@
     }
 
     [self resetButtons];
+#if defined(ADJUSTNUMBERROWSCOLS)
+    self.rowStepper.value = self.settings.numRows;
+    self.colStepper.value = self.settings.numCols;
+    [self rowStepperChanged:nil];
+    [self colStepperChanged:nil];
+#endif
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -107,7 +113,7 @@
     [super viewDidAppear:animated];
     self.tabBarController.delegate = self;
     UIBarItem *resumeButton = [self.tabBarController.tabBar.items objectAtIndex:kResumeGameIndex];
-    if (self.settings.gameInProgress)
+    if (self.settings.gameInProgress || self.settings.gameOver)
         [resumeButton setEnabled:YES];
     else
         [resumeButton setEnabled:NO];
@@ -395,6 +401,22 @@
         self.settings.newGame = YES;
         [self.tabBarController setSelectedIndex:alertView.tag];
     }
+}
+
+- (IBAction)rowStepperChanged:(id)sender
+{
+#if defined(ADJUSTNUMBERROWSCOLS)
+    self.settings.numRows = self.rowStepper.value;
+    self.rowCountLabel.text = [NSString stringWithFormat:@"%d", self.settings.numRows];
+#endif
+}
+
+- (IBAction)colStepperChanged:(id)sender
+{
+#if defined(ADJUSTNUMBERROWSCOLS)
+    self.settings.numCols = self.colStepper.value;
+    self.colCountLabel.text = [NSString stringWithFormat:@"%d", self.settings.numCols];
+#endif
 }
 
 @end

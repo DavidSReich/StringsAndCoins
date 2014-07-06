@@ -20,6 +20,10 @@
 
     self.settings = [[SCGSettings alloc] init];
     [self loadSettings];
+#if defined(ADJUSTNUMBERROWSCOLS)
+    self.settings.numRows = 2;
+    self.settings.numCols = 4;
+#endif
 
     return YES;
 }

@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) IBOutlet SCGSettings *settings;
 @property (strong, nonatomic) IBOutlet SCGPaletteGridView *paletteGridView;
+//@property (strong, nonatomic) UIImageView *backgroundView;
 
 - (void) startNewGame:(SCGSettings *)settings;
 

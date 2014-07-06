@@ -17,9 +17,15 @@
 @property (assign, nonatomic) int numberOfPlayers;
 @property (assign, nonatomic) int paletteNumber;
 @property (assign, nonatomic) BOOL gameInProgress;
+@property (assign, nonatomic) BOOL gameOver;
 @property (assign, nonatomic) BOOL newGame;
 @property (assign, nonatomic) BOOL isIphone;
 @property (assign, nonatomic) BOOL isIphone4;   //only 3.5", not 4"
+
+#if defined(ADJUSTNUMBERROWSCOLS)
+@property (assign, nonatomic) int numCols;
+@property (assign, nonatomic) int numRows;
+#endif
 
 - (void) setDefaultSettings;
 

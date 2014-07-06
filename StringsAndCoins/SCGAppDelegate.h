@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SCGSettings *settings;
+@property (weak, nonatomic) UIViewController *mainViewController;
 
 @end

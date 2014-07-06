@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCGGameOverViewController : UIViewController
+@interface SCGGameOverViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) NSMutableArray *players;
 

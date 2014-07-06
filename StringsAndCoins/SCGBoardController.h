@@ -50,6 +50,6 @@
 
 - (NSMutableArray *)getPlayers;
 
-- (void) MenuButtonTapped;
+- (void) clearGameOver;
 
 @end

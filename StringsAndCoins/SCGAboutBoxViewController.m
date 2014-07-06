@@ -46,7 +46,7 @@
     [super viewDidAppear:animated];
     self.tabBarController.delegate = self;
     UIBarItem *resumeButton = [self.tabBarController.tabBar.items objectAtIndex:kResumeGameIndex];
-    if (self.settings.gameInProgress)
+    if (self.settings.gameInProgress || self.settings.gameOver)
         [resumeButton setEnabled:YES];
     else
         [resumeButton setEnabled:NO];

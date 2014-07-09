@@ -16,7 +16,9 @@
 //@property (assign, nonatomic) CGFloat sideMarginWidth;
 // in SCGLevel constructor
 
-#define ADJUSTNUMBERROWSCOLS
+//#define ADJUSTNUMBERROWSCOLS
+#define ROWSCOLSFROMARRAY
+#define LANDSCAPE_IPHONE
 
 #define kStatusBarHeight    20
 #define kScoreViewHeight    40

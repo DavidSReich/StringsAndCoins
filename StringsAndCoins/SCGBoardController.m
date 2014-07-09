@@ -62,13 +62,15 @@
     [self clearGameBoard];
 
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Canvas1a_offwhite_1.png"]];
-    if (level.isIphone)
+    if (level.isIphone  && false)
     {
+//#if !defined(LANDSCAPE_IPHONE)
         CGFloat rotation = -kPiOver2;
         backgroundView.transform = CGAffineTransformMakeRotation(rotation);
+//#endif
         backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.height, self.boardView.frame.size.width);
-//        backgroundView.layer.borderWidth = 3.f;
-//        backgroundView.layer.borderColor = [UIColor redColor].CGColor;
+        backgroundView.layer.borderWidth = 3.f;
+        backgroundView.layer.borderColor = [UIColor redColor].CGColor;
     }
     else
         backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.width, self.boardView.frame.size.height);
@@ -117,75 +119,16 @@
     players = [[NSMutableArray alloc] initWithCapacity:numberOfPlayers];
     
     UIColor *color;
-#if true
     NSMutableArray *colors = [self.mainViewController.paletteGridView getPaletteColors:self.level.paletteNumber];
-#endif
     
     for (int p = 0; p < numberOfPlayers; p++)
     {
         SCGPlayer *player = [SCGPlayer alloc];
         player.playerName = [NSMutableString stringWithFormat:@"Player %d", p + 1];
-#if true
         int colorNum = arc4random_uniform(colors.count);
         color = [colors objectAtIndex:colorNum];
         [colors removeObjectAtIndex:colorNum];
-#elif true
-        int paletteNumber = 1;
-        
-        if (paletteNumber == 0)
-        {
-            if (p == 0)
-                color = [UIColor redColor];
-            else if (p == 1)
-                color = [UIColor blueColor];
-            else if (p == 2)
-                color = [UIColor yellowColor];
-            else //if (p == 3)
-                color = [UIColor cyanColor];
-        }
-        else if (paletteNumber == 1)
-        {
-            if (p == 0)
-                color = [UIColor colorWithRed:215.0f/255.0f green:25.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
-            else if (p == 1)
-                color = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:191.0f/255.0f alpha:1.0f];
-            else if (p == 2)
-                color = [UIColor colorWithRed:171.0f/255.0f green:217.0f/255.0f blue:233.0f/255.0f alpha:1.0f];
-            else //if (p == 3)
-                color = [UIColor colorWithRed:44.0f/255.0f green:123.0f/255.0f blue:182.0f/255.0f alpha:1.0f];
-        }
-        else if (paletteNumber == 2)
-        {
-            if (p == 0)
-                color = [UIColor colorWithRed:166.0f/255.0f green:97.0f/255.0f blue:26.0f/255.0f alpha:1.0f];
-            else if (p == 1)
-                color = [UIColor colorWithRed:223.0f/255.0f green:194.0f/255.0f blue:125.0f/255.0f alpha:1.0f];
-            else if (p == 2)
-                color = [UIColor colorWithRed:128.0f/255.0f green:205.0f/255.0f blue:193.0f/255.0f alpha:1.0f];
-            else //if (p == 3)
-                color = [UIColor colorWithRed:1.0f/255.0f green:133.0f/255.0f blue:113.0f/255.0f alpha:1.0f];
-        }
-        else if (paletteNumber == 3)
-        {
-            if (p == 0)
-                color = [UIColor colorWithRed:216.0f/255.0f green:179.0f/255.0f blue:101.0f/255.0f alpha:1.0f];
-            else if (p == 1)
-                color = [UIColor colorWithRed:199.0f/255.0f green:234.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
-            else if (p == 2)
-                color = [UIColor colorWithRed:90.0f/255.0f green:180.0f/255.0f blue:172.0f/255.0f alpha:1.0f];
-            else //if (p == 3)
-                color = [UIColor colorWithRed:1.0f/255.0f green:102.0f/255.0f blue:94.0f/255.0f alpha:1.0f];
-        }
-#else
-        if (p == 0)
-            color = [UIColor redColor];
-        else if (p == 1)
-            color = [UIColor greenColor];
-        else if (p == 2)
-            color = [UIColor yellowColor];
-        else //if (p == 3)
-            color = [UIColor cyanColor];
-#endif
+
         SCGGamePlayer *gamePlayer = [[SCGGamePlayer alloc] initWithPlayer:player andColor:color];
         [players addObject:gamePlayer];
     }
@@ -195,12 +138,20 @@
     //scores
     CGFloat xWidthCenter = level.leftMarginWidth + (level.boardWidth / 2);
     CGFloat yHeightCenter = level.topMarginHeight + (level.boardHeight / 2) + level.statusBarOffset;
+    CGFloat scoreWidth = level.boardHeight;
+
+    //iPhone will only use top (if landscape) or right (if not landscape) -- never using left or bottom
+    BOOL iPhoneTop = NO;
+#if defined(LANDSCAPE_IPHONE)
+    scoreWidth = level.boardWidth;
+    iPhoneTop = YES;
+#endif
 
     scoreViews = [[NSMutableArray alloc] initWithCapacity:4];
     SCGScoreView *scoreView;
     if (!level.isIphone)
     {
-        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players andWidth:level.boardHeight];
+        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players andWidth:scoreWidth];
         [scoreViews addObject:scoreView];
         [self.boardView addSubview:scoreView];
         if (level.isIphone)
@@ -209,24 +160,34 @@
             scoreView.center = CGPointMake(level.statusBarHeight + 2, yHeightCenter);
     }
 
-    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players andWidth:level.boardHeight];
-    [scoreViews addObject:scoreView];
-    [self.boardView addSubview:scoreView];
-    if (level.isIphone)
-        scoreView.center = CGPointMake(level.leftMarginWidth + level.rightMarginWidth + level.boardWidth - kStatusBarHeight - (level.scoreViewHeight / 2), yHeightCenter);
-    else
-        scoreView.center = CGPointMake(level.leftMarginWidth + level.rightMarginWidth + level.boardWidth - level.statusBarHeight - 2, yHeightCenter);
+    if (!level.isIphone || !iPhoneTop)
+    {
+        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players andWidth:scoreWidth];
+        [scoreViews addObject:scoreView];
+        [self.boardView addSubview:scoreView];
+        if (level.isIphone)
+            scoreView.center = CGPointMake(level.leftMarginWidth + level.rightMarginWidth + level.boardWidth - kStatusBarHeight - (level.scoreViewHeight / 2), yHeightCenter);
+        else
+            scoreView.center = CGPointMake(level.leftMarginWidth + level.rightMarginWidth + level.boardWidth - level.statusBarHeight - 2, yHeightCenter);
+    }
 
     //set Top and Bottom width to same as Left and Right
 
-    if (!level.isIphone)
+    if (!level.isIphone || iPhoneTop)
     {
-        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:TopScore andPlayers:players andWidth:level.boardHeight];
+        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:TopScore andPlayers:players andWidth:scoreWidth];
         [scoreViews addObject:scoreView];
         [self.boardView addSubview:scoreView];
+#if defined(LANDSCAPE_IPHONE)
+        scoreView.center = CGPointMake(xWidthCenter, kStatusBarHeight + (level.scoreViewHeight / 2));
+#else
         scoreView.center = CGPointMake(xWidthCenter, scoreView.bounds.size.height / 2 + level.statusBarOffset);
+#endif
+    }
 
-        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:BottomScore andPlayers:players andWidth:level.boardHeight];
+    if (!level.isIphone)
+    {
+        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:BottomScore andPlayers:players andWidth:scoreWidth];
         [scoreViews addObject:scoreView];
         [self.boardView addSubview:scoreView];
         if (level.isIphone)
@@ -248,6 +209,10 @@
 //        menuButton.center = CGPointMake(level.boardWidth + level.sideMarginWidth, scoreView.frame.origin.y);
 //        [self.boardView addSubview: menuButton];
 //    }
+
+    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleClicked)];
+    self.tapRecognizer.numberOfTapsRequired = 2;
+    [self.boardView addGestureRecognizer:self.tapRecognizer];
 }
 
 - (void) makeDots
@@ -681,9 +646,11 @@
 
     CGRect boardFrameRect;
     
+#if !defined(LANDSCAPE_IPHONE)
     if (self.level.isIphone)
         boardFrameRect = CGRectMake(0, 0, self.boardView.frame.size.height, self.boardView.frame.size.width);
     else
+#endif
         boardFrameRect = CGRectMake(0, 0, self.boardView.frame.size.width, self.boardView.frame.size.height);
     UIImageView *boardFrame = [[UIImageView alloc] initWithFrame:boardFrameRect];
 
@@ -849,7 +816,7 @@
             if (self.lastBoundary)
                 [self.lastBoundary LockBoundary];
 
-            if (self.level.isIphone)
+            if (self.level.isIphone && false)
             {
                 gameOverViewController = [self.mainViewController.storyboard instantiateViewControllerWithIdentifier:@"GameOver"];
                 gameOverViewController.players = [self getPlayers];
@@ -857,8 +824,10 @@
 #if true
                 [gameOverViewController.view.superview setFrame:self.boardView.bounds];
                 [gameOverViewController.view setFrame:self.boardView.bounds];
+#if !defined(LANDSCAPE_IPHONE)
                 CGFloat rotation = kPiOver2;
                 gameOverViewController.view.transform = CGAffineTransformMakeRotation(rotation);
+#endif
                 [gameOverViewController.view.superview setFrame:self.boardView.bounds];
                 [gameOverViewController.view setFrame:self.boardView.bounds];
 #elif true
@@ -1333,4 +1302,8 @@
         [gameOverViewController.view removeFromSuperview];
 }
 
+- (void) doubleClicked
+{
+    [self.lastBoundary ActionDoubleTapped];
+}
 @end

@@ -45,10 +45,7 @@
 {
     for (UIView *view in self.paletteGridInnerView.subviews)
     {
-        if (self.settings.isIphone)
-            view.layer.borderWidth = 2.f;
-        else
-            view.layer.borderWidth = 2.f;
+        view.layer.borderWidth = 2.f;
 
         if (view.tag == self.settings.paletteNumber)
             view.layer.borderColor = [UIColor whiteColor].CGColor;

@@ -19,17 +19,20 @@ typedef NS_ENUM(NSInteger, LevelType)
 
 typedef NS_ENUM(NSInteger, LevelShape)
 {
-	SquareShape,
+	SquareShape = 0,
 	TriangleShape,
 	HexagonShape
 };
 
 typedef NS_ENUM(NSInteger, LevelSize)
 {
-	SmallSize,
+	SmallSize = 0,
 	MediumSize,
 	LargeSize
 };
+
+#define kNumLevelShapes 3
+#define kNumLevelSizes 3
 
 @property (assign, nonatomic) BOOL isIphone;
 

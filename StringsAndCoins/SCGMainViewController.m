@@ -41,24 +41,23 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-//    CGRect fullScreen = [[UIScreen mainScreen] bounds];
-
 #if defined(LANDSCAPE_IPHONE)
-    if (self.settings.isIphone)
-    {
-        CGRect fullScreen = [[UIScreen mainScreen] bounds];
-        ((UITabBarController *)self.parentViewController).tabBar.hidden = YES;
-        [[((UITabBarController *)self.parentViewController).view.subviews objectAtIndex:0] setFrame:fullScreen];
-        [self.view setFrame:fullScreen];
-        self.controller.boardView.userInteractionEnabled = YES; //make sure this is enabled
-//        [self.view bringSubviewToFront:self.controller.boardView];
-    }
+    CGRect fullScreen = [[UIScreen mainScreen] bounds];
+    [self.view.superview.superview.superview setFrame:fullScreen];
+    [self.view.superview.superview setFrame:fullScreen];
+    [self.view.superview setFrame:fullScreen];
+    [self.view setFrame:fullScreen];
+//    CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
+//    [self.view.superview.superview.superview setFrame:fullScreenRotated];
+//    [self.view.superview.superview setFrame:fullScreenRotated];
+//    [self.view.superview setFrame:fullScreenRotated];
+//    [self.view setFrame:fullScreenRotated];
 #endif
-
     if (self.settings.newGame)
         [self.controller clearGameBoard];
     else if (self.settings.isIphone)
     {
+//might not need this if defined(LANDSCAPE_IPHONE)
         CGRect fullScreen = [[UIScreen mainScreen] bounds];
         [self.view.superview.superview.superview setFrame:fullScreen];
         [self.view.superview.superview setFrame:fullScreen];
@@ -85,23 +84,26 @@
 #if defined(LANDSCAPE_IPHONE)
     else if (self.settings.isIphone)
     {
+        [self.controller clearGameOver];
         self.controller.boardView.userInteractionEnabled = YES; //make sure this is enabled
         CGRect fullScreen = [[UIScreen mainScreen] bounds];
-        CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
-        [self.view.superview setFrame:fullScreenRotated];
-        [self.view setFrame:fullScreenRotated];
+        [self.view.superview.superview.superview setFrame:fullScreen];
+        [self.view.superview.superview setFrame:fullScreen];
+        [self.view.superview setFrame:fullScreen];
+        [self.view setFrame:fullScreen];
+//        CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
+//        [self.view.superview setFrame:fullScreenRotated];
+//        [self.view setFrame:fullScreenRotated];
     }
 #else
     else if (self.settings.isIphone)
     {
         [self.controller clearGameOver];
         CGRect fullScreen = [[UIScreen mainScreen] bounds];
-//        fullScreen.origin.y += self.tabBarController.tabBar.bounds.size.height;
         [self.view.superview.superview.superview setFrame:fullScreen];
         [self.view.superview.superview setFrame:fullScreen];
         [self.view.superview setFrame:fullScreen];
         [self.view setFrame:fullScreen];
-//        [self.backgroundView removeFromSuperview];
     }
 #endif
 
@@ -129,23 +131,14 @@
 #if defined(LANDSCAPE_IPHONE)
     if (settings.isIphone)
     {
-//        UIView *parent = self.view;
-//        do {
-//            NSLog(@"%@", parent);
-//            parent = parent.superview;
-//        } while (parent);
-
         CGRect fullScreen = [[UIScreen mainScreen] bounds];
-        CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
-        [self.view.superview setFrame:fullScreenRotated];
-        [self.view setFrame:fullScreenRotated];
-        
-//        NSLog(@"fullScreen: (%f %f; %f %f)", fullScreen.origin.x, fullScreen.origin.y, fullScreen.size.width, fullScreen.size.height);
-//        parent = self.view;
-//        do {
-//            NSLog(@"%@", parent);
-//            parent = parent.superview;
-//        } while (parent);
+        [self.view.superview.superview.superview setFrame:fullScreen];
+        [self.view.superview.superview setFrame:fullScreen];
+        [self.view.superview setFrame:fullScreen];
+        [self.view setFrame:fullScreen];
+//        CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
+//        [self.view.superview setFrame:fullScreenRotated];
+//        [self.view setFrame:fullScreenRotated];
     }
 #else
     if (settings.isIphone)
@@ -202,13 +195,7 @@
             [alertView show];
             return NO;
         }
-#if defined(LANDSCAPE_IPHONE)
-        else if (self.settings.isIphone && [viewController isKindOfClass:[SCGMainViewController class]])
-        {
-            ((UITabBarController *)self.parentViewController).tabBar.hidden = YES;
-            self.controller.boardView.userInteractionEnabled = YES;
-        }
-#endif
+
         if (self.settings.isIphone && self.settings.gameOver && ([viewController isKindOfClass:[SCGMainViewController class]]))
             [self.controller clearGameOver];
     }

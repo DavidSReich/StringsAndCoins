@@ -26,6 +26,8 @@
 //the last boundary clicked
 @property (weak, nonatomic) SCGBoundaryView *lastBoundary;
 
+@property (strong, nonatomic) UITapGestureRecognizer *tapRecognizer;
+
 //start a new game
 - (void) setupGameBoard:(SCGLevel *)level;
 - (void) clearGameBoard;
@@ -51,5 +53,6 @@
 - (NSMutableArray *)getPlayers;
 
 - (void) clearGameOver;
+- (void) doubleClicked;
 
 @end

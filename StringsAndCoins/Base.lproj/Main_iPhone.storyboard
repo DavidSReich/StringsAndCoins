@@ -35,7 +35,7 @@
                     <tabBarItem key="tabBarItem" title="Current Game" image="process-32.png" id="RiA-57-O2d"/>
                     <connections>
                         <outlet property="paletteGridView" destination="EYV-GY-VzW" id="4Fs-rB-kQE"/>
-                        <segue destination="FXy-hB-WeN" kind="modal" identifier="GameOver" modalTransitionStyle="crossDissolve" id="XHb-Ei-zWZ"/>
+                        <segue destination="JUn-GD-DhU" kind="modal" identifier="GameOver" id="02e-St-srA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LVu-gc-FYV" sceneMemberID="firstResponder"/>
@@ -60,7 +60,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="s3p-bW-Sg5" kind="relationship" relationship="viewControllers" id="MXa-Uy-NWb"/>
+                        <segue destination="cLO-EY-Qod" kind="relationship" relationship="viewControllers" id="HQn-53-oC7"/>
                         <segue destination="48u-8S-dvN" kind="relationship" relationship="viewControllers" id="eFT-Vu-RgD"/>
                         <segue destination="6bo-ut-qTY" kind="relationship" relationship="viewControllers" id="pFG-8v-IpD"/>
                         <segue destination="Uag-ql-mzy" kind="relationship" relationship="viewControllers" id="QW3-bh-0Og"/>
@@ -73,7 +73,7 @@
         <!--Game Over View Controller - Game Over-->
         <scene sceneID="uwH-VB-7v5">
             <objects>
-                <viewController storyboardIdentifier="GameOver" title="Game Over" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="crossDissolve" id="FXy-hB-WeN" customClass="SCGGameOverViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameOverNew" title="Game Over" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="crossDissolve" id="FXy-hB-WeN" customClass="SCGGameOverViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="VR3-MG-mLe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -445,7 +445,7 @@
             <objects>
                 <viewController title="Small settings" id="cLO-EY-Qod" customClass="SCGSettingsViewController" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Bfb-bo-Io0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Canvas1a_offwhite_1.png" id="C4i-L8-Rb6">
@@ -652,7 +652,7 @@
             <objects>
                 <viewController title="Test Sizes" id="s3p-bW-Sg5" customClass="SCGSettingsViewController" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="oba-p7-U6k">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Canvas1a_offwhite_1.png" id="DeQ-1X-AYP">
@@ -901,7 +901,7 @@
         <!--Game Over View Controller - Game Over-->
         <scene sceneID="ENN-ly-1PY">
             <objects>
-                <viewController storyboardIdentifier="GameOverOld" title="Game Over" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="crossDissolve" id="JUn-GD-DhU" customClass="SCGGameOverViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameOver" title="Game Over" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="crossDissolve" id="JUn-GD-DhU" customClass="SCGGameOverViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="PxF-LW-UVV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

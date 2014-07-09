@@ -52,6 +52,56 @@
 
     level.scaleGeometry = 1.0;
 
+#if defined(ROWSCOLSFROMARRAY)
+    CGPoint numberOfRowsAndCols[2][kNumLevelShapes][kNumLevelSizes];
+
+    //this is done mainly for readability
+    //rows in x, cols in y
+    //iPad
+    numberOfRowsAndCols[0][SquareShape][SmallSize].x = 4;
+    numberOfRowsAndCols[0][SquareShape][SmallSize].y = 5;
+    numberOfRowsAndCols[0][SquareShape][MediumSize].x = 6;
+    numberOfRowsAndCols[0][SquareShape][MediumSize].y = 10;
+    numberOfRowsAndCols[0][SquareShape][LargeSize].x = 8;
+    numberOfRowsAndCols[0][SquareShape][LargeSize].y = 14;
+    
+    numberOfRowsAndCols[0][TriangleShape][SmallSize].x = 4;
+    numberOfRowsAndCols[0][TriangleShape][SmallSize].y = 9;
+    numberOfRowsAndCols[0][TriangleShape][MediumSize].x = 6;
+    numberOfRowsAndCols[0][TriangleShape][MediumSize].y = 15;
+    numberOfRowsAndCols[0][TriangleShape][LargeSize].x = 8;
+    numberOfRowsAndCols[0][TriangleShape][LargeSize].y = 21;
+    
+    numberOfRowsAndCols[0][HexagonShape][SmallSize].x = 5;
+    numberOfRowsAndCols[0][HexagonShape][SmallSize].y = 7;
+    numberOfRowsAndCols[0][HexagonShape][MediumSize].x = 7;
+    numberOfRowsAndCols[0][HexagonShape][MediumSize].y = 9;
+    numberOfRowsAndCols[0][HexagonShape][LargeSize].x = 9;
+    numberOfRowsAndCols[0][HexagonShape][LargeSize].y = 13;
+
+    //iPhone
+    numberOfRowsAndCols[1][SquareShape][SmallSize].x = 5;
+    numberOfRowsAndCols[1][SquareShape][SmallSize].y = 4;
+    numberOfRowsAndCols[1][SquareShape][MediumSize].x = 8;
+    numberOfRowsAndCols[1][SquareShape][MediumSize].y = 6;
+    numberOfRowsAndCols[1][SquareShape][LargeSize].x = 10;
+    numberOfRowsAndCols[1][SquareShape][LargeSize].y = 8;
+    
+    numberOfRowsAndCols[1][TriangleShape][SmallSize].x = 4;
+    numberOfRowsAndCols[1][TriangleShape][SmallSize].y = 7;
+    numberOfRowsAndCols[1][TriangleShape][MediumSize].x = 6;
+    numberOfRowsAndCols[1][TriangleShape][MediumSize].y = 9;
+    numberOfRowsAndCols[1][TriangleShape][LargeSize].x = 8;
+    numberOfRowsAndCols[1][TriangleShape][LargeSize].y = 11;
+    
+    numberOfRowsAndCols[1][HexagonShape][SmallSize].x = 5;
+    numberOfRowsAndCols[1][HexagonShape][SmallSize].y = 4;
+    numberOfRowsAndCols[1][HexagonShape][MediumSize].x = 7;
+    numberOfRowsAndCols[1][HexagonShape][MediumSize].y = 5;
+    numberOfRowsAndCols[1][HexagonShape][LargeSize].x = 9;
+    numberOfRowsAndCols[1][HexagonShape][LargeSize].y = 7;
+#endif
+
     if (isIphoneRunning)
     {
         //scale margins
@@ -63,8 +113,29 @@
 
     level.topMarginHeight = (int)(kBoardMargin * level.scaleGeometry);
     level.bottomMarginHeight = (int)(kBoardMargin * level.scaleGeometry);
+#if defined(LANDSCAPE_IPHONE)
+    if (level.isIphone)
+    {
+//        if (level.levelShape == HexagonShape)
+//        {
+//            level.leftMarginWidth = (int)(kBoardMargin * .6f * level.scaleGeometry);
+//            level.rightMarginWidth = (int)(kBoardMargin * .6f * level.scaleGeometry);
+//        }
+//        else
+        {
+            level.leftMarginWidth = (int)(kBoardMargin * .2f * level.scaleGeometry);
+            level.rightMarginWidth = (int)(kBoardMargin * .2f * level.scaleGeometry);
+        }
+    }
+    else
+    {
+        level.leftMarginWidth = (int)(kBoardMargin * level.scaleGeometry);
+        level.rightMarginWidth = (int)(kBoardMargin * level.scaleGeometry);
+    }
+#else
     level.leftMarginWidth = (int)(kBoardMargin * level.scaleGeometry);
     level.rightMarginWidth = (int)(kBoardMargin * level.scaleGeometry);
+#endif
     level.scoreViewHeight = (int)(kScoreViewHeight * level.scaleGeometry);
 
 #if defined(ADJUSTNUMBERROWSCOLS)
@@ -104,6 +175,11 @@
     
     if (level.isIphone)
     {
+#if defined(LANDSCAPE_IPHONE)
+        level.bottomMarginHeight += tbHeight;// - level.scoreViewHeight;
+        level.scoreViewHeight *= 2;
+        level.topMarginHeight += kStatusBarHeight + level.scoreViewHeight;
+#else
 #if true
         level.leftMarginWidth += tbHeight;// - level.scoreViewHeight;
         level.scoreViewHeight *= 2;
@@ -146,8 +222,9 @@
 //            level.leftMarginWidth += kScoreViewHeight * level.scaleGeometry;
 //            level.rightMarginWidth += kScoreViewHeight * level.scaleGeometry;
         }
+#endif
     }
-    else
+    else    //not iPhone
     {
         if ((level.levelType == BoxesType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
         {
@@ -172,9 +249,18 @@
     CGFloat boardHeight = view.bounds.size.height - (level.topMarginHeight + level.bottomMarginHeight) - level.statusBarOffset;
     level.boardWidth = boardWidth;
     level.boardHeight = boardHeight;
-    
+
+#if defined(ROWSCOLSFROMARRAY)
+    int iPadIPhoneIndex = 0;
+    if (level.isIphone)
+        iPadIPhoneIndex = 1;
+    level.numRows = numberOfRowsAndCols[iPadIPhoneIndex][level.levelShape][level.levelSize].x;
+    level.numCols = numberOfRowsAndCols[iPadIPhoneIndex][level.levelShape][level.levelSize].y;
+#endif
+
 	if (level.levelShape == SquareShape)
 	{
+#if !defined(ROWSCOLSFROMARRAY)
         if (level.levelSize == SmallSize)
         {
 #if !defined(ADJUSTNUMBERROWSCOLS)
@@ -192,6 +278,7 @@
             level.numCols = kLargeSquareCols;
             level.numRows = kLargeSquareRows;
         }
+#endif
 
 #if !defined(LANDSCAPE_IPHONE)
         if (isIphoneRunning)
@@ -218,6 +305,7 @@
 	}
 	else if (level.levelShape == TriangleShape)
 	{
+#if !defined(ROWSCOLSFROMARRAY)
         if (level.levelSize == SmallSize)
         {
 #if !defined(ADJUSTNUMBERROWSCOLS)
@@ -235,6 +323,7 @@
             level.numCols = kLargeTriangleCols;
             level.numRows = kLargeTriangleRows;
         }
+#endif
 
 #if !defined(LANDSCAPE_IPHONE)
         if (isIphoneRunning)
@@ -264,6 +353,7 @@
 	}
 	else	//hexagons
 	{
+#if !defined(ROWSCOLSFROMARRAY)
         if (level.levelSize == SmallSize)
         {
 #if !defined(ADJUSTNUMBERROWSCOLS)
@@ -281,6 +371,7 @@
             level.numCols = kLargeHexagonCols;
             level.numRows = kLargeHexagonRows;
         }
+#endif
 
 #if !defined(LANDSCAPE_IPHONE)
         if (isIphoneRunning)
@@ -293,6 +384,10 @@
 
         //calculate maximum w & h
         level.cellWidth = boardWidth / level.numCols;
+#if defined(LANDSCAPE_IPHONE)
+        if (level.isIphone)
+            level.cellWidth = boardWidth / (level.numCols + 1);   //need extra space for boundaries
+#endif
         level.cellHeight = (boardHeight * 4) / (level.numRows * 3);
 
         //shrink to equilateral shape

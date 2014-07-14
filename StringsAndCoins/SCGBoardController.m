@@ -62,17 +62,17 @@
     [self clearGameBoard];
 
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Canvas1a_offwhite_1.png"]];
-    if (level.isIphone  && false)
-    {
-//#if !defined(LANDSCAPE_IPHONE)
-        CGFloat rotation = -kPiOver2;
-        backgroundView.transform = CGAffineTransformMakeRotation(rotation);
-//#endif
-        backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.height, self.boardView.frame.size.width);
-        backgroundView.layer.borderWidth = 3.f;
-        backgroundView.layer.borderColor = [UIColor redColor].CGColor;
-    }
-    else
+//    if (level.isIphone  && false)
+//    {
+////#if !defined(LANDSCAPE_IPHONE)
+//        CGFloat rotation = -kPiOver2;
+//        backgroundView.transform = CGAffineTransformMakeRotation(rotation);
+////#endif
+//        backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.height, self.boardView.frame.size.width);
+//        backgroundView.layer.borderWidth = 3.f;
+//        backgroundView.layer.borderColor = [UIColor redColor].CGColor;
+//    }
+//    else
         backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.width, self.boardView.frame.size.height);
     
     [self.boardView addSubview:backgroundView];
@@ -138,12 +138,12 @@
     //scores
     CGFloat xWidthCenter = level.leftMarginWidth + (level.boardWidth / 2);
     CGFloat yHeightCenter = level.topMarginHeight + (level.boardHeight / 2) + level.statusBarOffset;
-    CGFloat scoreWidth = level.boardHeight;
+    CGFloat scoreHeight = level.boardHeight;
+    CGFloat scoreWidth = level.boardWidth;
 
     //iPhone will only use top (if landscape) or right (if not landscape) -- never using left or bottom
     BOOL iPhoneTop = NO;
 #if defined(LANDSCAPE_IPHONE)
-    scoreWidth = level.boardWidth;
     iPhoneTop = YES;
 #endif
 
@@ -151,7 +151,7 @@
     SCGScoreView *scoreView;
     if (!level.isIphone)
     {
-        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players andWidth:scoreWidth];
+        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:LeftScore andPlayers:players andWidth:scoreHeight];
         [scoreViews addObject:scoreView];
         [self.boardView addSubview:scoreView];
         if (level.isIphone)
@@ -162,7 +162,7 @@
 
     if (!level.isIphone || !iPhoneTop)
     {
-        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players andWidth:scoreWidth];
+        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players andWidth:scoreHeight];
         [scoreViews addObject:scoreView];
         [self.boardView addSubview:scoreView];
         if (level.isIphone)

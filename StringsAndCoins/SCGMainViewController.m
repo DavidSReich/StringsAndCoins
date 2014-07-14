@@ -42,16 +42,19 @@
 - (void) viewWillAppear:(BOOL)animated
 {
 #if defined(LANDSCAPE_IPHONE)
-    CGRect fullScreen = [[UIScreen mainScreen] bounds];
-    [self.view.superview.superview.superview setFrame:fullScreen];
-    [self.view.superview.superview setFrame:fullScreen];
-    [self.view.superview setFrame:fullScreen];
-    [self.view setFrame:fullScreen];
-//    CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
-//    [self.view.superview.superview.superview setFrame:fullScreenRotated];
-//    [self.view.superview.superview setFrame:fullScreenRotated];
-//    [self.view.superview setFrame:fullScreenRotated];
-//    [self.view setFrame:fullScreenRotated];
+    if (self.settings.isIphone)
+    {
+        CGRect fullScreen = [[UIScreen mainScreen] bounds];
+        [self.view.superview.superview.superview setFrame:fullScreen];
+        [self.view.superview.superview setFrame:fullScreen];
+        [self.view.superview setFrame:fullScreen];
+        [self.view setFrame:fullScreen];
+//        CGRect fullScreenRotated = CGRectMake(0, 0, fullScreen.size.height, fullScreen.size.width);
+//        [self.view.superview.superview.superview setFrame:fullScreenRotated];
+//        [self.view.superview.superview setFrame:fullScreenRotated];
+//        [self.view.superview setFrame:fullScreenRotated];
+//        [self.view setFrame:fullScreenRotated];
+    }
 #endif
     if (self.settings.newGame)
         [self.controller clearGameBoard];

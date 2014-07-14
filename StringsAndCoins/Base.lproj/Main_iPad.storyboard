@@ -275,9 +275,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="wCI-QM-hyl" kind="relationship" relationship="viewControllers" id="4Wr-kE-0SR"/>
-                        <segue destination="aVO-UE-KGo" kind="relationship" relationship="viewControllers" id="VoO-as-VaS"/>
                         <segue destination="wkv-S4-0Hz" kind="relationship" relationship="viewControllers" id="6vD-gb-kfk"/>
+                        <segue destination="aVO-UE-KGo" kind="relationship" relationship="viewControllers" id="VoO-as-VaS"/>
+                        <segue destination="wCI-QM-hyl" kind="relationship" relationship="viewControllers" id="4Wr-kE-0SR"/>
                         <segue destination="Knt-cx-Tsy" kind="relationship" relationship="viewControllers" id="NrH-0N-0xy"/>
                     </connections>
                 </tabBarController>
@@ -532,7 +532,7 @@
             </objects>
             <point key="canvasLocation" x="-4751" y="-4280"/>
         </scene>
-        <!--About Box View Controller - About-->
+        <!--About Box View Controller - Info-->
         <scene sceneID="DVX-T1-wGR">
             <objects>
                 <viewController storyboardIdentifier="AboutBox" id="Knt-cx-Tsy" customClass="SCGAboutBoxViewController" sceneMemberID="viewController">
@@ -573,7 +573,7 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="About" image="about-32.png" id="2im-oF-AB0"/>
+                    <tabBarItem key="tabBarItem" title="Info" image="about-32.png" id="2im-oF-AB0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1xl-sP-jJK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -675,25 +675,31 @@
                                 <rect key="frame" x="269" y="245" width="578" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2 x 4" borderStyle="line" textAlignment="center" minimumFontSize="17" id="8LW-Hm-PPg">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="4 x 5" borderStyle="line" textAlignment="center" minimumFontSize="17" id="8LW-Hm-PPg">
                                         <rect key="frame" x="-1" y="0.0" width="194" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3 x 4" borderStyle="line" textAlignment="center" minimumFontSize="17" id="naw-oq-94a">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="4 x 5" borderStyle="line" textAlignment="center" minimumFontSize="17" id="naw-oq-94a">
                                         <rect key="frame" x="-1" y="59" width="194" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="4 x 5" borderStyle="line" textAlignment="center" minimumFontSize="17" id="uLM-9H-YVp">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="5 x 7" borderStyle="line" textAlignment="center" minimumFontSize="17" id="rXo-Md-gH4">
+                                        <rect key="frame" x="-1" y="118" width="194" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="6 x 8" borderStyle="line" textAlignment="center" minimumFontSize="17" id="uLM-9H-YVp">
                                         <rect key="frame" x="192" y="0.0" width="194" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="4 x 5" borderStyle="line" textAlignment="center" minimumFontSize="17" id="iSn-5F-xra">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="6 x 10" borderStyle="line" textAlignment="center" minimumFontSize="17" id="iSn-5F-xra">
                                         <rect key="frame" x="192" y="59" width="194" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -702,32 +708,26 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="5 x 9" borderStyle="line" textAlignment="center" minimumFontSize="17" id="0lB-iG-CKr">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="7 x 9" borderStyle="line" textAlignment="center" minimumFontSize="17" id="0lB-iG-CKr">
                                         <rect key="frame" x="192" y="118" width="194" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="6 x 8" borderStyle="line" textAlignment="center" minimumFontSize="17" id="eMi-CW-Pg7">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="8 x 11" borderStyle="line" textAlignment="center" minimumFontSize="17" id="eMi-CW-Pg7">
                                         <rect key="frame" x="385" y="0.0" width="194" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="5 x 8" borderStyle="line" textAlignment="center" minimumFontSize="17" id="I7R-hO-Gnp">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="8 x 14" borderStyle="line" textAlignment="center" minimumFontSize="17" id="I7R-hO-Gnp">
                                         <rect key="frame" x="385" y="59" width="194" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="7 x 10" borderStyle="line" textAlignment="center" minimumFontSize="17" id="QuO-Zp-4sz">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="9 x 13" borderStyle="line" textAlignment="center" minimumFontSize="17" id="QuO-Zp-4sz">
                                         <rect key="frame" x="385" y="118" width="194" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3 x 4" borderStyle="line" textAlignment="center" minimumFontSize="17" id="rXo-Md-gH4">
-                                        <rect key="frame" x="-1" y="118" width="194" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>

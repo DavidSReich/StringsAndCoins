@@ -17,7 +17,6 @@
 // in SCGLevel constructor
 
 //#define ADJUSTNUMBERROWSCOLS
-#define ROWSCOLSFROMARRAY
 #define LANDSCAPE_IPHONE
 
 #define kStatusBarHeight    20

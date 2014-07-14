@@ -50,7 +50,6 @@
 		63A4A7A8194BF3260019D6EC /* menu-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 63A4A7A7194BF3260019D6EC /* menu-32.png */; };
 		63A4A7AA194BF3320019D6EC /* menu-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 63A4A7A9194BF3320019D6EC /* menu-50.png */; };
 		63A4A7B0194C3B670019D6EC /* SCGPaletteGridView_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A4A7AD194C3B670019D6EC /* SCGPaletteGridView_iPhone.xib */; };
-		63A4A7B1194C3B670019D6EC /* SCGPaletteGridView_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A4A7AE194C3B670019D6EC /* SCGPaletteGridView_iPhone.m */; };
 		63BB0AE1194D5847007CFBFA /* group-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BB0AE0194D5847007CFBFA /* group-25.png */; };
 		63BB0AE3194D5906007CFBFA /* group-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 63BB0AE2194D5906007CFBFA /* group-50.png */; };
 		63BFF09918C32E7B0080BA9F /* SCGSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BFF09818C32E7B0080BA9F /* SCGSettings.m */; };
@@ -143,8 +142,6 @@
 		63A4A7A7194BF3260019D6EC /* menu-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-32.png"; sourceTree = "<group>"; };
 		63A4A7A9194BF3320019D6EC /* menu-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-50.png"; sourceTree = "<group>"; };
 		63A4A7AD194C3B670019D6EC /* SCGPaletteGridView_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCGPaletteGridView_iPhone.xib; sourceTree = "<group>"; };
-		63A4A7AE194C3B670019D6EC /* SCGPaletteGridView_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGPaletteGridView_iPhone.m; sourceTree = "<group>"; };
-		63A4A7AF194C3B670019D6EC /* SCGPaletteGridView_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGPaletteGridView_iPhone.h; sourceTree = "<group>"; };
 		63BB0AE0194D5847007CFBFA /* group-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-25.png"; sourceTree = "<group>"; };
 		63BB0AE2194D5906007CFBFA /* group-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-50.png"; sourceTree = "<group>"; };
 		63BFF09718C32E7B0080BA9F /* SCGSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGSettings.h; sourceTree = "<group>"; };
@@ -348,8 +345,6 @@
 		6368AE9C18C18D450054E34B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				63A4A7AE194C3B670019D6EC /* SCGPaletteGridView_iPhone.m */,
-				63A4A7AF194C3B670019D6EC /* SCGPaletteGridView_iPhone.h */,
 				63A4A7AD194C3B670019D6EC /* SCGPaletteGridView_iPhone.xib */,
 				63FF5744194228FF000C3437 /* SCGPaletteGridView.h */,
 				63FF5745194228FF000C3437 /* SCGPaletteGridView.m */,
@@ -510,7 +505,6 @@
 				63491CE218F5AF3300A9309C /* SCGTabBarController.m in Sources */,
 				63A4871418D98FD3009418B1 /* SCGScoreView.m in Sources */,
 				6368AEA318C18DB10054E34B /* SCGBoundaryView.m in Sources */,
-				63A4A7B1194C3B670019D6EC /* SCGPaletteGridView_iPhone.m in Sources */,
 				6368AE6A18C18AEA0054E34B /* main.m in Sources */,
 				63BFF09918C32E7B0080BA9F /* SCGSettings.m in Sources */,
 				6368AEAE18C18E020054E34B /* SCGPlayer.m in Sources */,

@@ -33,19 +33,19 @@
 
     self.selectedIndex = kNewGameIndex;
 
-    int itemIdx = 0;
-    for (UITabBarItem *tabBarItem in [self.tabBar items])
-    {
-        if (itemIdx == kSettingsIndex)
-            tabBarItem.title = kSettingsName;
-        else if (itemIdx == kResumeGameIndex)
-            tabBarItem.title = kGameBoardName;
-        else if (itemIdx == kNewGameIndex)
-            tabBarItem.title = kNewGameName;
-        else if (itemIdx == kAboutBoxIndex)
-            tabBarItem.title = kAboutName;
-        itemIdx++;
-    }
+//    int itemIdx = 0;
+//    for (UITabBarItem *tabBarItem in [self.tabBar items])
+//    {
+//        if (itemIdx == kSettingsIndex)
+//            tabBarItem.title = kSettingsName;
+//        else if (itemIdx == kResumeGameIndex)
+//            tabBarItem.title = kGameBoardName;
+//        else if (itemIdx == kNewGameIndex)
+//            tabBarItem.title = kNewGameName;
+//        else if (itemIdx == kAboutBoxIndex)
+//            tabBarItem.title = kAboutName;
+//        itemIdx++;
+//    }
 }
 
 - (void) didReceiveMemoryWarning

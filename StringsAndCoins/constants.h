@@ -59,17 +59,17 @@
 #define kPiOver6 (M_PI_2/(float)3)
 
 //UITabBarController button indices ...
-#define kSettingsIndex      0
+#define kNewGameIndex       0
 #define kResumeGameIndex    1
-#define kNewGameIndex       2
+#define kSettingsIndex      2
 #define kAboutBoxIndex      3
 
 #define kMaxNumberOfPlayers 4
 
-#define kSettingsName   @"Game Options"
-#define kGameBoardName  @"Current Game"
-#define kAboutName      @"About"
-#define kNewGameName    @"New Game"
+//#define kSettingsName   @"Game Options"
+//#define kGameBoardName  @"Current Game"
+//#define kAboutName      @"About"
+//#define kNewGameName    @"New Game"
 
 //#define SHOWROWANDCOL
 

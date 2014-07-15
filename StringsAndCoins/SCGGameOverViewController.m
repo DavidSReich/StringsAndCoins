@@ -75,18 +75,7 @@
             //score
             CGFloat width = playerScoreLabel.bounds.size.width;
             CGFloat blockWidth = (width * player.score) / maxScore;
-#if false
-//            if (appDelegate.settings.isIphone)
-//            {
-//                CGRect f = CGRectMake(playerScoreLabel.frame.origin.x, playerScoreLabel.frame.origin.y, blockWidth, playerScoreLabel.frame.size.height);
-//                playerScoreLabel.frame = f;
-//                playerScoreLabel.layer.frame = f;
-//            }
-//            else
-//                 playerScoreLabel.frame = CGRectMake(playerScoreLabel.frame.origin.x, playerScoreLabel.frame.origin.y, blockWidth, playerScoreLabel.frame.size.height);
-#else
             playerScoreLabel.frame = CGRectMake(playerScoreLabel.frame.origin.x, playerScoreLabel.frame.origin.y, blockWidth, playerScoreLabel.frame.size.height);
-#endif
             playerScoreLabel.text = [NSString stringWithFormat:@" %d", player.score];
             playerScoreLabel.textColor = [UIColor whiteColor];
             playerScoreLabel.backgroundColor = player.color;

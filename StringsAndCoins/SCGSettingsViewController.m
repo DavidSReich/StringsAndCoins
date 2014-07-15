@@ -34,11 +34,8 @@
 - (instancetype) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-//        self.title = @"Settings";
-//        self.view.layer.borderWidth = 3.f;
-//        self.view.layer.borderColor = [UIColor redColor].CGColor;
+    if (self)
+    {
     }
     return self;
 }
@@ -47,9 +44,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-//    self.title = @"Settings";
-//    self.view.layer.borderWidth = 3.f;
-//    self.view.layer.borderColor = [UIColor redColor].CGColor;
 
     SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.settings = appDelegate.settings;
@@ -61,8 +55,6 @@
     originalSettings.levelSize = self.settings.levelSize;
     originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
     originalSettings.paletteNumber = self.settings.paletteNumber;
-
-//    self.title = @"Settings";
 
     CGFloat fontSize = self.settings.isIphone ? 12.0f : 23.0f;
     UIFont *btnFont = [UIFont systemFontOfSize:fontSize];
@@ -100,12 +92,6 @@
     }
 
     [self resetButtons];
-#if defined(ADJUSTNUMBERROWSCOLS)
-    self.rowStepper.value = self.settings.numRows;
-    self.colStepper.value = self.settings.numCols;
-    [self rowStepperChanged:nil];
-    [self colStepperChanged:nil];
-#endif
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -328,8 +314,6 @@
         [self shapeButtonTouched:squaresButton];
     else
         [self shapeButtonTouched:hexagonsButton];
-    
-//    [self updateShapeControls];
 }
 
 - (BOOL) textFieldShouldBeginEditing:(UITextField *)textField
@@ -389,7 +373,6 @@
 {
     if (buttonIndex != alertView.cancelButtonIndex)
     {
-//        [self resetButtonTouched:nil];
         //we're starting a new game ... make the settings the new original
         originalSettings.levelType = self.settings.levelType;
         originalSettings.levelShape = self.settings.levelShape;
@@ -401,22 +384,6 @@
         self.settings.newGame = YES;
         [self.tabBarController setSelectedIndex:alertView.tag];
     }
-}
-
-- (IBAction)rowStepperChanged:(id)sender
-{
-#if defined(ADJUSTNUMBERROWSCOLS)
-    self.settings.numRows = self.rowStepper.value;
-    self.rowCountLabel.text = [NSString stringWithFormat:@"%d", self.settings.numRows];
-#endif
-}
-
-- (IBAction)colStepperChanged:(id)sender
-{
-#if defined(ADJUSTNUMBERROWSCOLS)
-    self.settings.numCols = self.colStepper.value;
-    self.colCountLabel.text = [NSString stringWithFormat:@"%d", self.settings.numCols];
-#endif
 }
 
 @end

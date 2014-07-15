@@ -12,29 +12,16 @@
 @implementation SCGLevel
 
 //factory
-#if defined(ADJUSTNUMBERROWSCOLS)
-+ (instancetype) levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
-       andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning
-              andToolbarHeight:(CGFloat)tbHeight andNumRows:(int)numRows andNumCols:(int)numCols
-#else
 + (instancetype) levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
             andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning
             andToolbarHeight:(CGFloat)tbHeight
-#endif
 {
 	SCGLevel *level = [[SCGLevel alloc] init];
 
-#if true
     if (isIphoneRunning)
         level.statusBarOffset = 0;
     else
         level.statusBarOffset = kStatusBarHeight;
-#else
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7)
-        level.statusBarOffset = kStatusBarHeight;
-    else
-        level.statusBarOffset = 0;
-#endif
 
     level.isIphone = isIphoneRunning;
 	level.levelType = type;
@@ -124,66 +111,11 @@
 
     level.scoreViewHeight = (int)(kScoreViewHeight * level.scaleGeometry);
 
-#if defined(ADJUSTNUMBERROWSCOLS)
-    //for testing #s of rows and columns
-    //force size to "small" so margins will be larger??
-    level.levelSize = SmallSize;
-    level.numRows = numRows;
-    level.numCols = numCols;
-
-    //adjust rows and cols as needed
-
-	if (level.levelShape == TriangleShape)
-	{
-		level.numRows = (level.numRows / 2) * 2; //force to an even # of rows.
-        
-        //min # rows == 2
-        //min # cols == rows - 1
-        if (level.numRows < 2)
-            level.numRows = 2;
-        if (level.numCols < level.numRows - 1)
-            level.numCols = level.numRows - 1;
-	}
-    else if (level.levelShape == HexagonShape)
-    {
-        if (level.numRows % 2 == 0)
-            level.numRows--;    //force to odd # of rows
-        
-        //min # rows == 3
-        //min # cols == (rows + 1) / 2
-        if (level.numRows < 3)
-            level.numRows = 3;
-        if (level.numCols < (level.numRows + 1) / 2)
-            level.numCols = (level.numRows + 1) / 2;
-    }
-
-#endif
-    
     if (level.isIphone)
     {
         level.bottomMarginHeight += tbHeight;// - level.scoreViewHeight;
         level.scoreViewHeight *= 2;
         level.topMarginHeight += kStatusBarHeight + level.scoreViewHeight;
-    }
-    else    //not iPhone
-    {
-        if ((level.levelType == BoxesType) && (level.levelShape == HexagonShape) && (level.levelSize == SmallSize))
-        {
-//            level.topMarginHeight += 10 * level.scaleGeometry;
-//            level.bottomMarginHeight += 10 * level.scaleGeometry;
-        }
-        else if ((level.levelType == CoinsType) && (level.levelShape == HexagonShape))
-        {
-//            level.topMarginHeight += kScoreViewHeight * .3f * level.scaleGeometry;
-//            level.bottomMarginHeight += kScoreViewHeight * .3f * level.scaleGeometry;
-//            level.leftMarginWidth += kScoreViewHeight * .5f * level.scaleGeometry;
-//            level.rightMarginWidth += kScoreViewHeight * .5f * level.scaleGeometry;
-        }
-        else if ((level.levelType == CoinsType) && (level.levelShape == TriangleShape) && (level.levelSize == SmallSize))
-        {
-//            level.leftMarginWidth += kScoreViewHeight * level.scaleGeometry;
-//            level.rightMarginWidth += kScoreViewHeight * level.scaleGeometry;
-        }
     }
 
     CGFloat boardWidth = view.bounds.size.width - (level.leftMarginWidth + level.rightMarginWidth);
@@ -240,14 +172,7 @@
         {
             if (level.isIphone)
             {
-//                if (level.levelSize == SmallSize)
-//                    effectiveNumCols += .2;
                 effectiveNumRows += .5;
-            }
-            else
-            {
-//                effectiveNumCols += .3;
-//                effectiveNumRows += .3;
             }
         }
         

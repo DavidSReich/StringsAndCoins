@@ -39,8 +39,6 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (assign, nonatomic) LevelType levelType;
 @property (assign, nonatomic) LevelShape levelShape;
 @property (assign, nonatomic) LevelSize levelSize;
-//@property (assign, nonatomic) CGFloat screenWidth;
-//@property (assign, nonatomic) CGFloat screenHeight;
 @property (assign, nonatomic) CGFloat boardWidth;
 @property (assign, nonatomic) CGFloat boardHeight;
 @property (assign, nonatomic) CGFloat statusBarOffset;
@@ -59,9 +57,6 @@ typedef NS_ENUM(NSInteger, LevelSize)
 @property (assign, nonatomic) CGFloat cellWidth;
 @property (assign, nonatomic) CGFloat cellHeight;
 @property (assign, nonatomic) CGFloat rowHeight;
-//@property (strong, nonatomic) UIImage *cellImage;
-//@property (strong, nonatomic) UIImage *dotImage;
-//@property (strong, nonatomic) UIImage *boundaryImage;
 @property (assign, nonatomic) int numberOfPlayers;
 @property (assign, nonatomic) int numberOfCells;
 @property (assign, nonatomic) int paletteNumber;
@@ -71,15 +66,9 @@ typedef NS_ENUM(NSInteger, LevelSize)
 //CGFloat;
 
 //factory
-#if defined(ADJUSTNUMBERROWSCOLS)
-+ (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
-      andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning
-             andToolbarHeight:(CGFloat)tbHeight andNumRows:(int)numRows andNumCols:(int)numCols;
-#else
 + (instancetype)levelWithType:(LevelType)type andShape:(LevelShape)shape andSize:(LevelSize)size andNumberOfPlayers:(int)numPlayers
         andNavigationController:(UINavigationController *)navController andView:(UIView *)view andPalette:(int)paletteNum andIphoneRunning:(BOOL)isIphoneRunning
              andToolbarHeight:(CGFloat)tbHeight;
-#endif
 
 //how many cols in this row?
 - (int) numberOfCols:(int) row;

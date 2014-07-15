@@ -62,40 +62,16 @@
     [self clearGameBoard];
 
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Canvas1a_offwhite_1.png"]];
-//    if (level.isIphone  && false)
-//    {
-////#if !defined(LANDSCAPE_IPHONE)
-//        CGFloat rotation = -kPiOver2;
-//        backgroundView.transform = CGAffineTransformMakeRotation(rotation);
-////#endif
-//        backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.height, self.boardView.frame.size.width);
-//        backgroundView.layer.borderWidth = 3.f;
-//        backgroundView.layer.borderColor = [UIColor redColor].CGColor;
-//    }
-//    else
-        backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.width, self.boardView.frame.size.height);
+    backgroundView.frame = CGRectMake(0, 0, self.boardView.frame.size.width, self.boardView.frame.size.height);
     
     [self.boardView addSubview:backgroundView];
     [self.boardView sendSubviewToBack:backgroundView];
-
-//    self.mainViewController.tabBarController.tabBar.layer.borderColor = [UIColor greenColor].CGColor;
-//    self.mainViewController.tabBarController.tabBar.layer.borderWidth = 3.f;
-    
-//    UIView *parent = self.boardView;
-//    do {
-//        NSLog(@"%@", parent);
-//        parent = parent.superview;
-//    } while (parent);
 
     self.lastBoundary = nil;
 	self.level = level;
 
     level.numberOfCells = 0;
 
-//    self.boardView.layer.borderWidth = 3.f;
-//    self.boardView.layer.borderColor = [UIColor greenColor].CGColor;
-//    self.boardView.backgroundColor = [UIColor redColor];
-    
 	//cells before boundaries if boxes
     if (level.levelType == BoxesType)
         [self makeCells];
@@ -143,9 +119,7 @@
 
     //iPhone will only use top (if landscape) or right (if not landscape) -- never using left or bottom
     BOOL iPhoneTop = NO;
-#if defined(LANDSCAPE_IPHONE)
     iPhoneTop = YES;
-#endif
 
     scoreViews = [[NSMutableArray alloc] initWithCapacity:4];
     SCGScoreView *scoreView;
@@ -160,7 +134,7 @@
             scoreView.center = CGPointMake(level.statusBarHeight + 2, yHeightCenter);
     }
 
-    if (!level.isIphone || !iPhoneTop)
+    if (!level.isIphone)
     {
         scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:RightScore andPlayers:players andWidth:scoreHeight];
         [scoreViews addObject:scoreView];
@@ -173,17 +147,10 @@
 
     //set Top and Bottom width to same as Left and Right
 
-    if (!level.isIphone || iPhoneTop)
-    {
-        scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:TopScore andPlayers:players andWidth:scoreWidth];
-        [scoreViews addObject:scoreView];
-        [self.boardView addSubview:scoreView];
-#if defined(LANDSCAPE_IPHONE)
-        scoreView.center = CGPointMake(xWidthCenter, kStatusBarHeight + (level.scoreViewHeight / 2));
-#else
-        scoreView.center = CGPointMake(xWidthCenter, scoreView.bounds.size.height / 2 + level.statusBarOffset);
-#endif
-    }
+    scoreView = [[SCGScoreView alloc] initWithLevel:level andOrientation:TopScore andPlayers:players andWidth:scoreWidth];
+    [scoreViews addObject:scoreView];
+    [self.boardView addSubview:scoreView];
+    scoreView.center = CGPointMake(xWidthCenter, kStatusBarHeight + (level.scoreViewHeight / 2));
 
     if (!level.isIphone)
     {
@@ -197,18 +164,6 @@
     }
 
     [self refreshScores:NO];
-
-//    if (level.isIphone)
-//    {
-//        menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        menuButton.userInteractionEnabled = YES;
-//        menuButton.showsTouchWhenHighlighted = YES;
-//        [menuButton addTarget:self action:@selector(MenuButtonTapped) forControlEvents:UIControlEventTouchDown];
-//        [menuButton setBackgroundImage:[UIImage imageNamed:@"menu-25.png"] forState:UIControlStateNormal];
-//        menuButton.frame = CGRectMake(0, 0, 20, 20);
-//        menuButton.center = CGPointMake(level.boardWidth + level.sideMarginWidth, scoreView.frame.origin.y);
-//        [self.boardView addSubview: menuButton];
-//    }
 
     self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleClicked)];
     self.tapRecognizer.numberOfTapsRequired = 2;
@@ -646,12 +601,7 @@
 
     CGRect boardFrameRect;
     
-#if !defined(LANDSCAPE_IPHONE)
-    if (self.level.isIphone)
-        boardFrameRect = CGRectMake(0, 0, self.boardView.frame.size.height, self.boardView.frame.size.width);
-    else
-#endif
-        boardFrameRect = CGRectMake(0, 0, self.boardView.frame.size.width, self.boardView.frame.size.height);
+    boardFrameRect = CGRectMake(0, 0, self.boardView.frame.size.width, self.boardView.frame.size.height);
     UIImageView *boardFrame = [[UIImageView alloc] initWithFrame:boardFrameRect];
 
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(boardFrame.frame.size.width, boardFrame.frame.size.height), NO, 0.0);
@@ -666,7 +616,6 @@
     UIGraphicsPushContext(ctx);
     
     CGFloat lineWidth = (int)(16 * self.level.scaleGeometry);
-//    lineWidth = 1;
     CGContextSetLineWidth(ctx, lineWidth);
     CGContextSetStrokeColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
 
@@ -821,32 +770,10 @@
                 gameOverViewController = [self.mainViewController.storyboard instantiateViewControllerWithIdentifier:@"GameOver"];
                 gameOverViewController.players = [self getPlayers];
                 [self.boardView addSubview:gameOverViewController.view];
-#if true
                 [gameOverViewController.view.superview setFrame:self.boardView.bounds];
                 [gameOverViewController.view setFrame:self.boardView.bounds];
-#if !defined(LANDSCAPE_IPHONE)
-                CGFloat rotation = kPiOver2;
-                gameOverViewController.view.transform = CGAffineTransformMakeRotation(rotation);
-#endif
                 [gameOverViewController.view.superview setFrame:self.boardView.bounds];
                 [gameOverViewController.view setFrame:self.boardView.bounds];
-#elif true
-                CGRect fullScreenRotated = CGRectMake(0, 0, self.boardView.frame.size.height, self.boardView.frame.size.width);
-                [gameOverViewController.view.superview setFrame:fullScreenRotated];
-                [gameOverViewController.view setFrame:fullScreenRotated];
-                CGFloat rotation = kPiOver2;
-                gameOverViewController.view.transform = CGAffineTransformMakeRotation(rotation);
-#else
-                CGRect gameOverRect = self.boardView.frame;
-                gameOverRect.origin.x = 0;
-                gameOverRect.origin.y = 0;
-                [gameOverViewController.view.superview setFrame:gameOverRect];
-                [gameOverViewController.view setFrame:gameOverRect];
-                CGFloat rotation = kPiOver2;
-                gameOverViewController.view.transform = CGAffineTransformMakeRotation(rotation);
-//                gameOverRect.origin.x = 0;
-//                gameOverRect.origin.y = 0;
-#endif
             }
             else
                 [self.mainViewController performSegueWithIdentifier:@"GameOver" sender:self];

@@ -44,13 +44,6 @@
     SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.settings.gameInProgress = NO;
     appDelegate.settings.newGame = YES;
-
-
-//    CGRect fullScreen = [[UIScreen mainScreen] bounds];
-//    ((UITabBarController *)self.parentViewController).tabBar.hidden = YES;
-//    [[((UITabBarController *)self.parentViewController).view.subviews objectAtIndex:0] setFrame:fullScreen];
-//    [self.view setFrame:fullScreen];
-    
     
     [self.tabBarController setSelectedIndex:kResumeGameIndex];
 }

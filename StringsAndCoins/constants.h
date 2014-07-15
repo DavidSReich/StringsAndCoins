@@ -9,24 +9,11 @@
 #ifndef StringsAndCoins_constants_h
 #define StringsAndCoins_constants_h
 
-//basic values ... used to adjust
-//@property (assign, nonatomic) CGFloat statusBarHeight;
-//@property (assign, nonatomic) CGFloat topMarginHeight;
-//@property (assign, nonatomic) CGFloat bottomMarginHeight;
-//@property (assign, nonatomic) CGFloat sideMarginWidth;
-// in SCGLevel constructor
-
-//#define ADJUSTNUMBERROWSCOLS
 #define LANDSCAPE_IPHONE
 
 #define kStatusBarHeight    20
 #define kScoreViewHeight    40
 #define kBoardMargin        90
-
-//#define kCellSmallWidth 100
-//#define kCellMediumWidth 150
-////#define kCellMediumWidth 100
-//#define kCellLargeWidth 200
 
 #define kSmallSquareRows   3
 #define kMediumSquareRows  4
@@ -65,11 +52,6 @@
 #define kAboutBoxIndex      3
 
 #define kMaxNumberOfPlayers 4
-
-//#define kSettingsName   @"Game Options"
-//#define kGameBoardName  @"Current Game"
-//#define kAboutName      @"About"
-//#define kNewGameName    @"New Game"
 
 //#define SHOWROWANDCOL
 

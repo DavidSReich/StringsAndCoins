@@ -65,11 +65,7 @@
             for (UIView *colorView in view.subviews)
             {
                 if (![colorView isKindOfClass:[UIButton class]])
-                {
                     [colors addObject: colorView.backgroundColor];
-//                    SCGGamePlayer *gamePlayer = [[SCGGamePlayer alloc] initWithPlayer:player andColor:(UIColor *)color];
-//                    [players addObject:gamePlayer];
-                }
             }
             break;
         }

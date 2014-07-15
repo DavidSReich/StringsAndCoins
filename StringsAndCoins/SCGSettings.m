@@ -68,11 +68,6 @@
         self.isIphone4 = [[UIScreen mainScreen] bounds].size.height < 500;
     else
         self.isIphone4 = false;
-
-#if defined(ADJUSTNUMBERROWSCOLS)
-    self.numCols = 4;
-    self.numRows = 2;
-#endif
 }
 
 @end

@@ -160,17 +160,10 @@
     self.controller.boardView = self.view;
     self.controller.mainViewController = self;
     
-#if defined(ADJUSTNUMBERROWSCOLS)
-	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
-                           andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController
-                                      andView:self.view andPalette:settings.paletteNumber andIphoneRunning:settings.isIphone
-                             andToolbarHeight:self.tabBarController.tabBar.bounds.size.height andNumRows:settings.numRows andNumCols:settings.numCols];
-#else
 	SCGLevel *level = [SCGLevel levelWithType:settings.levelType andShape:settings.levelShape andSize:settings.levelSize
                 andNumberOfPlayers:settings.numberOfPlayers andNavigationController:self.navigationController
                 andView:self.view andPalette:settings.paletteNumber andIphoneRunning:settings.isIphone
                 andToolbarHeight:self.tabBarController.tabBar.bounds.size.height];
-#endif
 
     self.paletteGridView.settings = settings;
 	[self.controller setupGameBoard:level];

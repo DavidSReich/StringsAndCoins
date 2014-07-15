@@ -84,19 +84,14 @@
             }
             else if ([viewController isKindOfClass:[SCGMainViewController class]])
             {
-                //resume
-//                [self resetButtonTouched:nil];
+                //all done elsewhere
             }
         }
         else
         {
             if ([viewController isKindOfClass:[SCGNewGameViewController class]])
             {
-                //we're starting a new game ... make the settings the new original
-//                originalSettings.levelType = self.settings.levelType;
-//                originalSettings.levelShape = self.settings.levelShape;
-//                originalSettings.levelSize = self.settings.levelSize;
-//                originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
+                //all done elsewhere
             }
         }
     }
@@ -108,13 +103,6 @@
 {
     if (buttonIndex != alertView.cancelButtonIndex)
     {
-        //        [self resetButtonTouched:nil];
-        //we're starting a new game ... make the settings the new original
-//        originalSettings.levelType = self.settings.levelType;
-//        originalSettings.levelShape = self.settings.levelShape;
-//        originalSettings.levelSize = self.settings.levelSize;
-//        originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
-        
         self.settings.gameInProgress = NO;
         self.settings.newGame = YES;
         [self.tabBarController setSelectedIndex:alertView.tag];

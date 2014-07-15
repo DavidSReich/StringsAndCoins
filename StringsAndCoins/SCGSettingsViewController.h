@@ -22,12 +22,6 @@
 @property (strong, nonatomic) IBOutlet SCGButton *squaresButton;
 @property (strong, nonatomic) IBOutlet SCGButton *hexagonsButton;
 @property (strong, nonatomic) IBOutlet SCGPaletteGridView *paletteGridView;
-#if defined(ADJUSTNUMBERROWSCOLS)
-@property (strong, nonatomic) IBOutlet UIStepper *rowStepper;
-@property (strong, nonatomic) IBOutlet UILabel *rowCountLabel;
-@property (strong, nonatomic) IBOutlet UIStepper *colStepper;
-@property (strong, nonatomic) IBOutlet UILabel *colCountLabel;
-#endif
 
 - (void) resetButtons;
 - (void) updateShapeControls;

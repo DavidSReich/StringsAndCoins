@@ -22,11 +22,6 @@
 @property (assign, nonatomic) BOOL isIphone;
 @property (assign, nonatomic) BOOL isIphone4;   //only 3.5", not 4"
 
-#if defined(ADJUSTNUMBERROWSCOLS)
-@property (assign, nonatomic) int numCols;
-@property (assign, nonatomic) int numRows;
-#endif
-
 - (void) setDefaultSettings;
 
 @end

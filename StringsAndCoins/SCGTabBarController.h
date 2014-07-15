@@ -11,6 +11,4 @@
 
 @interface SCGTabBarController : UITabBarController
 
-//@property (strong, nonatomic) SCGSettings *settings;
-
 @end

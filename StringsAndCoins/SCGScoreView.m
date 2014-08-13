@@ -31,9 +31,6 @@
  
         self.scoreLabels = [[NSMutableArray alloc] initWithCapacity:l.numberOfPlayers];
         CGFloat labelHeight = self.frameHeight;
-//        if (l.isIphone)
-//            labelHeight -= 2;
-//        labelHeight -= 4;
         
         CGRect labelRect = CGRectMake(0, 0, 0, labelHeight);
         

@@ -93,7 +93,7 @@
 		63486DFD1904B0E50072208D /* SCGButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGButton.m; sourceTree = "<group>"; };
 		63491CE018F5AF3300A9309C /* SCGTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGTabBarController.h; sourceTree = "<group>"; };
 		63491CE118F5AF3300A9309C /* SCGTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGTabBarController.m; sourceTree = "<group>"; };
-		6368AE5A18C18AEA0054E34B /* StringsAndCoins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StringsAndCoins.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6368AE5A18C18AEA0054E34B /* StellarDotsAndBoxes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StellarDotsAndBoxes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6368AE5D18C18AEA0054E34B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6368AE5F18C18AEA0054E34B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6368AE6118C18AEA0054E34B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -201,7 +201,7 @@
 		6368AE5B18C18AEA0054E34B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6368AE5A18C18AEA0054E34B /* StringsAndCoins.app */,
+				6368AE5A18C18AEA0054E34B /* StellarDotsAndBoxes.app */,
 				6368AE8118C18AEB0054E34B /* StringsAndCoinsTests.xctest */,
 			);
 			name = Products;
@@ -382,7 +382,7 @@
 			);
 			name = StringsAndCoins;
 			productName = StringsAndCoins;
-			productReference = 6368AE5A18C18AEA0054E34B /* StringsAndCoins.app */;
+			productReference = 6368AE5A18C18AEA0054E34B /* StellarDotsAndBoxes.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6368AE8018C18AEB0054E34B /* StringsAndCoinsTests */ = {
@@ -649,7 +649,7 @@
 				GCC_PREFIX_HEADER = "StringsAndCoins/StringsAndCoins-Prefix.pch";
 				INFOPLIST_FILE = "StringsAndCoins/StringsAndCoins-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = StellarDotsAndBoxes;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -663,7 +663,7 @@
 				GCC_PREFIX_HEADER = "StringsAndCoins/StringsAndCoins-Prefix.pch";
 				INFOPLIST_FILE = "StringsAndCoins/StringsAndCoins-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = StellarDotsAndBoxes;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

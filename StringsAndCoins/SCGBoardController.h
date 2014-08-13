@@ -52,7 +52,6 @@
 
 - (NSMutableArray *)getPlayers;
 
-- (void) clearGameOver;
 - (void) doubleClicked;
 
 @end

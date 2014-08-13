@@ -9,8 +9,6 @@
 #ifndef StringsAndCoins_constants_h
 #define StringsAndCoins_constants_h
 
-#define LANDSCAPE_IPHONE
-
 #define kStatusBarHeight    20
 #define kScoreViewHeight    40
 #define kBoardMargin        90

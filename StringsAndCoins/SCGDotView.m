@@ -19,8 +19,6 @@
 
 - (instancetype) initWithLevel:(SCGLevel *)l andRow:(int)r andCol:(int)c
 {
-//	if (l.levelType == BoxesType)
-//		self = [super initWithImage: l.dotImage];
     self = [super init];
 	
     if (self != nil)

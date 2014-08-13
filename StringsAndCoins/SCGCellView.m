@@ -92,7 +92,6 @@
             cellSize += 0.6;
         
         self.bounds = CGRectMake(0.0, 0.0, cellSize, cellSize);
-#if true
         if (self.level.levelShape == TriangleShape)
         {
             CGPoint offCenter;
@@ -102,9 +101,6 @@
                 offCenter = CGPointMake(self.center0.x, self.center0.y - self.level.cellHeight / 6);
             self.center = offCenter;
         }
-#else
-        self.center = self.center0;
-#endif
         self.image = nil;
         
         //set the image context
@@ -123,7 +119,6 @@
         CGFloat ringOffset = ((self.frame.size.width / 2) - ringRadius) * 1.5;
 
         CGContextSetLineWidth(ctx, ringRadius / 2);
-#if true
         CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
         CGContextStrokeEllipseInRect(ctx, CGRectMake(ringOffset, ringOffset, ringRadius, ringRadius));
         if (self.complete)
@@ -131,13 +126,6 @@
             CGContextSetStrokeColorWithColor(ctx, self.completeColor.CGColor);
             CGContextStrokeEllipseInRect(ctx, CGRectMake(ringOffset + 2, ringOffset + 2, ringRadius - 4, ringRadius - 4));
         }
-#else
-        if (self.complete)
-            CGContextSetStrokeColorWithColor(ctx, self.completeColor.CGColor);
-        else
-            CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
-        CGContextStrokeEllipseInRect(ctx, CGRectMake(ringOffset, ringOffset, ringRadius, ringRadius));
-#endif
         UIGraphicsPopContext();
         
         //get the new image
@@ -156,18 +144,14 @@
     {
         if (self.complete)
         {
-//            [self setImage:self.level.dotImage];
 #if defined(SHOWROWANDCOL)
             rcLabel.hidden = NO;
 #endif
         }
         else
         {
-//            [self setImage:nil];
-//            [self setImage:self.level.dotImage];
 #if defined(SHOWROWANDCOL)
             rcLabel.hidden = YES;
-//            rcLabel.hidden = NO;
 #endif
         }
     }
@@ -183,7 +167,6 @@
     {
         if (!self.complete)
         {
-//            [self setImage:self.level.cellImage];
             [self setImage:nil];
             if (self.level.levelType == CoinsType)
             {
@@ -267,7 +250,6 @@
     {
         if (!self.complete)
         {
-//            [self setImage:self.level.cellImage];
             [self setImage:nil];
         }
         else
@@ -275,21 +257,12 @@
             //hexagons
             CGPoint pts[6];
 
-#if true
             pts[0] = CGPointMake(self.level.cellWidth / 2, -1);
             pts[1] = CGPointMake(self.level.cellWidth + 1, (self.level.cellHeight / 4) - 1);
             pts[2] = CGPointMake(self.level.cellWidth + 1, ((3 * self.level.cellHeight) / 4) + 1);
             pts[3] = CGPointMake(self.level.cellWidth / 2, self.level.cellHeight + 1);
             pts[4] = CGPointMake(-1, ((3 * self.level.cellHeight) / 4) + 1);
             pts[5] = CGPointMake(-1, (self.level.cellHeight / 4) - 1);
-#else
-            pts[0] = CGPointMake(self.level.cellWidth / 2, 0);
-            pts[1] = CGPointMake(self.level.cellWidth, self.level.cellHeight / 4);
-            pts[2] = CGPointMake(self.level.cellWidth, (3 * self.level.cellHeight) / 4);
-            pts[3] = CGPointMake(self.level.cellWidth / 2, self.level.cellHeight);
-            pts[4] = CGPointMake(0, (3 * self.level.cellHeight) / 4);
-            pts[5] = CGPointMake(0, self.level.cellHeight / 4);
-#endif
 
             //get the image context with options(recommended funct to use)
             //get the size of the imageView

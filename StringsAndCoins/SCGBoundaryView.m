@@ -36,6 +36,7 @@
         self.userInteractionEnabled = YES;
 
 //        CGFloat aspect = l.boundaryImage.size.height / l.boundaryImage.size.width;
+        //this is based upon the dimensions of the original image file ... it looked good, so we are using it
         CGFloat aspect = 61.0 / 302.0;
         
 		//resize
@@ -87,16 +88,12 @@
 //        self.layer.borderColor = [UIColor greenColor].CGColor;
 //        self.layer.borderWidth = 3.f;
 
-        //overlay a button -- makes presses easier?
+        //overlay a button -- makes presses easier? -- not using button for presses anymore
         //at this point I'm only using the button for its image and backroundimage
         self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
-#if true
         CGPoint ctr = self.center;
         self.btn.frame = CGRectMake(0, 0, r.size.width, length * aspect);
         self.btn.center = ctr;
-#else
-        self.btn.frame = CGRectMake(r.origin.x, r.origin.y + extraHeight / 2, r.size.width, length * aspect);
-#endif
         [self addSubview:self.btn];
         [self bringSubviewToFront:self.btn];
         self.btn.userInteractionEnabled = NO;
@@ -189,12 +186,9 @@
                 rotation = -kPiOver6;
         }
 
-#if true
+        //do we still need this?
         if (!(l.levelShape == SquareShape) && !(l.levelShape == TriangleShape))
             [self bringSubviewToFront:self.touchBtn];
-#else
-        [self bringSubviewToFront:self.touchBtn];
-#endif
 
         if (self.level.levelType == CoinsType)
         {
@@ -374,14 +368,6 @@
     {
         CGContextSetStrokeColorWithColor(ctx, self.boundaryColor.CGColor);
         CGFloat lineWidth = 2;
-//        if (!self.level.isIphone)
-//        {
-//            if ((self.level.levelShape == TriangleShape) && (self.orientation != Horizontal))
-//                lineWidth = 4;
-//            else if ((self.level.levelShape == HexagonShape) && (self.orientation != Vertical))
-//                lineWidth = 4;
-//        }
-
         CGContextSetLineWidth(ctx, lineWidth * self.level.scaleGeometry);
         CGContextStrokeRect(ctx, drawRect);
     }

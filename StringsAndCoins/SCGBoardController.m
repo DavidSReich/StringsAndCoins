@@ -765,18 +765,7 @@
             if (self.lastBoundary)
                 [self.lastBoundary LockBoundary];
 
-            if (self.level.isIphone && false)
-            {
-                gameOverViewController = [self.mainViewController.storyboard instantiateViewControllerWithIdentifier:@"GameOver"];
-                gameOverViewController.players = [self getPlayers];
-                [self.boardView addSubview:gameOverViewController.view];
-                [gameOverViewController.view.superview setFrame:self.boardView.bounds];
-                [gameOverViewController.view setFrame:self.boardView.bounds];
-                [gameOverViewController.view.superview setFrame:self.boardView.bounds];
-                [gameOverViewController.view setFrame:self.boardView.bounds];
-            }
-            else
-                [self.mainViewController performSegueWithIdentifier:@"GameOver" sender:self];
+            [self.mainViewController performSegueWithIdentifier:@"GameOver" sender:self];
             return;
         }
     }
@@ -1221,12 +1210,6 @@
 - (NSMutableArray *)getPlayers
 {
     return players;
-}
-
-- (void) clearGameOver
-{
-    if (self.level.isIphone)
-        [gameOverViewController.view removeFromSuperview];
 }
 
 - (void) doubleClicked

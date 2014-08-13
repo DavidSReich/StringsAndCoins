@@ -22,7 +22,6 @@ typedef NS_ENUM(NSInteger, ScoreOrientation)
 
 @property (weak, nonatomic) NSMutableArray *players;
 @property (weak, nonatomic) SCGLevel *level;
-//@property (strong, nonatomic) NSMutableArray *scoreBlockViews;
 @property (strong, nonatomic) NSMutableArray *scoreLabels;
 @property (assign, nonatomic) CGFloat frameHeight;
 @property (assign, nonatomic) CGFloat frameWidth;

@@ -21,6 +21,8 @@
 @property (assign, nonatomic) BOOL newGame;
 @property (assign, nonatomic) BOOL isIphone;
 @property (assign, nonatomic) BOOL isIphone4;   //only 3.5", not 4"
+@property (assign, nonatomic) BOOL isAI;
+@property (assign, nonatomic) int aiSpeed;  //0 is slow, 1 is fast
 
 - (void) setDefaultSettings;
 

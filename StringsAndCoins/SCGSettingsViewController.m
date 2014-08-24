@@ -30,6 +30,10 @@
 @synthesize hexagonsButton;
 @synthesize paletteGridView;
 
+#define kVsAIButtonIndex    0
+#define kTwoButtonIndex     1
+#define kThreeButtonIndex   2
+#define kFourButtonIndex    3
 
 - (instancetype) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,6 +59,8 @@
     originalSettings.levelSize = self.settings.levelSize;
     originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
     originalSettings.paletteNumber = self.settings.paletteNumber;
+    originalSettings.isAI = self.settings.isAI;
+    originalSettings.aiSpeed = self.settings.aiSpeed;
 
     CGFloat fontSize = self.settings.isIphone ? 12.0f : 23.0f;
     UIFont *btnFont = [UIFont systemFontOfSize:fontSize];
@@ -62,6 +68,7 @@
     [self.typeButton setTitleTextAttributes:attributes forState:UIControlStateNormal];
     [self.sizeButton setTitleTextAttributes:attributes forState:UIControlStateNormal];
     [self.numberOfPlayersButton setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    [self.aiSpeedButton setTitleTextAttributes:attributes forState:UIControlStateNormal];
 
     for (SCGButton *button in self.view.subviews)
     {
@@ -90,6 +97,8 @@
             view.frame = CGRectMake(r.origin.x, r.origin.y - 40, r.size.width, r.size.height);
         }
     }
+
+    self.aiSpeedButton.hidden = !(self.settings.isAI);
 
     [self resetButtons];
 }
@@ -162,12 +171,22 @@
     if (numberOfPlayersButton)
     {
         if (self.settings.numberOfPlayers == 2)
-            numberOfPlayersButton.selectedSegmentIndex = 0;
+        {
+            if (self.settings.isAI)
+                numberOfPlayersButton.selectedSegmentIndex = kVsAIButtonIndex;
+            else
+                numberOfPlayersButton.selectedSegmentIndex = kTwoButtonIndex;
+        }
         else if (self.settings.numberOfPlayers == 3)
-            numberOfPlayersButton.selectedSegmentIndex = 1;
+            numberOfPlayersButton.selectedSegmentIndex = kThreeButtonIndex;
         else    //4 players
-            numberOfPlayersButton.selectedSegmentIndex = 2;
+            numberOfPlayersButton.selectedSegmentIndex = kFourButtonIndex;
     }
+
+    if (self.settings.aiSpeed == 0)
+        self.aiSpeedButton.selectedSegmentIndex = 0;
+    else    //coins
+        self.aiSpeedButton.selectedSegmentIndex = 1;
 
     [self.paletteGridView updatePaletteSelection];
 }
@@ -179,6 +198,8 @@
     self.settings.levelSize = originalSettings.levelSize;
     self.settings.numberOfPlayers = originalSettings.numberOfPlayers;
     self.settings.paletteNumber = originalSettings.paletteNumber;
+    self.settings.isAI = originalSettings.isAI;
+    self.settings.aiSpeed = originalSettings.aiSpeed;
     
     [self resetButtons];
 }
@@ -213,12 +234,23 @@
 
 - (IBAction) numberOfPlayersChanged:(id)sender
 {
-    if (numberOfPlayersButton.selectedSegmentIndex == 0)
+    if (numberOfPlayersButton.selectedSegmentIndex == kVsAIButtonIndex)
+    {
+        self.settings.isAI = YES;
         self.settings.numberOfPlayers = 2;
-    else if (numberOfPlayersButton.selectedSegmentIndex == 1)
-        self.settings.numberOfPlayers = 3;
+        self.aiSpeedButton.hidden = NO;
+    }
     else
-        self.settings.numberOfPlayers = 4;
+    {
+        self.settings.isAI = NO;    //only YES if kVsAIButtonIndex
+        self.aiSpeedButton.hidden = YES;
+        if (numberOfPlayersButton.selectedSegmentIndex == kTwoButtonIndex)
+            self.settings.numberOfPlayers = 2;
+        else if (numberOfPlayersButton.selectedSegmentIndex == kThreeButtonIndex)
+            self.settings.numberOfPlayers = 3;
+        else    //kFourButtonIndex
+            self.settings.numberOfPlayers = 4;
+    }
 }
 
 - (IBAction) shapeButtonTouched:(id)sender
@@ -242,6 +274,14 @@
     }
 
     [self updateShapeControls];
+}
+
+- (IBAction)aiSpeedButtonChanged:(id)sender
+{
+    if (self.aiSpeedButton.selectedSegmentIndex == 0)
+        self.settings.aiSpeed = 0;
+    else if (self.aiSpeedButton.selectedSegmentIndex == 1)
+        self.settings.aiSpeed = 1;
 }
 
 - (void) updateShapeControls
@@ -355,6 +395,8 @@
                 originalSettings.levelSize = self.settings.levelSize;
                 originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
                 originalSettings.paletteNumber = self.settings.paletteNumber;
+                originalSettings.isAI = self.settings.isAI;
+                originalSettings.aiSpeed = self.settings.aiSpeed;
                 return YES;
             }
         }
@@ -379,6 +421,8 @@
         originalSettings.levelSize = self.settings.levelSize;
         originalSettings.numberOfPlayers = self.settings.numberOfPlayers;
         originalSettings.paletteNumber = self.settings.paletteNumber;
+        originalSettings.isAI = self.settings.isAI;
+        originalSettings.aiSpeed = self.settings.aiSpeed;
 
         self.settings.gameInProgress = NO;
         self.settings.newGame = YES;

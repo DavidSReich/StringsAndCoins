@@ -13,6 +13,8 @@
 #define kKeyLevelSize   @"levelSize"
 #define kKeyNumPlayers  @"numberOfPlayers"
 #define kKeyPaletteNumber   @"paletteNumber"
+#define kKeyIsAI        @"isAI"
+#define kKeyAISpeed     @"aiSpeed"
 
 @implementation SCGSettings
 
@@ -38,6 +40,8 @@
         self.levelSize = [decoder decodeIntForKey:kKeyLevelSize];
         self.numberOfPlayers = [decoder decodeIntForKey:kKeyNumPlayers];
         self.paletteNumber = [decoder decodeIntForKey:kKeyPaletteNumber];
+        self.isAI = [decoder decodeIntForKey:kKeyIsAI];
+        self.aiSpeed = [decoder decodeIntForKey:kKeyAISpeed];
     }
 
     return self;
@@ -50,6 +54,8 @@
     [encoder encodeInt:self.levelSize forKey:kKeyLevelSize];
     [encoder encodeInt:self.numberOfPlayers forKey:kKeyNumPlayers];
     [encoder encodeInt:self.paletteNumber forKey:kKeyPaletteNumber];
+    [encoder encodeInt:self.isAI forKey:kKeyIsAI];
+    [encoder encodeInt:self.aiSpeed forKey:kKeyAISpeed];
 }
 
 - (void) setDefaultSettings
@@ -58,6 +64,8 @@
     self.levelShape = SquareShape;
     self.levelSize = SmallSize;
     self.numberOfPlayers = 2;
+    self.isAI = NO;
+    self.aiSpeed = 0;
     self.paletteNumber = 1;
     self.gameInProgress = NO;
     self.gameOver = NO;

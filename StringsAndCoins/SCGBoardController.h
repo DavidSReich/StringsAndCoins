@@ -25,6 +25,7 @@
 
 //the last boundary clicked
 @property (weak, nonatomic) SCGBoundaryView *lastBoundary;
+@property (weak, nonatomic) SCGBoundaryView *lastAIBoundary;
 
 @property (strong, nonatomic) UITapGestureRecognizer *tapRecognizer;
 
@@ -53,5 +54,7 @@
 - (NSMutableArray *)getPlayers;
 
 - (void) doubleClicked;
+
+- (SCGBoundaryView *)getNextAIMove;
 
 @end

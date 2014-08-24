@@ -99,14 +99,23 @@
     
     for (int p = 0; p < numberOfPlayers; p++)
     {
-        SCGPlayer *player = [SCGPlayer alloc];
-        player.playerName = [NSMutableString stringWithFormat:@"Player %d", p + 1];
         int colorNum = arc4random_uniform(colors.count);
         color = [colors objectAtIndex:colorNum];
         [colors removeObjectAtIndex:colorNum];
 
+        SCGPlayer *player = [SCGPlayer alloc];
+        player.playerName = [NSMutableString stringWithFormat:@"Player %d", p + 1];
         SCGGamePlayer *gamePlayer = [[SCGGamePlayer alloc] initWithPlayer:player andColor:color];
         [players addObject:gamePlayer];
+
+        if (p < numberOfPlayers - 1)
+            player.playerName = [NSString stringWithFormat:@"Player %d ", p + 1];
+        else
+        {
+            gamePlayer.isAI = YES;
+            player.playerName = [NSString stringWithFormat:@"AI "];
+        }
+        NSLog(@"playerName: %@", player.playerName);
     }
 
     currentPlayer = 0;
@@ -765,6 +774,8 @@
             if (self.lastBoundary)
                 [self.lastBoundary LockBoundary];
 
+            [self.tapRecognizer removeTarget:self action:@selector(doubleClicked)];
+
             [self.mainViewController performSegueWithIdentifier:@"GameOver" sender:self];
             return;
         }
@@ -778,6 +789,20 @@
         lastPlayer = currentPlayer;
 
     [self refreshScores:NO];
+    
+    if (((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).isAI)
+    {
+        SCGBoundaryView *nextBoundary = [self getNextAIMove];
+        double delay;
+        if (appDelegate.settings.aiSpeed == 0)
+            delay = 2.0 * NSEC_PER_SEC;
+        else
+            delay = 1;
+        dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay);
+        dispatch_after(time, dispatch_get_main_queue(), ^(void){
+            [nextBoundary ActionTapped];
+        });
+    }
 }
 
 - (void) boundaryDoubleClicked
@@ -1215,5 +1240,44 @@
 - (void) doubleClicked
 {
     [self.lastBoundary ActionDoubleTapped];
+}
+
+- (SCGBoundaryView *)getNextAIMove
+{
+    SCGBoundaryView *nextBoundary = nil;
+
+    //count boundaries
+    int numberOfBoundaries = 0;
+    for (SCGBoundaryView *boundary in self.boardView.subviews)
+    {
+        if ([boundary isKindOfClass:[SCGBoundaryView class]])
+            numberOfBoundaries++;
+    }
+
+    do
+    {
+        //get random boundary
+        int boundaryTarget = arc4random_uniform(numberOfBoundaries);
+
+        int boundaryNum = 0;
+        //find the boundary
+        SCGBoundaryView *boundary;
+        for (boundary in self.boardView.subviews)
+        {
+            if ([boundary isKindOfClass:[SCGBoundaryView class]])
+            {
+                if (boundaryNum == boundaryTarget)
+                    break;
+                boundaryNum++;
+            }
+        }
+
+        //is the boundary available?
+        if (!boundary.complete)
+            nextBoundary = boundary;
+
+    } while (nextBoundary == nil);
+
+    return nextBoundary;
 }
 @end

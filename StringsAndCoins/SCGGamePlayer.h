@@ -15,6 +15,7 @@
 @property (strong, nonatomic) SCGPlayer *player;
 @property (strong, nonatomic) UIColor *color;
 @property (assign, nonatomic) int score;
+@property (assign, nonatomic) BOOL isAI;
 
 - (instancetype) initWithPlayer:(SCGPlayer *)p andColor:(UIColor *)c;
 

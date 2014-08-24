@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="LCm-2K-7Mr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="LCm-2K-7Mr">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
     <scenes>
-        <!--New Game View Controller - New Game-->
+        <!--New Game-->
         <scene sceneID="LXk-Gl-cT8">
             <objects>
                 <viewController id="6bo-ut-qTY" customClass="SCGNewGameViewController" sceneMemberID="viewController">
@@ -21,7 +21,7 @@
             </objects>
             <point key="canvasLocation" x="-6346" y="-6208"/>
         </scene>
-        <!--Main View Controller - Current Game-->
+        <!--Current Game-->
         <scene sceneID="sOM-q0-V4Q">
             <objects>
                 <viewController id="48u-8S-dvN" customClass="SCGMainViewController" sceneMemberID="viewController">
@@ -70,7 +70,7 @@
             </objects>
             <point key="canvasLocation" x="-7510" y="-6148"/>
         </scene>
-        <!--About Box View Controller - Info-->
+        <!--Info-->
         <scene sceneID="YjM-7w-6SR">
             <objects>
                 <viewController storyboardIdentifier="AboutBox" id="Uag-ql-mzy" customClass="SCGAboutBoxViewController" sceneMemberID="viewController">
@@ -149,7 +149,7 @@
             </objects>
             <point key="canvasLocation" x="-7448" y="-5421"/>
         </scene>
-        <!--Settings View Controller - Small settings-->
+        <!--Small settings-->
         <scene sceneID="aI8-04-T1w">
             <objects>
                 <viewController title="Small settings" id="cLO-EY-Qod" customClass="SCGSettingsViewController" sceneMemberID="viewController">
@@ -187,9 +187,10 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="zEJ-Ds-Nvi" userLabel="NumberOfPlayersButton">
-                                <rect key="frame" x="115" y="381" width="130" height="29"/>
+                                <rect key="frame" x="74" y="382" width="130" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
+                                    <segment title="AI"/>
                                     <segment title="2"/>
                                     <segment title="3"/>
                                     <segment title="4"/>
@@ -197,6 +198,18 @@
                                 <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="numberOfPlayersChanged:" destination="cLO-EY-Qod" eventType="valueChanged" id="Qbu-o3-dKt"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="c35-ly-Ms6">
+                                <rect key="frame" x="211" y="382" width="81" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Slow"/>
+                                    <segment title="Fast"/>
+                                </segments>
+                                <color key="tintColor" red="0.0" green="0.12941176469999999" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="aiSpeedButtonChanged:" destination="cLO-EY-Qod" eventType="valueChanged" id="Ule-af-Czm"/>
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="89S-6H-gr8" customClass="SCGButton">
@@ -332,7 +345,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group-25.png" id="tcL-Hv-5gR">
-                                <rect key="frame" x="75" y="379" width="32" height="32"/>
+                                <rect key="frame" x="34" y="380" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -342,6 +355,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Game Options" image="settings3-32.png" id="JAb-7R-Het"/>
                     <connections>
+                        <outlet property="aiSpeedButton" destination="c35-ly-Ms6" id="iaB-Pg-ixz"/>
                         <outlet property="hexagonsButton" destination="4rb-Fh-7bQ" id="ALJ-KN-6Hv"/>
                         <outlet property="layoutGridView" destination="O85-d5-TpK" id="5jm-mr-uQl"/>
                         <outlet property="numberOfPlayersButton" destination="zEJ-Ds-Nvi" id="y4o-He-I1W"/>
@@ -356,7 +370,7 @@
             </objects>
             <point key="canvasLocation" x="-6868" y="-6243"/>
         </scene>
-        <!--Game Over View Controller - Game Over-->
+        <!--Game Over-->
         <scene sceneID="ENN-ly-1PY">
             <objects>
                 <viewController storyboardIdentifier="GameOver" title="Game Over" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="crossDissolve" id="JUn-GD-DhU" customClass="SCGGameOverViewController" sceneMemberID="viewController">
@@ -478,6 +492,9 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination" type="retina4">
+            <size key="portraitSize" width="320" height="568"/>
+            <size key="landscapeSize" width="568" height="320"/>
+        </simulatedScreenMetrics>
     </simulatedMetricsContainer>
 </document>

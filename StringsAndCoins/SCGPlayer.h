@@ -10,6 +10,6 @@
 
 @interface SCGPlayer : NSObject
 
-@property (assign, nonatomic) NSMutableString *playerName;
+@property (assign, nonatomic) NSString *playerName;
 
 @end

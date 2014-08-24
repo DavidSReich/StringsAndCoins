@@ -22,6 +22,7 @@
 @property (strong, nonatomic) IBOutlet SCGButton *squaresButton;
 @property (strong, nonatomic) IBOutlet SCGButton *hexagonsButton;
 @property (strong, nonatomic) IBOutlet SCGPaletteGridView *paletteGridView;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *aiSpeedButton;
 
 - (void) resetButtons;
 - (void) updateShapeControls;

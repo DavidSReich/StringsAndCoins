@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="7WQ-cW-pE0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="7WQ-cW-pE0">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
     <scenes>
-        <!--New Game View Controller - New Game-->
+        <!--New Game-->
         <scene sceneID="3Pk-g7-IK0">
             <objects>
                 <viewController id="wkv-S4-0Hz" customClass="SCGNewGameViewController" sceneMemberID="viewController">
@@ -13,7 +14,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="New Game" image="org_unit-32.png" id="CZJ-jY-0cB"/>
@@ -22,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="-4870" y="-6197"/>
         </scene>
-        <!--Main View Controller - Current Game-->
+        <!--Current Game-->
         <scene sceneID="0NU-cZ-2PS">
             <objects>
                 <viewController id="aVO-UE-KGo" customClass="SCGMainViewController" sceneMemberID="viewController">
@@ -31,7 +31,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Current Game" image="process-32.png" id="AOG-wm-EcW"/>
@@ -72,7 +71,7 @@
             </objects>
             <point key="canvasLocation" x="-7738" y="-5949"/>
         </scene>
-        <!--Game Over View Controller - Game Over-->
+        <!--Game Over-->
         <scene sceneID="0Ed-IH-3xG">
             <objects>
                 <viewController storyboardIdentifier="GameOver" title="Game Over" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="crossDissolve" id="yE0-r4-6eT" customClass="SCGGameOverViewController" sceneMemberID="viewController">
@@ -171,7 +170,6 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
                         <outlet property="scoreGrid" destination="5Al-dV-qBF" id="2qD-nx-viN"/>
@@ -181,7 +179,7 @@
             </objects>
             <point key="canvasLocation" x="-4773" y="-5163"/>
         </scene>
-        <!--About Box View Controller - Info-->
+        <!--Info-->
         <scene sceneID="DVX-T1-wGR">
             <objects>
                 <viewController storyboardIdentifier="AboutBox" id="Knt-cx-Tsy" customClass="SCGAboutBoxViewController" sceneMemberID="viewController">
@@ -249,7 +247,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Info" image="about-32.png" id="2im-oF-AB0"/>
@@ -258,7 +255,7 @@
             </objects>
             <point key="canvasLocation" x="-7351" y="-5072"/>
         </scene>
-        <!--Settings View Controller - Game Options-->
+        <!--Game Options-->
         <scene sceneID="GYC-ak-dml">
             <objects>
                 <viewController id="wCI-QM-hyl" customClass="SCGSettingsViewController" sceneMemberID="viewController">
@@ -296,9 +293,10 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Foc-Km-c6B" userLabel="NumberOfPlayersButton">
-                                <rect key="frame" x="425" y="103" width="260" height="58"/>
+                                <rect key="frame" x="430" y="103" width="260" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
+                                    <segment title="AI"/>
                                     <segment title="2"/>
                                     <segment title="3"/>
                                     <segment title="4"/>
@@ -306,6 +304,19 @@
                                 <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="numberOfPlayersChanged:" destination="wCI-QM-hyl" eventType="valueChanged" id="6cb-9f-plW"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" segmentControlStyle="plain" selectedSegmentIndex="0" id="Tvm-Qe-nQD" userLabel="AISpeedButton">
+                                <rect key="frame" x="699" y="103" width="139" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Slow"/>
+                                    <segment title="Fast"/>
+                                </segments>
+                                <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="aiSpeedButtonChanged:" destination="wCI-QM-hyl" eventType="valueChanged" id="mc2-dq-Eae"/>
+                                    <action selector="numberOfPlayersChanged:" destination="wCI-QM-hyl" eventType="valueChanged" id="gWD-Iq-e2d"/>
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="B4s-LS-Y45" customClass="SCGButton">
@@ -444,17 +455,17 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group-50.png" id="J7C-QQ-Zcc">
-                                <rect key="frame" x="334" y="97" width="69" height="69"/>
+                                <rect key="frame" x="339" y="97" width="69" height="69"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Game Options" image="settings3-32.png" id="p0Y-cZ-QD1"/>
                     <connections>
+                        <outlet property="aiSpeedButton" destination="Tvm-Qe-nQD" id="4eJ-cN-DDB"/>
                         <outlet property="hexagonsButton" destination="ZCT-gZ-xV3" id="EkB-ij-EVw"/>
                         <outlet property="layoutGridView" destination="rXA-mU-qdV" id="Jcs-x5-CtV"/>
                         <outlet property="numberOfPlayersButton" destination="Foc-Km-c6B" id="N72-G3-aS7"/>
@@ -481,6 +492,9 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination">
+            <size key="portraitSize" width="768" height="1024"/>
+            <size key="landscapeSize" width="1024" height="768"/>
+        </simulatedScreenMetrics>
     </simulatedMetricsContainer>
 </document>

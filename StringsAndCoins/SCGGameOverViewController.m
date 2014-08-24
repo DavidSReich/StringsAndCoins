@@ -55,7 +55,7 @@
         if (maxScore < player.score)
             maxScore = player.score;
     }
-    
+
     for (UILabel *playerScoreLabel in self.scoreGrid.subviews)
     {
         playerScoreLabel.text = @"";
@@ -92,7 +92,15 @@
 //            NSMutableString *t = pPlayer.playerName;
 //            NSLog(@"name: %@", t);
 //            playerScoreLabel.text = t;//player.player.playerName;
-            playerScoreLabel.text = [NSString stringWithFormat:@"Player %d ", playerIdx + 1];
+            if (appDelegate.settings.isAI)
+            {
+                if (player.isAI)
+                    playerScoreLabel.text = [NSString stringWithFormat:@"AI "];
+                else    //only one player vs AI
+                    playerScoreLabel.text = [NSString stringWithFormat:@"You "];
+            }
+            else
+                playerScoreLabel.text = [NSString stringWithFormat:@"Player %d ", playerIdx + 1];
         }
 
     }

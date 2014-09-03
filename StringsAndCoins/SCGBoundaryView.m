@@ -221,16 +221,22 @@
     [self UpdateImage];
 }
 
-- (void) ActionDoubleTapped
+- (void) UnlockBoundary
 {
     self.complete = NO;
-    [self UpdateImage];
+    [self UpdateImage]; //??need this
     [self.tapRecognizer removeTarget:self action:@selector(ActionDoubleTapped)];
     [self.tapRecognizer addTarget:self action:@selector(ActionTapped)];
     self.tapRecognizer.numberOfTapsRequired = 1;
+    self.tapRecognizer.enabled = YES;
     self.canUndo = NO;
-    [self.board boundaryDoubleClicked];
     [self UpdateImage];
+}
+
+- (void) ActionDoubleTapped
+{
+    [self UnlockBoundary];
+    [self.board boundaryDoubleClicked];
 }
 
 - (void) LockBoundary

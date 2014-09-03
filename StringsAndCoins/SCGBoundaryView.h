@@ -44,6 +44,7 @@ typedef NS_ENUM(NSInteger, BoundaryOrientation)
 - (void) ActionDoubleTapped;
 - (void) UpdateImage;
 - (void) LockBoundary;
+- (void) UnlockBoundary;
 - (void) UpdateDetails;
 
 @end

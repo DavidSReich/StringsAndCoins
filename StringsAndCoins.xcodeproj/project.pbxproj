@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		631209C519AC66C200DC940E /* help-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 631209C419AC66C200DC940E /* help-50.png */; };
+		631209C719AC66CF00DC940E /* help-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 631209C619AC66CF00DC940E /* help-32.png */; };
+		631209C919AC66DB00DC940E /* help-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 631209C819AC66DB00DC940E /* help-25.png */; };
 		6313A6871927BA6800B4CE74 /* SCGAboutBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6313A6861927BA6800B4CE74 /* SCGAboutBoxViewController.m */; };
 		632F3CBC193613BD0085F981 /* about-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 632F3CBB193613BD0085F981 /* about-32.png */; };
 		632F3CC0193614230085F981 /* org_unit-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 632F3CBF193614230085F981 /* org_unit-32.png */; };
@@ -16,6 +19,10 @@
 		633B9FC718EFC9D000E98B22 /* SCGScoreLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 633B9FC618EFC9D000E98B22 /* SCGScoreLabel.m */; };
 		63486DFE1904B0E50072208D /* SCGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 63486DFD1904B0E50072208D /* SCGButton.m */; };
 		63491CE218F5AF3300A9309C /* SCGTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63491CE118F5AF3300A9309C /* SCGTabBarController.m */; };
+		6362A3F219B6B132007B5B71 /* SCGHowtoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362A3F119B6B132007B5B71 /* SCGHowtoViewController.m */; };
+		6362A3F619B6C69D007B5B71 /* StellarSoftware_Coffee_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6362A3F319B6C69D007B5B71 /* StellarSoftware_Coffee_transparent.png */; };
+		6362A3F719B6C69D007B5B71 /* StellarSoftware_transparent_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6362A3F419B6C69D007B5B71 /* StellarSoftware_transparent_transparent.png */; };
+		6362A3F819B6C69D007B5B71 /* StellarSoftware_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6362A3F519B6C69D007B5B71 /* StellarSoftware_transparent.png */; };
 		6368AE5E18C18AEA0054E34B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6368AE5D18C18AEA0054E34B /* Foundation.framework */; };
 		6368AE6018C18AEA0054E34B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6368AE5F18C18AEA0054E34B /* CoreGraphics.framework */; };
 		6368AE6218C18AEA0054E34B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6368AE6118C18AEA0054E34B /* UIKit.framework */; };
@@ -79,6 +86,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		631209C419AC66C200DC940E /* help-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help-50.png"; sourceTree = "<group>"; };
+		631209C619AC66CF00DC940E /* help-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help-32.png"; sourceTree = "<group>"; };
+		631209C819AC66DB00DC940E /* help-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help-25.png"; sourceTree = "<group>"; };
 		6313A6851927BA6800B4CE74 /* SCGAboutBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGAboutBoxViewController.h; sourceTree = "<group>"; };
 		6313A6861927BA6800B4CE74 /* SCGAboutBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGAboutBoxViewController.m; sourceTree = "<group>"; };
 		632F3CBB193613BD0085F981 /* about-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "about-32.png"; sourceTree = "<group>"; };
@@ -93,6 +103,11 @@
 		63486DFD1904B0E50072208D /* SCGButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGButton.m; sourceTree = "<group>"; };
 		63491CE018F5AF3300A9309C /* SCGTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGTabBarController.h; sourceTree = "<group>"; };
 		63491CE118F5AF3300A9309C /* SCGTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGTabBarController.m; sourceTree = "<group>"; };
+		6362A3F019B6B132007B5B71 /* SCGHowtoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCGHowtoViewController.h; sourceTree = "<group>"; };
+		6362A3F119B6B132007B5B71 /* SCGHowtoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCGHowtoViewController.m; sourceTree = "<group>"; };
+		6362A3F319B6C69D007B5B71 /* StellarSoftware_Coffee_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StellarSoftware_Coffee_transparent.png; sourceTree = "<group>"; };
+		6362A3F419B6C69D007B5B71 /* StellarSoftware_transparent_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StellarSoftware_transparent_transparent.png; sourceTree = "<group>"; };
+		6362A3F519B6C69D007B5B71 /* StellarSoftware_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StellarSoftware_transparent.png; sourceTree = "<group>"; };
 		6368AE5A18C18AEA0054E34B /* StellarDotsAndBoxes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StellarDotsAndBoxes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6368AE5D18C18AEA0054E34B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6368AE5F18C18AEA0054E34B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -266,6 +281,9 @@
 		6368AE9818C18CF10054E34B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				6362A3F319B6C69D007B5B71 /* StellarSoftware_Coffee_transparent.png */,
+				6362A3F419B6C69D007B5B71 /* StellarSoftware_transparent_transparent.png */,
+				6362A3F519B6C69D007B5B71 /* StellarSoftware_transparent.png */,
 				63D42CEE1903B10700615BFD /* Canvas1a_offwhite_1.png */,
 				63D42CEC190380DE00615BFD /* newEllipse.png */,
 				6368AEB618C18E310054E34B /* coin-md.png */,
@@ -278,6 +296,9 @@
 				63FA10EE1942E85800B0EB6A /* about-50.png */,
 				63BB0AE0194D5847007CFBFA /* group-25.png */,
 				63BB0AE2194D5906007CFBFA /* group-50.png */,
+				631209C819AC66DB00DC940E /* help-25.png */,
+				631209C619AC66CF00DC940E /* help-32.png */,
+				631209C419AC66C200DC940E /* help-50.png */,
 				63A4A7A5194BF3180019D6EC /* menu-25.png */,
 				63A4A7A7194BF3260019D6EC /* menu-32.png */,
 				63A4A7A9194BF3320019D6EC /* menu-50.png */,
@@ -338,6 +359,8 @@
 				6313A6861927BA6800B4CE74 /* SCGAboutBoxViewController.m */,
 				6384131E1939EA8B00400068 /* SCGPaletteViewController.h */,
 				6384131F1939EA8B00400068 /* SCGPaletteViewController.m */,
+				6362A3F019B6B132007B5B71 /* SCGHowtoViewController.h */,
+				6362A3F119B6B132007B5B71 /* SCGHowtoViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -413,6 +436,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Stellar Software Pty Ltd";
 				TargetAttributes = {
+					6368AE5918C18AEA0054E34B = {
+						DevelopmentTeam = A2SGEM86LX;
+					};
 					6368AE8018C18AEB0054E34B = {
 						TestTargetID = 6368AE5918C18AEA0054E34B;
 					};
@@ -443,6 +469,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6368AE7418C18AEA0054E34B /* Main_iPad.storyboard in Resources */,
+				6362A3F819B6C69D007B5B71 /* StellarSoftware_transparent.png in Resources */,
 				63FA10ED1942E84800B0EB6A /* about-25.png in Resources */,
 				6368AE7C18C18AEB0054E34B /* Images.xcassets in Resources */,
 				63FA10FB1942E8C900B0EB6A /* settings3-25.png in Resources */,
@@ -451,6 +478,8 @@
 				63D42CEF1903B10700615BFD /* Canvas1a_offwhite_1.png in Resources */,
 				63FA10EF1942E85800B0EB6A /* about-50.png in Resources */,
 				6368AECF18C18E320054E34B /* triangleUp-md.png in Resources */,
+				6362A3F619B6C69D007B5B71 /* StellarSoftware_Coffee_transparent.png in Resources */,
+				631209C919AC66DB00DC940E /* help-25.png in Resources */,
 				6368AE7118C18AEA0054E34B /* Main_iPhone.storyboard in Resources */,
 				63FA10F31942E87C00B0EB6A /* org_unit-25.png in Resources */,
 				6368AE6818C18AEA0054E34B /* InfoPlist.strings in Resources */,
@@ -461,15 +490,18 @@
 				632F3CC0193614230085F981 /* org_unit-32.png in Resources */,
 				63A4A7B0194C3B670019D6EC /* SCGPaletteGridView_iPhone.xib in Resources */,
 				63BB0AE1194D5847007CFBFA /* group-25.png in Resources */,
+				631209C519AC66C200DC940E /* help-50.png in Resources */,
 				63A4A7A6194BF3180019D6EC /* menu-25.png in Resources */,
 				63FA10F51942E89600B0EB6A /* process-25.png in Resources */,
 				63FA10F71942E8A500B0EB6A /* process-50.png in Resources */,
 				632F3CBC193613BD0085F981 /* about-32.png in Resources */,
 				639B427619421C0E00465BB6 /* SCGPaletteGridView.xib in Resources */,
+				631209C719AC66CF00DC940E /* help-32.png in Resources */,
 				6368AECE18C18E320054E34B /* triangleDown-md.png in Resources */,
 				63FA10F11942E86E00B0EB6A /* org_unit-50.png in Resources */,
 				63FA10F91942E8BE00B0EB6A /* settings3-50.png in Resources */,
 				6368AEC818C18E320054E34B /* dot-md.png in Resources */,
+				6362A3F719B6C69D007B5B71 /* StellarSoftware_transparent_transparent.png in Resources */,
 				63BB0AE3194D5906007CFBFA /* group-50.png in Resources */,
 				63A4A7A8194BF3260019D6EC /* menu-32.png in Resources */,
 			);
@@ -508,6 +540,7 @@
 				6368AE6A18C18AEA0054E34B /* main.m in Sources */,
 				63BFF09918C32E7B0080BA9F /* SCGSettings.m in Sources */,
 				6368AEAE18C18E020054E34B /* SCGPlayer.m in Sources */,
+				6362A3F219B6B132007B5B71 /* SCGHowtoViewController.m in Sources */,
 				6368AEA518C18DB10054E34B /* SCGDotView.m in Sources */,
 				6368AEB118C18E140054E34B /* SCGLevel.m in Sources */,
 				6313A6871927BA6800B4CE74 /* SCGAboutBoxViewController.m in Sources */,
@@ -584,6 +617,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -623,6 +657,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -645,6 +680,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StringsAndCoins/StringsAndCoins-Prefix.pch";
 				INFOPLIST_FILE = "StringsAndCoins/StringsAndCoins-Info.plist";
@@ -659,6 +695,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StringsAndCoins/StringsAndCoins-Prefix.pch";
 				INFOPLIST_FILE = "StringsAndCoins/StringsAndCoins-Info.plist";

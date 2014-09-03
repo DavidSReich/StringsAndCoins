@@ -42,7 +42,10 @@
         }
 
         self.backgroundColor = [UIColor clearColor];
-        self.layer.borderWidth = (int)(5.f * l.scaleGeometry);
+        if (l.isIphone)
+            self.layer.borderWidth = 2;
+        else
+            self.layer.borderWidth = (int)(5.f * l.scaleGeometry);
         self.layer.borderColor = [UIColor blackColor].CGColor;
         
         CGFloat rotation = 0;

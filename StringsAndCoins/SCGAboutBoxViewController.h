@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SCGSettings.h"
 
-@interface SCGAboutBoxViewController : UIViewController <UITabBarControllerDelegate, UIAlertViewDelegate>
+@interface SCGAboutBoxViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet SCGSettings *settings;
 @property (strong, nonatomic) IBOutlet UILabel *iconLicenseLabel;
+@property (weak, nonatomic) IBOutlet UIButton *okButton;
 
 @end

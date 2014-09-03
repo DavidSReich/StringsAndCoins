@@ -15,7 +15,6 @@
 #import "SCGGamePlayer.h"
 #import "SCGScoreView.h"
 #import "constants.h"
-#import "SCGAppDelegate.h"
 #import "SCGMainViewController.h"
 #import "SCGGameOverViewController.h"
 
@@ -28,6 +27,7 @@
 	NSMutableArray *dots;
     NSMutableArray *players;
     NSMutableArray *scoreViews;
+    NSMutableArray *lastAIBoundaries;
     int currentPlayer;
     int lastPlayer;
     int numberOfPlayers;
@@ -50,6 +50,7 @@
     [dots removeAllObjects];
 	[players removeAllObjects];
 	[scoreViews removeAllObjects];
+    [lastAIBoundaries removeAllObjects];
     
     for (UIView *view in self.boardView.subviews)
         [view removeFromSuperview];
@@ -104,22 +105,30 @@
         [colors removeObjectAtIndex:colorNum];
 
         SCGPlayer *player = [SCGPlayer alloc];
-        player.playerName = [NSMutableString stringWithFormat:@"Player %d", p + 1];
+//        player.playerName = [NSMutableString stringWithFormat:@"Player %d", p + 1];
         SCGGamePlayer *gamePlayer = [[SCGGamePlayer alloc] initWithPlayer:player andColor:color];
         [players addObject:gamePlayer];
 
-        if (p < numberOfPlayers - 1)
-            player.playerName = [NSString stringWithFormat:@"Player %d ", p + 1];
-        else
+        if (self.mainViewController.settings.isAI)
         {
-            gamePlayer.isAI = YES;
-            player.playerName = [NSString stringWithFormat:@"AI "];
+            if (p == numberOfPlayers - 1)
+                gamePlayer.isAI = YES;
         }
-        NSLog(@"playerName: %@", player.playerName);
+//        if (p < numberOfPlayers - 1)
+//            player.playerName = [NSString stringWithFormat:@"Player %d ", p + 1];
+//        else
+//        {
+//            gamePlayer.isAI = YES;
+//            player.playerName = [NSString stringWithFormat:@"AI "];
+//        }
+//        NSLog(@"playerName: %@", player.playerName);
     }
 
-    currentPlayer = 0;
-
+    if (self.mainViewController.settings.isAI)
+        currentPlayer = arc4random_uniform(numberOfPlayers);
+    else
+        currentPlayer = 0;
+    
     //scores
     CGFloat xWidthCenter = level.leftMarginWidth + (level.boardWidth / 2);
     CGFloat yHeightCenter = level.topMarginHeight + (level.boardHeight / 2) + level.statusBarOffset;
@@ -177,6 +186,28 @@
     self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleClicked)];
     self.tapRecognizer.numberOfTapsRequired = 2;
     [self.boardView addGestureRecognizer:self.tapRecognizer];
+
+    if (self.mainViewController.settings.isAI)
+    {
+        lastAIBoundaries = [[NSMutableArray alloc] init];
+
+        //if currentPlayer is AI it has to go first
+        if (((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).isAI)
+        {
+            self.boardView.userInteractionEnabled = NO;
+            SCGBoundaryView *nextBoundary = [self getNextAIMove];
+            double delay;
+            if (self.mainViewController.settings.aiSpeed == 0)
+                delay = 2.0 * NSEC_PER_SEC;
+            else
+                delay = 1;
+            dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay);
+            //careful ... about to recurse (even though asynchronously)
+            dispatch_after(time, dispatch_get_main_queue(), ^(void){
+                [nextBoundary ActionTapped];
+            });
+        }
+    }
 }
 
 - (void) makeDots
@@ -754,15 +785,45 @@
 
 - (void) boundaryClicked:(SCGBoundaryView *)boundary
 {
-    SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.settings.gameInProgress = YES;
+    self.mainViewController.settings.gameInProgress = YES;
 
-    if (self.lastBoundary)
-        [self.lastBoundary LockBoundary];
-    self.lastBoundary = boundary;
+    if (self.mainViewController.settings.isAI)
+    {
+        if (((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).isAI)
+        {
+            [lastAIBoundaries addObject:boundary];
+            //don't want player clicking on these
+            [boundary LockBoundary];
+        }
+        else
+        {
+            //clear lastAIBoundaries, won't be undoing past them
+            [lastAIBoundaries removeAllObjects];
+            if (self.lastBoundary)
+                [self.lastBoundary LockBoundary];
+            self.lastBoundary = boundary;
+        }
+    }
+    else
+    {
+        if (self.lastBoundary)
+            [self.lastBoundary LockBoundary];
+        self.lastBoundary = boundary;
+    }
+
     boundary.boundaryColor = ((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).color;
     
-    BOOL completedACell = [self testCells];
+    BOOL completedACell = NO;
+    if (self.mainViewController.settings.isAI && (((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).isAI))
+    {
+        SCGBoundaryView *tempBoundaryView = self.lastBoundary;
+        self.lastBoundary = boundary;
+        completedACell = [self testCells];
+        self.lastBoundary = tempBoundaryView;
+    }
+    else
+        completedACell = [self testCells];
+
     if (completedACell)
     {
         if ([self testBoard])
@@ -790,23 +851,45 @@
 
     [self refreshScores:NO];
     
-    if (((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).isAI)
+    if (self.mainViewController.settings.isAI)
     {
-        SCGBoundaryView *nextBoundary = [self getNextAIMove];
-        double delay;
-        if (appDelegate.settings.aiSpeed == 0)
-            delay = 2.0 * NSEC_PER_SEC;
+        if (((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).isAI)
+        {
+            self.boardView.userInteractionEnabled = NO;
+            SCGBoundaryView *nextBoundary = [self getNextAIMove];
+            double delay;
+            if (self.mainViewController.settings.aiSpeed == 0)
+                delay = 2.0 * NSEC_PER_SEC;
+            else
+                delay = 1;
+            dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay);
+            //careful ... about to recurse (even though asynchronously)
+            dispatch_after(time, dispatch_get_main_queue(), ^(void){
+                [nextBoundary ActionTapped];
+            });
+        }
         else
-            delay = 1;
-        dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay);
-        dispatch_after(time, dispatch_get_main_queue(), ^(void){
-            [nextBoundary ActionTapped];
-        });
+            self.boardView.userInteractionEnabled = YES;
     }
 }
 
 - (void) boundaryDoubleClicked
 {
+    //unlock any AI
+    if (self.mainViewController.settings.isAI)
+    {
+        SCGBoundaryView *tempBoundaryView = self.lastBoundary;
+        for (SCGBoundaryView *boundary in lastAIBoundaries)
+        {
+            [boundary UnlockBoundary];
+            self.lastBoundary = boundary;
+            [self testCells];
+        }
+
+        self.lastBoundary = tempBoundaryView;
+        [lastAIBoundaries removeAllObjects];
+    }
+
     //uncheck cells
     [self testCells];
     [self testBoard];
@@ -1193,6 +1276,12 @@
 
 - (void) gotoPreviousPlayer
 {
+    if (self.mainViewController.settings.isAI)
+    {
+        //if is an AI game and not the AI player then don't change.  We never go back to the AI.
+        if (!((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).isAI)
+            return;
+    }
     currentPlayer = lastPlayer;
 }
 

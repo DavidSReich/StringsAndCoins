@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="LCm-2K-7Mr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="LCm-2K-7Mr">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--New Game View Controller - New Game-->
+        <!--New Game-->
         <scene sceneID="LXk-Gl-cT8">
             <objects>
                 <viewController id="6bo-ut-qTY" customClass="SCGNewGameViewController" sceneMemberID="viewController">
@@ -21,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="-6346" y="-6208"/>
         </scene>
-        <!--Main View Controller - Current Game-->
+        <!--Current Game-->
         <scene sceneID="sOM-q0-V4Q">
             <objects>
                 <viewController id="48u-8S-dvN" customClass="SCGMainViewController" sceneMemberID="viewController">
@@ -70,7 +71,7 @@
             </objects>
             <point key="canvasLocation" x="-7510" y="-6148"/>
         </scene>
-        <!--Howto View Controller - How to ...-->
+        <!--How to ...-->
         <scene sceneID="dK5-0X-am9">
             <objects>
                 <viewController id="csP-Ko-b0d" customClass="SCGHowtoViewController" sceneMemberID="viewController">
@@ -181,7 +182,7 @@
             </objects>
             <point key="canvasLocation" x="-7646" y="-5453"/>
         </scene>
-        <!--About Box View Controller - About-->
+        <!--About-->
         <scene sceneID="YjM-7w-6SR">
             <objects>
                 <viewController storyboardIdentifier="AboutBox" title="About" id="Uag-ql-mzy" customClass="SCGAboutBoxViewController" sceneMemberID="viewController">
@@ -277,7 +278,7 @@
             </objects>
             <point key="canvasLocation" x="-7233" y="-5453"/>
         </scene>
-        <!--Settings View Controller - Small settings-->
+        <!--Small settings-->
         <scene sceneID="aI8-04-T1w">
             <objects>
                 <viewController title="Small settings" id="cLO-EY-Qod" customClass="SCGSettingsViewController" sceneMemberID="viewController">
@@ -498,7 +499,7 @@
             </objects>
             <point key="canvasLocation" x="-6868" y="-6243"/>
         </scene>
-        <!--Game Over View Controller - Game Over-->
+        <!--Game Over-->
         <scene sceneID="ENN-ly-1PY">
             <objects>
                 <viewController storyboardIdentifier="GameOver" title="Game Over" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="crossDissolve" id="JUn-GD-DhU" customClass="SCGGameOverViewController" sceneMemberID="viewController">
@@ -506,6 +507,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" tag="-1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Canvas1a_offwhite_1.png" id="DQc-46-oBF">
+                                <rect key="frame" x="-352" y="-75" width="1024" height="719"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Over" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2L3-wL-p53">
                                 <rect key="frame" x="18" y="41" width="284" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

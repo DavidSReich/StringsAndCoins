@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="7WQ-cW-pE0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="7WQ-cW-pE0">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--New Game View Controller - New Game-->
+        <!--New Game-->
         <scene sceneID="3Pk-g7-IK0">
             <objects>
                 <viewController id="wkv-S4-0Hz" customClass="SCGNewGameViewController" sceneMemberID="viewController">
@@ -14,7 +14,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="New Game" image="org_unit-32.png" id="CZJ-jY-0cB"/>
@@ -23,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="-4870" y="-6197"/>
         </scene>
-        <!--Main View Controller - Current Game-->
+        <!--Current Game-->
         <scene sceneID="0NU-cZ-2PS">
             <objects>
                 <viewController id="aVO-UE-KGo" customClass="SCGMainViewController" sceneMemberID="viewController">
@@ -32,7 +31,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Current Game" image="process-32.png" id="AOG-wm-EcW"/>
@@ -73,7 +71,7 @@
             </objects>
             <point key="canvasLocation" x="-7738" y="-5949"/>
         </scene>
-        <!--Game Over View Controller - Game Over-->
+        <!--Game Over-->
         <scene sceneID="0Ed-IH-3xG">
             <objects>
                 <viewController storyboardIdentifier="GameOver" title="Game Over" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="crossDissolve" id="yE0-r4-6eT" customClass="SCGGameOverViewController" sceneMemberID="viewController">
@@ -81,6 +79,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Canvas1a_offwhite_1.png" id="rxT-H8-IBo">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Over" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="paS-2i-QAr">
                                 <rect key="frame" x="370" y="169" width="284" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -173,7 +175,6 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
                         <outlet property="scoreGrid" destination="5Al-dV-qBF" id="2qD-nx-viN"/>
@@ -183,7 +184,7 @@
             </objects>
             <point key="canvasLocation" x="-4773" y="-5163"/>
         </scene>
-        <!--Howto View Controller - Help-->
+        <!--Help-->
         <scene sceneID="b1t-Zi-zOX">
             <objects>
                 <viewController title="Help" id="qn0-FL-5FG" customClass="SCGHowtoViewController" sceneMemberID="viewController">
@@ -287,7 +288,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="How to ..." image="help-32.png" id="yFx-Ph-k3l"/>
                 </viewController>
@@ -295,7 +295,7 @@
             </objects>
             <point key="canvasLocation" x="-8342" y="-4950"/>
         </scene>
-        <!--About Box View Controller - About-->
+        <!--About-->
         <scene sceneID="DVX-T1-wGR">
             <objects>
                 <viewController storyboardIdentifier="AboutBox" title="About" id="Knt-cx-Tsy" customClass="SCGAboutBoxViewController" sceneMemberID="viewController">
@@ -380,7 +380,6 @@
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -389,7 +388,7 @@
             </objects>
             <point key="canvasLocation" x="-7252" y="-4950"/>
         </scene>
-        <!--Settings View Controller - Game Options-->
+        <!--Game Options-->
         <scene sceneID="GYC-ak-dml">
             <objects>
                 <viewController id="wCI-QM-hyl" customClass="SCGSettingsViewController" sceneMemberID="viewController">
@@ -595,7 +594,6 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Game Options" image="settings3-32.png" id="p0Y-cZ-QD1"/>

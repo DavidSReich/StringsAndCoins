@@ -32,6 +32,7 @@
     int lastPlayer;
     int numberOfPlayers;
     SCGGameOverViewController *gameOverViewController;
+    BOOL hasNonGiveUpScoringMove;
 }
 
 - (void) clearGameBoard
@@ -787,6 +788,14 @@
 {
     self.mainViewController.settings.gameInProgress = YES;
 
+    //clear highlight on this player's last boundary
+    SCGBoundaryView *lastPlayerBoundary = ((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).lastBoundary;
+    if (lastPlayerBoundary != nil)
+    {
+        lastPlayerBoundary.showHighlight = NO;
+        [lastPlayerBoundary UpdateImage];
+    }
+    
     if (self.mainViewController.settings.isAI)
     {
         if (((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).isAI)
@@ -810,6 +819,11 @@
             [self.lastBoundary LockBoundary];
         self.lastBoundary = boundary;
     }
+
+    //remember this player's last boundary
+//    if (!((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).isAI)
+//        ((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).lastBoundary = self.lastBoundary;
+    ((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).lastBoundary = boundary;
 
     boundary.boundaryColor = ((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).color;
     
@@ -837,6 +851,7 @@
 
             [self.tapRecognizer removeTarget:self action:@selector(doubleClicked)];
 
+            self.boardView.userInteractionEnabled = YES;
             [self.mainViewController performSegueWithIdentifier:@"GameOver" sender:self];
             return;
         }
@@ -895,6 +910,9 @@
     [self testBoard];
     [self gotoPreviousPlayer];
     self.lastBoundary = nil;
+    //clear this player's last boundary - we just undid it
+    [((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).lastBoundary UnlockBoundary];
+    ((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).lastBoundary = nil;
     
     [self refreshScores:NO];
 }
@@ -917,13 +935,13 @@
             //cell above
             if (row > 0)
             {
-                if ([self testCell:row - 1 andCol:col])
+                if ([self testCell:row - 1 andCol:col] == 0)
                     completedACell = YES;
             }
             //and below
             if (row < self.level.numRows)
             {
-                 if ([self testCell:row andCol:col])
+                 if ([self testCell:row andCol:col] == 0)
                      completedACell = YES;
             }
         }
@@ -932,13 +950,13 @@
             //cell left
             if (col > 0)
             {
-                if ([self testCell:row andCol:col - 1])
+                if ([self testCell:row andCol:col - 1] == 0)
                     completedACell = YES;
             }
             //and right
             if (col < self.level.numCols)
             {
-                if ([self testCell:row andCol:col])
+                if ([self testCell:row andCol:col] == 0)
                     completedACell = YES;
             }
         }
@@ -955,12 +973,12 @@
                 topHalf = (row < self.level.numRows / 2 + 1);
                 if (topHalf)
                 {
-                    if ([self testCell:row - 1 andCol:col * 2])
+                    if ([self testCell:row - 1 andCol:col * 2] == 0)
                         completedACell = YES;
                 }
                 else
                 {
-                    if ([self testCell:row - 1 andCol:(col * 2) + 1])
+                    if ([self testCell:row - 1 andCol:(col * 2) + 1] == 0)
                         completedACell = YES;
                 }
             }
@@ -971,12 +989,12 @@
                 topHalf = (row < self.level.numRows / 2);
                 if (topHalf)
                 {
-                    if ([self testCell:row andCol:(col * 2) + 1])
+                    if ([self testCell:row andCol:(col * 2) + 1] == 0)
                         completedACell = YES;
                 }
                 else
                 {
-                    if ([self testCell:row andCol:col * 2])
+                    if ([self testCell:row andCol:col * 2] == 0)
                         completedACell = YES;
                 }
             }
@@ -986,14 +1004,14 @@
             //cell left
             if (col > 0)
             {
-                if ([self testCell:row andCol:col - 1])
+                if ([self testCell:row andCol:col - 1] == 0)
                     completedACell = YES;
             }
 
             //and right
             if (col < [self.level numberOfCols:row])
             {
-                if ([self testCell:row andCol:col])
+                if ([self testCell:row andCol:col] == 0)
                     completedACell = YES;
             }
         }
@@ -1002,14 +1020,14 @@
             //cell left
             if (col > 0)
             {
-                if ([self testCell:row andCol:col - 1])
+                if ([self testCell:row andCol:col - 1] == 0)
                     completedACell = YES;
             }
 
             //and right
             if (col < [self.level numberOfCols:row])
             {
-                if ([self testCell:row andCol:col])
+                if ([self testCell:row andCol:col] == 0)
                     completedACell = YES;
             }
         }
@@ -1023,14 +1041,14 @@
             //cell left
             if (col > 0)
             {
-                if ([self testCell:row andCol:col - 1])
+                if ([self testCell:row andCol:col - 1] == 0)
                     completedACell = YES;
             }
 
             //and right
             if (col < [self.level numberOfCols:row])
             {
-                if ([self testCell:row andCol:col])
+                if ([self testCell:row andCol:col] == 0)
                     completedACell = YES;
             }
         }
@@ -1043,13 +1061,13 @@
                 {
                     if (col < [self.level numberOfCols:row - 1] * 2)
                     {
-                        if ([self testCell:row - 1 andCol:(col - 1) / 2])
+                        if ([self testCell:row - 1 andCol:(col - 1) / 2] == 0)
                             completedACell = YES;
                     }
                 }
                 else
                 {
-                    if ([self testCell:row - 1 andCol:col / 2])
+                    if ([self testCell:row - 1 andCol:col / 2] == 0)
                         completedACell = YES;
                 }
             }
@@ -1059,14 +1077,14 @@
             {
                 if (topHalf)
                 {
-                    if ([self testCell:row andCol:(col - 1) / 2])
+                    if ([self testCell:row andCol:(col - 1) / 2] == 0)
                         completedACell = YES;
                 }
                 else
                 {
                     if (col > 0)
                     {
-                        if ([self testCell:row andCol:(col / 2) - 1])
+                        if ([self testCell:row andCol:(col / 2) - 1] == 0)
                             completedACell = YES;
                     }
                 }
@@ -1081,13 +1099,13 @@
                 {
                     if (col > 0)
                     {
-                        if ([self testCell:row - 1 andCol:(col / 2) - 1])
+                        if ([self testCell:row - 1 andCol:(col / 2) - 1] == 0)
                             completedACell = YES;
                     }
                 }
                 else
                 {
-                    if ([self testCell:row - 1 andCol:(col - 1) / 2])
+                    if ([self testCell:row - 1 andCol:(col - 1) / 2] == 0)
                         completedACell = YES;
                 }
             }
@@ -1097,14 +1115,14 @@
             {
                 if (topHalf)
                 {
-                    if ([self testCell:row andCol:col / 2])
+                    if ([self testCell:row andCol:col / 2] == 0)
                         completedACell = YES;
                 }
                 else
                 {
                     if (col < [self.level numberOfCols:row] * 2)
                     {
-                        if ([self testCell:row andCol:(col - 1) / 2])
+                        if ([self testCell:row andCol:(col - 1) / 2] == 0)
                             completedACell = YES;
                     }
                 }
@@ -1115,11 +1133,13 @@
     return completedACell;
 }
 
-- (BOOL) testCell:(int)row andCol:(int)col
+//return # of open boundaries - zero means cell is complete, 1 means other player can score
+- (int) testCell:(int)row andCol:(int)col
 {
     NSLog(@"TestCell R:%d C:%d", row, col);
 
-    BOOL cellIsComplete = NO;
+    int numberOfOpenBoundaries = 0;
+
     SCGBoundaryView *boundary;
     SCGCellView *cell = [[cells objectAtIndex:row] objectAtIndex:col];
     if (cell == nil)
@@ -1129,141 +1149,117 @@
     //if all complete, then cell is complete
     if (self.level.levelShape == SquareShape)
     {
-        NSLog(@"    HBoundary R:%d C:%d", row, col);
+        numberOfOpenBoundaries = 4;
         boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:col];
         if (boundary.complete)
-        {
-            NSLog(@"    HBoundary R:%d C:%d", row + 1, col);
-            boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:col];
-            if (boundary.complete)
-            {
-                NSLog(@"    VBoundary R:%d C:%d", row, col);
-                boundary = [[verticalBoundaries objectAtIndex:row] objectAtIndex:col];
-                if (boundary.complete)
-                {
-                    NSLog(@"    VBoundary R:%d C:%d", row, col + 1);
-                    boundary = [[verticalBoundaries objectAtIndex:row] objectAtIndex:col + 1];
-                    if (boundary.complete)
-                    {
-                        cellIsComplete = YES;
-                    }
-                }
-            }
-        }
+            numberOfOpenBoundaries--;
+
+        boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:col];
+        if (boundary.complete)
+            numberOfOpenBoundaries--;
+
+        boundary = [[verticalBoundaries objectAtIndex:row] objectAtIndex:col];
+        if (boundary.complete)
+            numberOfOpenBoundaries--;
+
+        boundary = [[verticalBoundaries objectAtIndex:row] objectAtIndex:col + 1];
+        if (boundary.complete)
+            numberOfOpenBoundaries--;
     }
     else if (self.level.levelShape == TriangleShape)
     {
-        NSLog(@"    VBoundary R:%d C:%d", row, col);
+        numberOfOpenBoundaries = 3;
         boundary = [[verticalBoundaries objectAtIndex:row] objectAtIndex:col];
         if (boundary.complete)
+            numberOfOpenBoundaries--;
+
+        boundary = [[verticalBoundaries objectAtIndex:row] objectAtIndex:col + 1];
+        if (boundary.complete)
+            numberOfOpenBoundaries--;
+
+        if (cell.isUpTriangle)
         {
-            NSLog(@"    VBoundary R:%d C:%d", row, col + 1);
-            boundary = [[verticalBoundaries objectAtIndex:row] objectAtIndex:col + 1];
-            if (boundary.complete)
+            if (cell.topHalf)
             {
-                if (cell.isUpTriangle)
-                {
-                    if (cell.topHalf)
-                    {
-                        NSLog(@"    HBoundary R:%d C:%d", row + 1, col / 2);
-                        boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:col / 2];
-                    }
-                    else
-                    {
-                        NSLog(@"    HBoundary R:%d C:%d", row + 1, (col - 1) / 2);
-                        boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:(col - 1) / 2];
-                    }
-                }
-                else
-                {
-                    if (cell.topHalf)
-                    {
-                        NSLog(@"    HBoundary R:%d C:%d", row, (col - 1) / 2);
-                        boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:(col - 1) / 2];
-                    }
-                    else
-                    {
-                        NSLog(@"    HBoundary R:%d C:%d", row, col / 2);
-                        boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:col / 2];
-                    }
-                }
-                if (boundary.complete)
-                {
-                    cellIsComplete = YES;
-                }
+                boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:col / 2];
+            }
+            else
+            {
+                boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:(col - 1) / 2];
             }
         }
+        else
+        {
+            if (cell.topHalf)
+            {
+                boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:(col - 1) / 2];
+            }
+            else
+            {
+                boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:col / 2];
+            }
+        }
+        if (boundary.complete)
+            numberOfOpenBoundaries--;
     }
     else    //hexagons
     {
-        NSLog(@"    VBoundary R:%d C:%d", row, col);
+        numberOfOpenBoundaries = 6;
         boundary = [[verticalBoundaries objectAtIndex:row] objectAtIndex:col];
         if (boundary.complete)
+            numberOfOpenBoundaries--;
+
+        boundary = [[verticalBoundaries objectAtIndex:row] objectAtIndex:col + 1];
+        if (boundary.complete)
+            numberOfOpenBoundaries--;
+
+        boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:(col * 2) + 1];
+        if (boundary.complete)
+            numberOfOpenBoundaries--;
+
+        boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:(col * 2) + 1];
+        if (boundary.complete)
+            numberOfOpenBoundaries--;
+
+        if (row == (self.level.numRows - 1) / 2)    //middle row
         {
-            NSLog(@"    VBoundary R:%d C:%d", row, col + 1);
-            boundary = [[verticalBoundaries objectAtIndex:row] objectAtIndex:col + 1];
+            boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:col * 2];
             if (boundary.complete)
-            {
-                NSLog(@"    HBoundary R:%d C:%d", row, (col * 2) + 1);
-                boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:(col * 2) + 1];
-                if (boundary.complete)
-                {
-                    NSLog(@"    HBoundary R:%d C:%d", row + 1, (col * 2) + 1);
-                    boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:(col * 2) + 1];
-                    if (boundary.complete)
-                    {
-                        if (row == (self.level.numRows - 1) / 2)    //middle row
-                        {
-                            NSLog(@"    HBoundary R:%d C:%d", row, col * 2);
-                            boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:col * 2];
-                            if (boundary.complete)
-                            {
-                                NSLog(@"    HBoundary R:%d C:%d", row + 1, col * 2);
-                                boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:col * 2];
-                                if (boundary.complete)
-                                {
-                                    cellIsComplete = YES;
-                                }
-                            }
-                        }
-                        else  if (cell.topHalf)
-                        {
-                            NSLog(@"    HBoundary R:%d C:%d", row, col * 2);
-                            boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:col * 2];
-                            if (boundary.complete)
-                            {
-                                NSLog(@"    HBoundary R:%d C:%d", row + 1, (col + 1) * 2);
-                                boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:(col + 1) * 2];
-                                if (boundary.complete)
-                                {
-                                    cellIsComplete = YES;
-                                }
-                            }
-                        }
-                        else    //must be bottom
-                        {
-                            NSLog(@"    HBoundary R:%d C:%d", row, (col + 1) * 2);
-                            boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:(col + 1) * 2];
-                            if (boundary.complete)
-                            {
-                                NSLog(@"    HBoundary R:%d C:%d", row + 1, col * 2);
-                                boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:col * 2];
-                                if (boundary.complete)
-                                {
-                                    cellIsComplete = YES;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+                numberOfOpenBoundaries--;
+
+            boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:col * 2];
+            if (boundary.complete)
+                numberOfOpenBoundaries--;
+        }
+        else  if (cell.topHalf)
+        {
+            boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:col * 2];
+            if (boundary.complete)
+                numberOfOpenBoundaries--;
+
+            boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:(col + 1) * 2];
+            if (boundary.complete)
+                numberOfOpenBoundaries--;
+        }
+        else    //must be bottom
+        {
+            boundary = [[horizontalBoundaries objectAtIndex:row] objectAtIndex:(col + 1) * 2];
+            if (boundary.complete)
+                numberOfOpenBoundaries--;
+
+            boundary = [[horizontalBoundaries objectAtIndex:row + 1] objectAtIndex:col * 2];
+            if (boundary.complete)
+                numberOfOpenBoundaries--;
         }
     }
 
+    BOOL cellIsComplete = (numberOfOpenBoundaries == 0);
     UIColor *color = ((SCGGamePlayer *)([players objectAtIndex:currentPlayer])).color;
     [cell setComplete:cellIsComplete withPlayer:currentPlayer andColor:color];
 
-    return  cellIsComplete;
+    if (numberOfOpenBoundaries == 1)
+        hasNonGiveUpScoringMove = NO;
+    return  numberOfOpenBoundaries;
 }
 
 - (void) gotoNextPlayer
@@ -1336,37 +1332,133 @@
     SCGBoundaryView *nextBoundary = nil;
 
     //count boundaries
-    int numberOfBoundaries = 0;
+    int numberOfOpenBoundaries = 0;
+    //and count scoring moves
+    int numberOfScoringMoves = 0;
+    //and count non-giving-up-scoring moves
+    int numberOfNonGiveUpScoringMoves = 0;
     for (SCGBoundaryView *boundary in self.boardView.subviews)
     {
         if ([boundary isKindOfClass:[SCGBoundaryView class]])
-            numberOfBoundaries++;
-    }
-
-    do
-    {
-        //get random boundary
-        int boundaryTarget = arc4random_uniform(numberOfBoundaries);
-
-        int boundaryNum = 0;
-        //find the boundary
-        SCGBoundaryView *boundary;
-        for (boundary in self.boardView.subviews)
         {
-            if ([boundary isKindOfClass:[SCGBoundaryView class]])
+            if (!boundary.complete)
             {
-                if (boundaryNum == boundaryTarget)
-                    break;
-                boundaryNum++;
+                numberOfOpenBoundaries++;
+                if ([self isScoringMove:boundary])
+                    numberOfScoringMoves++;
+                if ([self isNonGiveUpScoringMove:boundary])
+                    numberOfNonGiveUpScoringMoves++;
             }
         }
+    }
 
-        //is the boundary available?
-        if (!boundary.complete)
-            nextBoundary = boundary;
+    if (numberOfScoringMoves > 0)
+    {
+        do
+        {
+            //get random boundary
+            int boundaryTarget = arc4random_uniform(numberOfScoringMoves);
+            
+            int boundaryNum = 0;
+            //find the boundary
+            SCGBoundaryView *boundary;
+            for (boundary in self.boardView.subviews)
+            {
+                if ([boundary isKindOfClass:[SCGBoundaryView class]])
+                {
+                    if (!boundary.complete && [self isScoringMove:boundary])
+                    {
+                        if (boundaryNum == boundaryTarget)
+                        {
+                            nextBoundary = boundary;
+                            break;
+                        }
 
-    } while (nextBoundary == nil);
+                        boundaryNum++;
+                    }
+                }
+            }
+        } while (nextBoundary == nil);
+    }
+    else if (numberOfNonGiveUpScoringMoves > 0)
+    {
+        do
+        {
+            //get random boundary
+            int boundaryTarget = arc4random_uniform(numberOfNonGiveUpScoringMoves);
+            
+            int boundaryNum = 0;
+            //find the boundary
+            SCGBoundaryView *boundary;
+            for (boundary in self.boardView.subviews)
+            {
+                if ([boundary isKindOfClass:[SCGBoundaryView class]])
+                {
+                    if (!boundary.complete && [self isNonGiveUpScoringMove:boundary])
+                    {
+                        if (boundaryNum == boundaryTarget)
+                        {
+                            nextBoundary = boundary;
+                            break;
+                        }
+                        
+                        boundaryNum++;
+                    }
+                }
+            }
+        } while (nextBoundary == nil);
+    }
+    else if (numberOfOpenBoundaries > 0)
+    {
+        do
+        {
+            //get random boundary
+            int boundaryTarget = arc4random_uniform(numberOfOpenBoundaries);
+
+            int boundaryNum = 0;
+            //find the boundary
+            SCGBoundaryView *boundary;
+            for (boundary in self.boardView.subviews)
+            {
+                if ([boundary isKindOfClass:[SCGBoundaryView class]])
+                {
+                    if (!boundary.complete)
+                    {
+                        if (boundaryNum == boundaryTarget)
+                        {
+                            nextBoundary = boundary;
+                            break;
+                        }
+
+                        boundaryNum++;
+                    }
+                }
+            }
+        } while (nextBoundary == nil);
+    }
 
     return nextBoundary;
+}
+
+- (BOOL) isScoringMove:(SCGBoundaryView *)boundary
+{
+    BOOL scoresNow = false;
+    boundary.complete = YES;
+    self.lastBoundary = boundary;
+    scoresNow = [self testCells];
+    self.lastBoundary = nil;
+    boundary.complete = NO;
+    return scoresNow;
+}
+
+- (BOOL) isNonGiveUpScoringMove:(SCGBoundaryView *)boundary
+{
+    hasNonGiveUpScoringMove = true;
+    boundary.complete = YES;
+    self.lastBoundary = boundary;
+    [self testCells];
+    self.lastBoundary = nil;
+    boundary.complete = NO;
+    return hasNonGiveUpScoringMove;
 }
 @end

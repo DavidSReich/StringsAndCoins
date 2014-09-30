@@ -41,7 +41,7 @@
 - (void) boundaryDoubleClicked;
 
 - (BOOL) testCells;
-- (BOOL) testCell:(int)row andCol:(int)col;
+- (int) testCell:(int)row andCol:(int)col;
 
 - (BOOL) testBoard;
 
@@ -56,4 +56,6 @@
 
 - (SCGBoundaryView *)getNextAIMove;
 
+- (BOOL) isScoringMove:(SCGBoundaryView *)boundary;
+- (BOOL) isNonGiveUpScoringMove:(SCGBoundaryView *)boundary;
 @end

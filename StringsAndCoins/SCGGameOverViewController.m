@@ -35,17 +35,17 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Canvas1a_offwhite_1.png"]];
-    
+//	// Do any additional setup after loading the view.
+//    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Canvas1a_offwhite_1.png"]];
+//    
     SCGAppDelegate *appDelegate = (SCGAppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (appDelegate.settings.isIphone)
-        backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    else
-        backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-
-    [self.view addSubview:backgroundView];
-    [self.view sendSubviewToBack:backgroundView];
+//    if (appDelegate.settings.isIphone)
+//        backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+//    else
+//        backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+//
+//    [self.view addSubview:backgroundView];
+//    [self.view sendSubviewToBack:backgroundView];
 
     int numberOfPlayers = self.players.count;
     int maxScore = 0;

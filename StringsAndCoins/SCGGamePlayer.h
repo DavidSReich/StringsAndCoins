@@ -7,6 +7,7 @@
 //
 
 @class SCGPlayer;
+@class SCGBoundaryView;
 
 #import <Foundation/Foundation.h>
 
@@ -14,6 +15,7 @@
 
 @property (strong, nonatomic) SCGPlayer *player;
 @property (strong, nonatomic) UIColor *color;
+@property (weak, nonatomic) SCGBoundaryView *lastBoundary;
 @property (assign, nonatomic) int score;
 @property (assign, nonatomic) BOOL isAI;
 

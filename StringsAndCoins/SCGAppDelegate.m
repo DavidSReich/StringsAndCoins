@@ -18,6 +18,11 @@
 {
     // Override point for customization after application launch.
 
+    //iPhone 4 loads slower
+    if (([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad) && ([[UIScreen mainScreen] bounds].size.height < 500))
+        sleep(1);
+    else
+        sleep(2);
     self.settings = [[SCGSettings alloc] init];
     [self loadSettings];
 

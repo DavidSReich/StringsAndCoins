@@ -11,6 +11,8 @@
 #import "SCGBoardController.h"
 #import "constants.h"
 
+#define kBoundaryGapScale   0.75
+
 @implementation SCGBoundaryView
 {
     CGMutablePathRef hotSpotPath;
@@ -33,7 +35,9 @@
 		self.topHalf = t;
         self.orientation = o;
         self.canUndo = NO;
+        self.showHighlight = NO;
         self.userInteractionEnabled = YES;
+        self.thePlayer = nil;
 
 //        CGFloat aspect = l.boundaryImage.size.height / l.boundaryImage.size.width;
         //this is based upon the dimensions of the original image file ... it looked good, so we are using it
@@ -217,6 +221,7 @@
     [self.tapRecognizer addTarget:self action:@selector(ActionDoubleTapped)];
     self.tapRecognizer.numberOfTapsRequired = 2;
     self.canUndo = YES;
+    self.showHighlight = YES;
     [self.board boundaryClicked:self];  //boundary color set by boundaryClicked
     [self UpdateImage];
 }
@@ -230,6 +235,7 @@
     self.tapRecognizer.numberOfTapsRequired = 1;
     self.tapRecognizer.enabled = YES;
     self.canUndo = NO;
+    self.showHighlight = NO;
     [self UpdateImage];
 }
 
@@ -275,7 +281,8 @@
 
         if (self.complete)
         {
-            CGFloat truncateLength = drawRect.size.width / 3;
+//            CGFloat truncateLength = drawRect.size.width / 3;
+            CGFloat truncateLength = drawRect.size.width * kBoundaryGapScale;
             CGContextClearRect(ctx, CGRectMake(drawRect.origin.x + truncateLength, drawRect.origin.y - 4, drawRect.size.width - (2 * truncateLength), drawRect.size.height + 8));
         }
     
@@ -377,17 +384,28 @@
         CGContextSetLineWidth(ctx, lineWidth * self.level.scaleGeometry);
         CGContextStrokeRect(ctx, drawRect);
     }
-    
-    if (self.canUndo)
+
+    if (self.showHighlight)
     {
-        CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+        if (self.canUndo)
+            CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+        else
+            CGContextSetFillColorWithColor(ctx, self.boundaryColor.CGColor);
         CGContextSetLineWidth(ctx, 0.5);
         CGContextFillRect(ctx, CGRectMake(0.0, (fullWidth - undoWidth) / 2, length, undoWidth));
     }
 
+//    if (self.canUndo)
+//    {
+//        CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+//        CGContextSetLineWidth(ctx, 0.5);
+//        CGContextFillRect(ctx, CGRectMake(0.0, (fullWidth - undoWidth) / 2, length, undoWidth));
+//    }
+
     if ((self.level.levelType == CoinsType) && (self.complete))
     {
-        CGFloat truncateLength = drawRect.size.width / 3;
+//        CGFloat truncateLength = drawRect.size.width / 3;
+        CGFloat truncateLength = drawRect.size.width * kBoundaryGapScale;
         CGFloat clearWider = 8;
         CGContextClearRect(ctx, CGRectMake(drawRect.origin.x + truncateLength, drawRect.origin.y - (clearWider / 2), drawRect.size.width - (2 * truncateLength), drawRect.size.height + clearWider));
     }

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Stellar Software Pty Ltd. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "SCGAppDelegate.h"
 
 int main(int argc, char * argv[])

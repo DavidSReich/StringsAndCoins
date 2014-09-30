@@ -20,6 +20,7 @@
         self.color = c;
         self.score = 0;
         self.isAI = NO;
+        self.lastBoundary = nil;
     }
     
     return self;
